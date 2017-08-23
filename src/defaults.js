@@ -10,7 +10,7 @@ YASQE.defaults = $.extend(true, {}, YASQE.defaults, {
   /**
 	 * Query string
 	 */
-  value: "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nSELECT * WHERE {\n  ?sub ?pred ?obj .\n} \nLIMIT 10",
+  value: "PREFIX iter: <http://w3id.org/sparql-generate/iter/>\nPREFIX fn: <http://w3id.org/sparql-generate/fn/>\nPREFIX ex: <http://example.org/>\nPREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n\nSOURCE <venue.json> AS ?source\nITERATOR iter:JSONPath(?source, '$.*' ) AS ?venue\nWHERE {} \nLIMIT 10\nCONSTRUCT { \n  <http://loc.example.com/city/{ fn:JSONPath(?venue, '$.location.city' ) }> a ex:City ;\n     geo:lat  ?{ fn:JSONPath(?venue, '$.venue.latitude' ) } ;\n     geo:long ?{ fn:JSONPath(?venue, '$.venue.longitude' ) } ;\n     ex:countryCode 'The country code is { fn:JSONPath(?venue, '$.location.country' ) }'@en .\n}\n",
   highlightSelectionMatches: {
     showToken: /\w/
   },
