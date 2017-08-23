@@ -17,23 +17,60 @@ stephen.cresswell@tso.co.uk
 
 % We need to be careful with end-of-input marker $
 % Since we never actually receive this from Codemirror, 
-% we can't have it appear on RHS of deployed rules.
+% we can t have it appear on RHS of deployed rules.
 % However, we do need it to check whether rules *could* precede 
 % end-of-input, so use it with top-level
 
 :-dynamic '==>'/2.
 
-sparql11 ==> [prologue,(queryAll or updateAll), $].
-queryUnit ==> [query,$].
-updateUnit ==> [update,$].
 
-query ==> 
-	[prologue,or(selectQuery,constructQuery,describeQuery,askQuery),valuesClause].
-queryAll ==> 
-	[or(selectQuery,constructQuery,describeQuery,askQuery),valuesClause].
+sparql11 ==> [generateUnit, $].
+
+
+% [173]
+generateUnit ==> [generate].
+
+% [174]
+generate ==> 
+	[prologue,or(generateQuery1,generateQuery2)].
+
+% [175a]
+generateQuery1 ==> 
+	['GENERATE',generateTemplate,*(datasetClause),*(iteratorOrSourceClause),?(whereClause),solutionModifier].
+    
+% [175b]
+generateQuery2 ==> 
+	[*(datasetClause),*(iteratorOrSourceClause),?(whereClause),solutionModifier,'CONSTRUCT',generateTemplate].
+    
+% [176]
+generateTemplate ==>
+	['{',generateTemplateSub,'}'].
+
+% [177]
+generateTemplateSub ==>
+	[?(constructTriples),*([or(subGenerateQuery1,subGenerateQuery2),?(constructTriples)])].
 	
+% [178]
+iteratorOrSourceClause ==>
+	[or(iteratorClause,sourceClause,bind)].
+
+% [179]
+iteratorClause ==>
+	[ ('ITERATOR' or 'ITERATE') ,functionCall,'AS',var].
+
+% [180]
+sourceClause ==>
+	[('SOURCE' or 'LOOK UP'),varOrXIri,?(['ACCEPT',varOrXIri]),'AS',var].
+
+% [181a]
+subGenerateQuery1 ==>
+	['GENERATE',(sourceSelector or generateTemplate),*(iteratorOrSourceClause),?(whereClause),solutionModifier,'.'].
+
+% [181b]
+subGenerateQuery2 ==>
+	[*(iteratorOrSourceClause),?(whereClause),solutionModifier,'CONSTRUCT',(sourceSelector or generateTemplate),'.'].
+
 prologue ==> 
-	%[?(baseDecl),*(prefixDecl)].
 	[*(baseDecl or prefixDecl)].
 
 baseDecl ==> 
@@ -41,10 +78,6 @@ baseDecl ==>
 
 prefixDecl ==> 
 	['PREFIX','PNAME_NS','IRI_REF'].
-
-% [7]
-selectQuery ==>
-	[selectClause,*(datasetClause),whereClause,solutionModifier].
 
 subSelect ==>
         [selectClause,whereClause,solutionModifier,valuesClause].
@@ -55,28 +88,6 @@ selectClause ==>
 	?('DISTINCT' or 'REDUCED'),
 	(+(var or ['(',expression,'AS',var,')']) or '*')].
 
-%selectQuery ==> 
-%	['SELECT',
-%	?('DISTINCT' or 'REDUCED'),
-%	(+(var) or '*'),
-%	*(datasetClause),whereClause,solutionModifier].
-
-%[10]
-constructQuery ==> 
-	['CONSTRUCT',
- 	 [constructTemplate,*(datasetClause),whereClause,solutionModifier] 
-         or
-	 [*(datasetClause),'WHERE','{',?(triplesTemplate),'}',solutionModifier]].
-
-describeQuery ==> 
-	['DESCRIBE',+(varOrIRIref) or '*',
-	*(describeDatasetClause),?(whereClause),solutionModifier].
-
-askQuery ==>
-	['ASK',*(datasetClause),whereClause,solutionModifier].
-
-describeDatasetClause ==> % Not in spec - artificial distinction
-	['FROM',defaultGraphClause or namedGraphClause]. 
 datasetClause ==> 
 	['FROM',defaultGraphClause or namedGraphClause]. 
 
@@ -90,7 +101,7 @@ sourceSelector ==>
 	[iriRef].
 
 whereClause ==> 
-	[?('WHERE'),groupGraphPattern].
+	[?('WHEREVER' or 'WHERE'),groupGraphPattern].
 
 %[18]
 solutionModifier ==> 
@@ -142,125 +153,14 @@ offsetClause ==>
 	['OFFSET','INTEGER'].
 
 %[28]
-%bindingsClause ==>
-%	['BINDINGS',*(var),'{',
-%	   *(['(',*(bindingValue),')'] or 'NIL'),
-%	   '}'].
-%bindingsClause ==> [].
-
-%[28]
 valuesClause ==> ['VALUES',dataBlock].
 valuesClause ==> [].
 
-%[29]
-update ==> [prologue,?([update1,?([';',update])])].
-updateAll ==> [?([update1,?([';',update])])].
-%[30]
-update1 ==> [load].
-update1 ==> [clear].
-update1 ==> [drop].
-update1 ==> [add].
-update1 ==> [move].
-update1 ==> [copy].
-update1 ==> [create].
-update1 ==> ['INSERT',insert1].
-update1 ==> ['DELETE',delete1].
-update1 ==> [modify].
-
-%[31]
-load ==> ['LOAD','?SILENT_1',iriRef,?(['INTO',graphRef])].
-clear ==> ['CLEAR','?SILENT_2',graphRefAll].
-drop ==> ['DROP','?SILENT_2',graphRefAll].
-create ==> ['CREATE','?SILENT_3',graphRef].
-add ==> ['ADD','?SILENT_4',graphOrDefault,'TO',graphOrDefault].
-move ==> ['MOVE','?SILENT_4',graphOrDefault,'TO',graphOrDefault].
-copy ==> ['COPY','?SILENT_4',graphOrDefault,'TO',graphOrDefault].
-
-% Distinguish uses of ?('SILENT') to keep table clean.
-% This is only needed because Flint uses the LL1 table to provide suggestions.
-'?SILENT_1'==>[].
-'?SILENT_1'==>['SILENT'].
-'?SILENT_2'==>[].
-'?SILENT_2'==>['SILENT'].
-'?SILENT_3'==>[].
-'?SILENT_3'==>['SILENT'].
-'?SILENT_4'==>[].
-'?SILENT_4'==>['SILENT'].
-
-%[38]-[41] Deviate from spec because we separated symbols e.g. was 'INSERT DATA'.
-% By separating symbols, we lose LL1 property, so have to re-jiggle grammar
-% to avoid multiple rules that begin with DELETE.
-insert1 ==> ['DATA',quadData].
-insert1 ==> [quadPattern,
-	    *(usingClause),
-	    'WHERE',
-	    groupGraphPattern].
-
-delete1 ==> ['DATA',quadDataNoBnodes].     % Originally nt deleteData
-delete1 ==> ['WHERE',quadPatternNoBnodes]. % Originally nt deleteWhere
-delete1 ==> [quadPatternNoBnodes,?(insertClause), % Originally part of nt modify
-	    *(usingClause),
-	    'WHERE',
-	    groupGraphPattern].
-
-%[41]
-% In the spec, WITH is optional, but we have refactored
-% and handled cases beginning 'DELETE' or 'INSERT'.
-modify ==> 
-	['WITH',iriRef,
-	  [deleteClause,?(insertClause)] or insertClause,
-	  *(usingClause),
-	  'WHERE',
-	  groupGraphPattern].
-
-%[42]
-deleteClause ==> 
-	['DELETE',quadPattern].
-%[43]
-insertClause ==>
-	['INSERT',quadPattern].
-%[44]
-usingClause ==>
-	['USING',iriRef or ['NAMED',iriRef]].
-%[45]
-graphOrDefault ==> ['DEFAULT'].
-graphOrDefault ==> [?('GRAPH'),iriRef].
-%[46]
-graphRef ==> ['GRAPH',iriRef].
-%[47]
-graphRefAll ==> [graphRef].
-graphRefAll ==> ['DEFAULT'].
-graphRefAll ==> ['NAMED'].
-graphRefAll ==> ['ALL'].
-%[48]
-quadPattern ==> ['{',quads,'}'].
-quadPatternNoBnodes ==> ['{',disallowBnodes,quads,allowBnodes,'}'].
-%[49]
-quadData ==> ['{',disallowVars,quads,allowVars,'}'].
-quadDataNoBnodes ==> ['{',disallowBnodes,disallowVars,quads,allowVars,allowBnodes,'}'].
-% Special NTs that have a hard-wired side-effect in parser code
-%  - conditions appear in notes 8 and 9 in grammar section of SPARQL1.1 spec.
-disallowVars==>[].
-allowVars==>[].
-disallowBnodes==>[].
-allowBnodes==>[].
-%[50]
-quads ==> 
-	[?(triplesTemplate),*([quadsNotTriples,?('.'),?(triplesTemplate)])].
-%[51]
-quadsNotTriples ==>
-	['GRAPH',varOrIRIref,'{',?(triplesTemplate),'}'].
-%[52]
-triplesTemplate ==>
-	[triplesSameSubject,?(['.',?(triplesTemplate)])].
 %[53]
 groupGraphPattern ==> 
 	['{',subSelect or groupGraphPatternSub,'}'].
-%groupGraphPattern ==> [
-%        '{',
-%        ?(triplesBlock),
-%	*([graphPatternNotTriples or filter, ?('.'), ?(triplesBlock)]),
-%	'}'].
+
+
 %[54]
 groupGraphPatternSub ==>
 	[?(triplesBlock),*([graphPatternNotTriples,?('.'),?(triplesBlock)])].
@@ -280,10 +180,10 @@ graphPatternNotTriples ==> [inlineData].
 optionalGraphPattern ==> ['OPTIONAL',groupGraphPattern].
 %[58]
 graphGraphPattern ==> 
-	['GRAPH',varOrIRIref,groupGraphPattern].
+	['GRAPH',varOrXIri,groupGraphPattern].
 %[59]
 serviceGraphPattern ==> 
-	['SERVICE',?('SILENT'),varOrIRIref,groupGraphPattern].
+	['SERVICE',?('SILENT'),varOrXIri,groupGraphPattern].
 %[60]
 bind ==> 
 	['BIND','(',expression,'AS',var,')'].
@@ -330,15 +230,13 @@ argList ==>
 %[71]
 expressionList ==> ['NIL'].
 expressionList ==> ['(',expression,*([',',expression]),')'].
-%[73]
-constructTemplate ==>
-	['{',?(constructTriples),'}'].
+
 %[74]
 constructTriples ==>
 	[triplesSameSubject,?(['.',?(constructTriples)])].
 %[75]
 triplesSameSubject ==>
-	[varOrTerm,propertyListNotEmpty].
+	[varOrXTerm,propertyListNotEmpty].
 triplesSameSubject ==>
 	[triplesNode,propertyList].
 %[76]
@@ -350,7 +248,7 @@ propertyListNotEmpty ==>
 % storeProperty is a dummy for side-effect of remembering property
 storeProperty==>[].
 %[78]
-verb ==> [storeProperty,varOrIRIref].
+verb ==> [storeProperty,varOrXTerm].
 verb ==> [storeProperty,'a'].
 %[79]
 objectList ==> 
@@ -359,7 +257,7 @@ objectList ==>
 object ==> 
 	[graphNode].
 %[81]
-triplesSameSubjectPath ==> [varOrTerm,propertyListPathNotEmpty].
+triplesSameSubjectPath ==> [varOrXTerm,propertyListPathNotEmpty].
 triplesSameSubjectPath ==> [triplesNodePath,propertyListPath].
 %[82]
 propertyListPath ==> [propertyListNotEmpty].
@@ -372,7 +270,7 @@ propertyListPathNotEmpty ==>
 %[84]
 verbPath ==> [path].
 %[85]
-verbSimple ==> [var].
+verbSimple ==> [varOrXExpr].
 %[86]
 objectListPath ==> 
 	[objectPath,*([',',objectPath])].
@@ -416,7 +314,7 @@ pathMod ==>
 %    | ',' Integer '}' ) 
 
 %[94]
-pathPrimary ==> [storeProperty,iriRef].
+pathPrimary ==> [storeProperty,xiri].
 pathPrimary ==> [storeProperty,'a'].
 pathPrimary ==> ['!',pathNegatedPropertySet].
 pathPrimary ==> ['(',path,')'].
@@ -430,9 +328,9 @@ pathNegatedPropertySet ==>
 	    *(['|',pathOneInPropertySet]) ]),
          ')'].
 %[96]
-pathOneInPropertySet ==> [iriRef].
+pathOneInPropertySet ==> [xiri].
 pathOneInPropertySet ==> ['a'].
-pathOneInPropertySet ==> ['^',iriRef or 'a'].
+pathOneInPropertySet ==> ['^',xiri or 'a'].
 %[97]
 integer ==> ['INTEGER'].
 %[98]
@@ -450,27 +348,35 @@ collection ==> ['(',+(graphNode),')'].
 %[103]
 collectionPath ==> ['(',+(graphNodePath),')'].
 %[104]
-graphNode ==> [varOrTerm].
+graphNode ==> [varOrXTerm].
 graphNode ==> [triplesNode].
 %[105]
-graphNodePath ==> [varOrTerm].
+graphNodePath ==> [varOrXTerm].
 graphNodePath ==> [triplesNodePath].
-%[106]
-varOrTerm ==> [var].
-varOrTerm ==> [graphTerm].
-%[107]
-varOrIRIref ==> [var].
-varOrIRIref ==> [iriRef].
+%[106x]
+varOrXTerm ==> [var].
+varOrXTerm ==> [xTerm].
+%[107x]
+varOrXIri ==> [varOrXExpr].
+varOrXIri ==> [xiri].
 %[108]
 var ==> ['VAR1'].
 var ==> ['VAR2'].
-%[109]
-graphTerm ==> [iriRef].
-graphTerm ==> [rdfLiteral].
-graphTerm ==> [numericLiteral].
-graphTerm ==> [booleanLiteral].
-graphTerm ==> [blankNode].
-graphTerm ==> ['NIL'].
+%[108]
+varOrXExpr ==> [var or xExpr].
+
+%[new]
+xNode ==> [xExpr].
+xNode ==> [xRDFLiteral].
+xNode ==> [xiri].
+%[new]
+xExpr ==> ['START_XEXPR',expression,'}'].
+%[109x]
+xTerm ==> [xNode].
+xTerm ==> [numericLiteral].
+xTerm ==> [booleanLiteral].
+xTerm ==> [blankNode].
+xTerm ==> ['NIL'].
 %[110]
 expression ==> [conditionalOrExpression].
 %[111]
@@ -512,8 +418,8 @@ unaryExpression ==> [primaryExpression].
 %[119]
 primaryExpression ==> [brackettedExpression].
 primaryExpression ==> [builtInCall].
-primaryExpression ==> [iriRefOrFunction].
-primaryExpression ==> [rdfLiteral].
+primaryExpression ==> [xiriOrFunction].
+primaryExpression ==> [xRDFLiteral].
 primaryExpression ==> [numericLiteral].
 primaryExpression ==> [booleanLiteral].
 primaryExpression ==> [var].
@@ -607,9 +513,13 @@ aggregate ==>
 	 ?([';','SEPARATOR','=',string]),
 	 ')'].
 %[128]
-iriRefOrFunction ==> [iriRef,?(argList)].
+xiriOrFunction ==> [xiri,?(argList)].
 %[129]
 rdfLiteral ==> [string,?('LANGTAG' or ['^^',iriRef])].
+
+%[new]
+xRDFLiteral ==> [xString,?('LANGTAG' or ['^^',xiri])].
+
 %[130]
 numericLiteral ==> [numericLiteralUnsigned].
 numericLiteral ==> [numericLiteralPositive].
@@ -634,6 +544,45 @@ string ==> ['STRING_LITERAL1'].
 string ==> ['STRING_LITERAL2'].
 string ==> ['STRING_LITERAL_LONG1'].
 string ==> ['STRING_LITERAL_LONG2'].
+
+%[new]
+xString ==> [xString_Literal1].
+xString ==> [xString_Literal2].
+xString ==> [xString_Literal_Long1].
+xString ==> [xString_Literal_Long2].
+
+% switches are dummies to switch to various lexical state
+switchToDefault==>[].
+switchToParsingXS1==>[].
+switchToParsingXS2==>[].
+switchToParsingXL1==>[].
+switchToParsingXL2==>[].
+switchToParsingXIRI==>[].
+
+%[new]
+xString_Literal1 ==> 
+['STRING_LITERAL1' or ['STRING_LITERAL1_START',xString_Literal1_Sub] ].
+%[new]
+xString_Literal1_Sub ==> 
+[expression,switchToParsingXS1,(['STRING_LITERAL1_SUB',xString_Literal1_Sub] or 'STRING_LITERAL1_END')].
+%[new]
+xString_Literal2 ==> ['STRING_LITERAL2' or ['STRING_LITERAL2_START',xString_Literal2_Sub] ].
+%[new]
+xString_Literal2_Sub ==> 
+[expression,switchToParsingXS2,(['STRING_LITERAL2_SUB',xString_Literal2_Sub] or 'STRING_LITERAL2_END')].
+%[new]
+xString_Literal_Long1 ==> 
+['STRING_LITERAL_LONG1' or ['STRING_LITERAL_LONG1_START',xString_Literal_Long1_Sub] ].
+%[new]
+xString_Literal_Long1_Sub ==> 
+[expression,switchToParsingXL1,(['STRING_LITERAL_LONG1_SUB',xString_Literal_Long1_Sub] or 'STRING_LITERAL_LONG1_END')].
+%[new]
+xString_Literal_Long2 ==> 
+['STRING_LITERAL_LONG2' or ['STRING_LITERAL_LONG2_START',xString_Literal_Long2_Sub] ].
+%[new]
+xString_Literal_Long2_Sub ==> 
+[expression,switchToParsingXL2,(['STRING_LITERAL_LONG2_SUB',xString_Literal_Long2_Sub] or 'STRING_LITERAL_LONG2_END')].
+
 %[136]
 iriRef ==> ['IRI_REF'].
 iriRef ==> [prefixedName].
@@ -644,14 +593,23 @@ prefixedName ==> ['PNAME_NS'].
 blankNode ==> ['BLANK_NODE_LABEL'].
 blankNode ==> ['ANON'].
 
+%[new]
+xiri ==> [iriRef or ['IRI_REF_START',xiri_Sub]].
+%[new]
+xiri_Sub ==> [expression,switchToParsingXIRI, ['IRI_REF_SUB',xiri_Sub] or 'IRI_REF_END'].
 
 % tokens defined by regular expressions elsewhere
 tm_regex([
 
+'IRI_REF_START',
+'IRI_REF_END',
+'IRI_REF_SUB',
 'IRI_REF',
 
 'VAR1',
 'VAR2',
+'START_XEXPR',
+
 'LANGTAG',
 
 'DOUBLE',
@@ -665,9 +623,24 @@ tm_regex([
 'DOUBLE_NEGATIVE',
 
 'STRING_LITERAL_LONG1',
+'STRING_LITERAL_LONG1_START',
+'STRING_LITERAL_LONG1_END',
+'STRING_LITERAL_LONG1_SUB',
+
 'STRING_LITERAL_LONG2',
+'STRING_LITERAL_LONG2_START',
+'STRING_LITERAL_LONG2_END',
+'STRING_LITERAL_LONG2_SUB',
+
 'STRING_LITERAL1',
+'STRING_LITERAL1_START',
+'STRING_LITERAL1_END',
+'STRING_LITERAL1_SUB',
+
 'STRING_LITERAL2',
+'STRING_LITERAL2_START',
+'STRING_LITERAL2_END',
+'STRING_LITERAL2_SUB',
 
 'NIL',
 'ANON',
@@ -675,6 +648,7 @@ tm_regex([
 'PNAME_NS',
 'BLANK_NODE_LABEL'
 ]).
+
 
 % Terminals where name of terminal is uppercased token content
 tm_keywords([
@@ -684,6 +658,15 @@ tm_keywords([
 
 'BASE',
 'PREFIX',
+
+'GENERATE',
+'ITERATOR',
+'ITERATE',
+'SOURCE',
+'LOOK UP',
+'ACCEPT',
+'WHEREVER',
+
 'SELECT',
 'CONSTRUCT',
 'DESCRIBE',
