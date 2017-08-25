@@ -60,7 +60,7 @@ iteratorClause ==>
 
 % [180]
 sourceClause ==>
-	[('SOURCE' or 'LOOK UP'),varOrXIri,?(['ACCEPT',varOrXIri]),'AS',var].
+	[('SOURCE' or 'LOOK UP'),varOrIri,?(['ACCEPT',varOrIri]),'AS',var].
 
 % [181a]
 subGenerateQuery1 ==>
@@ -180,10 +180,10 @@ graphPatternNotTriples ==> [inlineData].
 optionalGraphPattern ==> ['OPTIONAL',groupGraphPattern].
 %[58]
 graphGraphPattern ==> 
-	['GRAPH',varOrXIri,groupGraphPattern].
+	['GRAPH',varOrIri,groupGraphPattern].
 %[59]
 serviceGraphPattern ==> 
-	['SERVICE',?('SILENT'),varOrXIri,groupGraphPattern].
+	['SERVICE',?('SILENT'),varOrIri,groupGraphPattern].
 %[60]
 bind ==> 
 	['BIND','(',expression,'AS',var,')'].
@@ -236,7 +236,7 @@ constructTriples ==>
 	[triplesSameSubject,?(['.',?(constructTriples)])].
 %[75]
 triplesSameSubject ==>
-	[varOrXTerm,propertyListNotEmpty].
+	[varOrTerm,propertyListNotEmpty].
 triplesSameSubject ==>
 	[triplesNode,propertyList].
 %[76]
@@ -248,7 +248,7 @@ propertyListNotEmpty ==>
 % storeProperty is a dummy for side-effect of remembering property
 storeProperty==>[].
 %[78]
-verb ==> [storeProperty,varOrXTerm].
+verb ==> [storeProperty,varOrTerm].
 verb ==> [storeProperty,'a'].
 %[79]
 objectList ==> 
@@ -257,7 +257,7 @@ objectList ==>
 object ==> 
 	[graphNode].
 %[81]
-triplesSameSubjectPath ==> [varOrXTerm,propertyListPathNotEmpty].
+triplesSameSubjectPath ==> [varOrTerm,propertyListPathNotEmpty].
 triplesSameSubjectPath ==> [triplesNodePath,propertyListPath].
 %[82]
 propertyListPath ==> [propertyListNotEmpty].
@@ -348,17 +348,17 @@ collection ==> ['(',+(graphNode),')'].
 %[103]
 collectionPath ==> ['(',+(graphNodePath),')'].
 %[104]
-graphNode ==> [varOrXTerm].
+graphNode ==> [varOrTerm].
 graphNode ==> [triplesNode].
 %[105]
-graphNodePath ==> [varOrXTerm].
+graphNodePath ==> [varOrTerm].
 graphNodePath ==> [triplesNodePath].
 %[106x]
-varOrXTerm ==> [var].
-varOrXTerm ==> [xTerm].
+varOrTerm ==> [var].
+varOrTerm ==> [xTerm].
 %[107x]
-varOrXIri ==> [varOrXExpr].
-varOrXIri ==> [xiri].
+varOrIri ==> [varOrXExpr].
+varOrIri ==> [xiri].
 %[108]
 var ==> ['VAR1'].
 var ==> ['VAR2'].

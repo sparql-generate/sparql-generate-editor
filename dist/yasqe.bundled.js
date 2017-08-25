@@ -5247,7 +5247,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     },
     {
       name: "STRING_LITERAL_LONG1_START",
-      regex: new RegExp("^" + STRING_LITERAL_LONG1_QUOTES + STRING_LITERAL_LONG1_CONTENT + OPEN_EXPR),
+      regex: new RegExp("^" + STRING_LITERAL_LONG1_QUOTES + STRING_LITERAL_LONG1_CONTENT + "('|'')?" + OPEN_EXPR),
       style: "string"
     },
     {
@@ -5263,7 +5263,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     },
     {
       name: "STRING_LITERAL_LONG2_START", 
-      regex: new RegExp("^" + STRING_LITERAL_LONG2_QUOTES + STRING_LITERAL_LONG2_CONTENT + OPEN_EXPR),
+      regex: new RegExp("^" + STRING_LITERAL_LONG2_QUOTES + STRING_LITERAL_LONG2_CONTENT + '("|"")?' + OPEN_EXPR),
       style: "string"
     },
     {
