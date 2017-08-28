@@ -124,14 +124,14 @@ var extendCmInstance = function(yasqe) {
     }
   };
   /**
-	 * Execute query. Pass a callback function, or a configuration object (see
-	 * default settings below for possible values) I.e., you can change the
-	 * query configuration by either changing the default settings, changing the
-	 * settings of this document, or by passing query settings to this function
-	 *
-	 * @method doc.query
-	 * @param function|object
-	 */
+   * Execute query. Pass a callback function, or a configuration object (see
+   * default settings below for possible values) I.e., you can change the
+   * query configuration by either changing the default settings, changing the
+   * settings of this document, or by passing query settings to this function
+   *
+   * @method doc.query
+   * @param function|object
+   */
   yasqe.query = function(callbackOrConfig) {
     root.executeQuery(yasqe, callbackOrConfig);
   };
@@ -141,11 +141,11 @@ var extendCmInstance = function(yasqe) {
   };
 
   /**
-	 * Fetch defined prefixes from query string
-	 *
-	 * @method doc.getPrefixesFromQuery
-	 * @return object
-	 */
+   * Fetch defined prefixes from query string
+   *
+   * @method doc.getPrefixesFromQuery
+   * @return object
+   */
   yasqe.getPrefixesFromQuery = function() {
     return require("./prefixUtils.js").getPrefixesFromQuery(yasqe);
   };
@@ -167,22 +167,22 @@ var extendCmInstance = function(yasqe) {
     return cleanedQuery;
   };
   /**
-	 * Fetch the query type (e.g., SELECT||DESCRIBE||INSERT||DELETE||ASK||CONSTRUCT)
-	 *
-	 * @method doc.getQueryType
-	 * @return string
-	 *
-	 */
+   * Fetch the query type (e.g., SELECT||DESCRIBE||INSERT||DELETE||ASK||CONSTRUCT)
+   *
+   * @method doc.getQueryType
+   * @return string
+   *
+   */
   yasqe.getQueryType = function() {
     return yasqe.queryType;
   };
   /**
-	 * Fetch the query mode: 'query' or 'update'
-	 *
-	 * @method doc.getQueryMode
-	 * @return string
-	 *
-	 */
+   * Fetch the query mode: 'query' or 'update'
+   *
+   * @method doc.getQueryMode
+   * @return string
+   *
+   */
   yasqe.getQueryMode = function() {
     var type = yasqe.getQueryType();
     if (
@@ -232,8 +232,8 @@ var removeCompleterFromSettings = function(settings, name) {
 };
 var postProcessCmElement = function(yasqe) {
   /**
-	 * Set doc value
-	 */
+   * Set doc value
+   */
   var storageId = utils.getPersistencyId(yasqe, yasqe.options.persistent);
   if (storageId) {
     var valueFromStorage = yutils.storage.get(storageId);
@@ -243,8 +243,8 @@ var postProcessCmElement = function(yasqe) {
   root.drawButtons(yasqe);
 
   /**
-	 * Add event handlers
-	 */
+   * Add event handlers
+   */
   yasqe.on("blur", function(yasqe, eventInfo) {
     root.storeQuery(yasqe);
   });
@@ -281,8 +281,8 @@ var postProcessCmElement = function(yasqe) {
       $(yasqe.getWrapperElement()).find(".matchingVar").removeClass("matchingVar");
     });
   /**
-	 * check url args and modify yasqe settings if needed
-	 */
+   * check url args and modify yasqe settings if needed
+   */
   if (yasqe.options.consumeShareLink) {
     yasqe.options.consumeShareLink(yasqe, getUrlParams());
     //and: add a hash listener!
@@ -351,6 +351,15 @@ var checkSyntax = function(yasqe, deepcheck) {
     );
     var state = token.state;
     yasqe.queryType = state.queryType;
+    if(state.OK && l == yasqe.lineCount() - 1) {
+      // console.log("is complete: " +  state.complete);
+      if(!state.complete) {
+        if(state.inLiteral) {
+          state.errorMsg = "needs to close literal with " + (state.inLiteral.cat.includes("2")? '"""' : "'''");
+        }
+        state.OK = false;
+      }
+    }
     if (state.OK == false) {
       if (!yasqe.options.syntaxErrorCheck) {
         //the library we use already marks everything as being an error. Overwrite this class attribute.
@@ -365,7 +374,7 @@ var checkSyntax = function(yasqe, deepcheck) {
           return $("<div/>").text(token.state.errorMsg).html();
         });
       } else if (state.possibleCurrent && state.possibleCurrent.length > 0) {
-        //				warningEl.style.zIndex = "99999999";
+        //        warningEl.style.zIndex = "99999999";
         require("./tooltip")(yasqe, warningEl, function() {
           var expectedEncoded = [];
           state.possibleCurrent.forEach(function(expected) {
@@ -466,8 +475,8 @@ root.drawButtons = function(yasqe) {
   yasqe.buttons = $("<div class='yasqe_buttons'></div>").appendTo($(yasqe.getWrapperElement()));
 
   /**
-	 * draw share link button
-	 */
+   * draw share link button
+   */
   if (yasqe.options.createShareLink) {
     var svgShare = $(yutils.svg.getElement(imgs.share));
     svgShare
@@ -540,8 +549,8 @@ root.drawButtons = function(yasqe) {
   }
 
   /**
-	 * draw fullscreen button
-	 */
+   * draw fullscreen button
+   */
 
   var toggleFullscreen = $("<div>", {
     class: "fullscreenToggleBtns"

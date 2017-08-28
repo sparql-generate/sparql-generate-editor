@@ -1216,8 +1216,8 @@ module.exports = {table:
   "?[;,SEPARATOR,=,string]" : {
      ";": ["[;,SEPARATOR,=,string]"], 
      ")": []}, 
-  "?[ACCEPT,varOrXIri]" : {
-     "ACCEPT": ["[ACCEPT,varOrXIri]"], 
+  "?[ACCEPT,varOrIri]" : {
+     "ACCEPT": ["[ACCEPT,varOrIri]"], 
      "AS": []}, 
   "?[AS,var]" : {
      "AS": ["[AS,var]"], 
@@ -1778,8 +1778,8 @@ module.exports = {table:
      ">": [">","numericExpression"]}, 
   "[>=,numericExpression]" : {
      ">=": [">=","numericExpression"]}, 
-  "[ACCEPT,varOrXIri]" : {
-     "ACCEPT": ["ACCEPT","varOrXIri"]}, 
+  "[ACCEPT,varOrIri]" : {
+     "ACCEPT": ["ACCEPT","varOrIri"]}, 
   "[AS,var]" : {
      "AS": ["AS","var"]}, 
   "[IN,expressionList]" : {
@@ -2594,69 +2594,69 @@ module.exports = {table:
      "LIMIT": ["generate"], 
      "OFFSET": ["generate"]}, 
   "graphGraphPattern" : {
-     "GRAPH": ["GRAPH","varOrXIri","groupGraphPattern"]}, 
+     "GRAPH": ["GRAPH","varOrIri","groupGraphPattern"]}, 
   "graphNode" : {
-     "VAR1": ["varOrXTerm"], 
-     "VAR2": ["varOrXTerm"], 
-     "NIL": ["varOrXTerm"], 
-     "START_XEXPR": ["varOrXTerm"], 
-     "IRI_REF": ["varOrXTerm"], 
-     "IRI_REF_START": ["varOrXTerm"], 
-     "TRUE": ["varOrXTerm"], 
-     "FALSE": ["varOrXTerm"], 
-     "BLANK_NODE_LABEL": ["varOrXTerm"], 
-     "ANON": ["varOrXTerm"], 
-     "PNAME_LN": ["varOrXTerm"], 
-     "PNAME_NS": ["varOrXTerm"], 
-     "INTEGER": ["varOrXTerm"], 
-     "DECIMAL": ["varOrXTerm"], 
-     "DOUBLE": ["varOrXTerm"], 
-     "INTEGER_POSITIVE": ["varOrXTerm"], 
-     "DECIMAL_POSITIVE": ["varOrXTerm"], 
-     "DOUBLE_POSITIVE": ["varOrXTerm"], 
-     "INTEGER_NEGATIVE": ["varOrXTerm"], 
-     "DECIMAL_NEGATIVE": ["varOrXTerm"], 
-     "DOUBLE_NEGATIVE": ["varOrXTerm"], 
-     "STRING_LITERAL1": ["varOrXTerm"], 
-     "STRING_LITERAL1_START": ["varOrXTerm"], 
-     "STRING_LITERAL2": ["varOrXTerm"], 
-     "STRING_LITERAL2_START": ["varOrXTerm"], 
-     "STRING_LITERAL_LONG1": ["varOrXTerm"], 
-     "STRING_LITERAL_LONG1_START": ["varOrXTerm"], 
-     "STRING_LITERAL_LONG2": ["varOrXTerm"], 
-     "STRING_LITERAL_LONG2_START": ["varOrXTerm"], 
+     "VAR1": ["varOrTerm"], 
+     "VAR2": ["varOrTerm"], 
+     "NIL": ["varOrTerm"], 
+     "START_XEXPR": ["varOrTerm"], 
+     "IRI_REF": ["varOrTerm"], 
+     "IRI_REF_START": ["varOrTerm"], 
+     "TRUE": ["varOrTerm"], 
+     "FALSE": ["varOrTerm"], 
+     "BLANK_NODE_LABEL": ["varOrTerm"], 
+     "ANON": ["varOrTerm"], 
+     "PNAME_LN": ["varOrTerm"], 
+     "PNAME_NS": ["varOrTerm"], 
+     "INTEGER": ["varOrTerm"], 
+     "DECIMAL": ["varOrTerm"], 
+     "DOUBLE": ["varOrTerm"], 
+     "INTEGER_POSITIVE": ["varOrTerm"], 
+     "DECIMAL_POSITIVE": ["varOrTerm"], 
+     "DOUBLE_POSITIVE": ["varOrTerm"], 
+     "INTEGER_NEGATIVE": ["varOrTerm"], 
+     "DECIMAL_NEGATIVE": ["varOrTerm"], 
+     "DOUBLE_NEGATIVE": ["varOrTerm"], 
+     "STRING_LITERAL1": ["varOrTerm"], 
+     "STRING_LITERAL1_START": ["varOrTerm"], 
+     "STRING_LITERAL2": ["varOrTerm"], 
+     "STRING_LITERAL2_START": ["varOrTerm"], 
+     "STRING_LITERAL_LONG1": ["varOrTerm"], 
+     "STRING_LITERAL_LONG1_START": ["varOrTerm"], 
+     "STRING_LITERAL_LONG2": ["varOrTerm"], 
+     "STRING_LITERAL_LONG2_START": ["varOrTerm"], 
      "(": ["triplesNode"], 
      "[": ["triplesNode"]}, 
   "graphNodePath" : {
-     "VAR1": ["varOrXTerm"], 
-     "VAR2": ["varOrXTerm"], 
-     "NIL": ["varOrXTerm"], 
-     "START_XEXPR": ["varOrXTerm"], 
-     "IRI_REF": ["varOrXTerm"], 
-     "IRI_REF_START": ["varOrXTerm"], 
-     "TRUE": ["varOrXTerm"], 
-     "FALSE": ["varOrXTerm"], 
-     "BLANK_NODE_LABEL": ["varOrXTerm"], 
-     "ANON": ["varOrXTerm"], 
-     "PNAME_LN": ["varOrXTerm"], 
-     "PNAME_NS": ["varOrXTerm"], 
-     "INTEGER": ["varOrXTerm"], 
-     "DECIMAL": ["varOrXTerm"], 
-     "DOUBLE": ["varOrXTerm"], 
-     "INTEGER_POSITIVE": ["varOrXTerm"], 
-     "DECIMAL_POSITIVE": ["varOrXTerm"], 
-     "DOUBLE_POSITIVE": ["varOrXTerm"], 
-     "INTEGER_NEGATIVE": ["varOrXTerm"], 
-     "DECIMAL_NEGATIVE": ["varOrXTerm"], 
-     "DOUBLE_NEGATIVE": ["varOrXTerm"], 
-     "STRING_LITERAL1": ["varOrXTerm"], 
-     "STRING_LITERAL1_START": ["varOrXTerm"], 
-     "STRING_LITERAL2": ["varOrXTerm"], 
-     "STRING_LITERAL2_START": ["varOrXTerm"], 
-     "STRING_LITERAL_LONG1": ["varOrXTerm"], 
-     "STRING_LITERAL_LONG1_START": ["varOrXTerm"], 
-     "STRING_LITERAL_LONG2": ["varOrXTerm"], 
-     "STRING_LITERAL_LONG2_START": ["varOrXTerm"], 
+     "VAR1": ["varOrTerm"], 
+     "VAR2": ["varOrTerm"], 
+     "NIL": ["varOrTerm"], 
+     "START_XEXPR": ["varOrTerm"], 
+     "IRI_REF": ["varOrTerm"], 
+     "IRI_REF_START": ["varOrTerm"], 
+     "TRUE": ["varOrTerm"], 
+     "FALSE": ["varOrTerm"], 
+     "BLANK_NODE_LABEL": ["varOrTerm"], 
+     "ANON": ["varOrTerm"], 
+     "PNAME_LN": ["varOrTerm"], 
+     "PNAME_NS": ["varOrTerm"], 
+     "INTEGER": ["varOrTerm"], 
+     "DECIMAL": ["varOrTerm"], 
+     "DOUBLE": ["varOrTerm"], 
+     "INTEGER_POSITIVE": ["varOrTerm"], 
+     "DECIMAL_POSITIVE": ["varOrTerm"], 
+     "DOUBLE_POSITIVE": ["varOrTerm"], 
+     "INTEGER_NEGATIVE": ["varOrTerm"], 
+     "DECIMAL_NEGATIVE": ["varOrTerm"], 
+     "DOUBLE_NEGATIVE": ["varOrTerm"], 
+     "STRING_LITERAL1": ["varOrTerm"], 
+     "STRING_LITERAL1_START": ["varOrTerm"], 
+     "STRING_LITERAL2": ["varOrTerm"], 
+     "STRING_LITERAL2_START": ["varOrTerm"], 
+     "STRING_LITERAL_LONG1": ["varOrTerm"], 
+     "STRING_LITERAL_LONG1_START": ["varOrTerm"], 
+     "STRING_LITERAL_LONG2": ["varOrTerm"], 
+     "STRING_LITERAL_LONG2_START": ["varOrTerm"], 
      "(": ["triplesNodePath"], 
      "[": ["triplesNodePath"]}, 
   "graphPatternNotTriples" : {
@@ -4010,7 +4010,7 @@ module.exports = {table:
   "selectClause" : {
      "SELECT": ["SELECT","?or([DISTINCT,REDUCED])","or([+or([var,[ (,expression,AS,var,)]]),*])"]}, 
   "serviceGraphPattern" : {
-     "SERVICE": ["SERVICE","?SILENT","varOrXIri","groupGraphPattern"]}, 
+     "SERVICE": ["SERVICE","?SILENT","varOrIri","groupGraphPattern"]}, 
   "solutionModifier" : {
      "LIMIT": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
      "OFFSET": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
@@ -4023,8 +4023,8 @@ module.exports = {table:
      "$": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
      "}": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"]}, 
   "sourceClause" : {
-     "SOURCE": ["or([SOURCE,LOOK UP])","varOrXIri","?[ACCEPT,varOrXIri]","AS","var"], 
-     "LOOK UP": ["or([SOURCE,LOOK UP])","varOrXIri","?[ACCEPT,varOrXIri]","AS","var"]}, 
+     "SOURCE": ["or([SOURCE,LOOK UP])","varOrIri","?[ACCEPT,varOrIri]","AS","var"], 
+     "LOOK UP": ["or([SOURCE,LOOK UP])","varOrIri","?[ACCEPT,varOrIri]","AS","var"]}, 
   "sourceSelector" : {
      "IRI_REF": ["iriRef"], 
      "PNAME_LN": ["iriRef"], 
@@ -4161,67 +4161,67 @@ module.exports = {table:
      "(": ["collectionPath"], 
      "[": ["blankNodePropertyListPath"]}, 
   "triplesSameSubject" : {
-     "VAR1": ["varOrXTerm","propertyListNotEmpty"], 
-     "VAR2": ["varOrXTerm","propertyListNotEmpty"], 
-     "NIL": ["varOrXTerm","propertyListNotEmpty"], 
-     "START_XEXPR": ["varOrXTerm","propertyListNotEmpty"], 
-     "IRI_REF": ["varOrXTerm","propertyListNotEmpty"], 
-     "IRI_REF_START": ["varOrXTerm","propertyListNotEmpty"], 
-     "TRUE": ["varOrXTerm","propertyListNotEmpty"], 
-     "FALSE": ["varOrXTerm","propertyListNotEmpty"], 
-     "BLANK_NODE_LABEL": ["varOrXTerm","propertyListNotEmpty"], 
-     "ANON": ["varOrXTerm","propertyListNotEmpty"], 
-     "PNAME_LN": ["varOrXTerm","propertyListNotEmpty"], 
-     "PNAME_NS": ["varOrXTerm","propertyListNotEmpty"], 
-     "INTEGER": ["varOrXTerm","propertyListNotEmpty"], 
-     "DECIMAL": ["varOrXTerm","propertyListNotEmpty"], 
-     "DOUBLE": ["varOrXTerm","propertyListNotEmpty"], 
-     "INTEGER_POSITIVE": ["varOrXTerm","propertyListNotEmpty"], 
-     "DECIMAL_POSITIVE": ["varOrXTerm","propertyListNotEmpty"], 
-     "DOUBLE_POSITIVE": ["varOrXTerm","propertyListNotEmpty"], 
-     "INTEGER_NEGATIVE": ["varOrXTerm","propertyListNotEmpty"], 
-     "DECIMAL_NEGATIVE": ["varOrXTerm","propertyListNotEmpty"], 
-     "DOUBLE_NEGATIVE": ["varOrXTerm","propertyListNotEmpty"], 
-     "STRING_LITERAL1": ["varOrXTerm","propertyListNotEmpty"], 
-     "STRING_LITERAL1_START": ["varOrXTerm","propertyListNotEmpty"], 
-     "STRING_LITERAL2": ["varOrXTerm","propertyListNotEmpty"], 
-     "STRING_LITERAL2_START": ["varOrXTerm","propertyListNotEmpty"], 
-     "STRING_LITERAL_LONG1": ["varOrXTerm","propertyListNotEmpty"], 
-     "STRING_LITERAL_LONG1_START": ["varOrXTerm","propertyListNotEmpty"], 
-     "STRING_LITERAL_LONG2": ["varOrXTerm","propertyListNotEmpty"], 
-     "STRING_LITERAL_LONG2_START": ["varOrXTerm","propertyListNotEmpty"], 
+     "VAR1": ["varOrTerm","propertyListNotEmpty"], 
+     "VAR2": ["varOrTerm","propertyListNotEmpty"], 
+     "NIL": ["varOrTerm","propertyListNotEmpty"], 
+     "START_XEXPR": ["varOrTerm","propertyListNotEmpty"], 
+     "IRI_REF": ["varOrTerm","propertyListNotEmpty"], 
+     "IRI_REF_START": ["varOrTerm","propertyListNotEmpty"], 
+     "TRUE": ["varOrTerm","propertyListNotEmpty"], 
+     "FALSE": ["varOrTerm","propertyListNotEmpty"], 
+     "BLANK_NODE_LABEL": ["varOrTerm","propertyListNotEmpty"], 
+     "ANON": ["varOrTerm","propertyListNotEmpty"], 
+     "PNAME_LN": ["varOrTerm","propertyListNotEmpty"], 
+     "PNAME_NS": ["varOrTerm","propertyListNotEmpty"], 
+     "INTEGER": ["varOrTerm","propertyListNotEmpty"], 
+     "DECIMAL": ["varOrTerm","propertyListNotEmpty"], 
+     "DOUBLE": ["varOrTerm","propertyListNotEmpty"], 
+     "INTEGER_POSITIVE": ["varOrTerm","propertyListNotEmpty"], 
+     "DECIMAL_POSITIVE": ["varOrTerm","propertyListNotEmpty"], 
+     "DOUBLE_POSITIVE": ["varOrTerm","propertyListNotEmpty"], 
+     "INTEGER_NEGATIVE": ["varOrTerm","propertyListNotEmpty"], 
+     "DECIMAL_NEGATIVE": ["varOrTerm","propertyListNotEmpty"], 
+     "DOUBLE_NEGATIVE": ["varOrTerm","propertyListNotEmpty"], 
+     "STRING_LITERAL1": ["varOrTerm","propertyListNotEmpty"], 
+     "STRING_LITERAL1_START": ["varOrTerm","propertyListNotEmpty"], 
+     "STRING_LITERAL2": ["varOrTerm","propertyListNotEmpty"], 
+     "STRING_LITERAL2_START": ["varOrTerm","propertyListNotEmpty"], 
+     "STRING_LITERAL_LONG1": ["varOrTerm","propertyListNotEmpty"], 
+     "STRING_LITERAL_LONG1_START": ["varOrTerm","propertyListNotEmpty"], 
+     "STRING_LITERAL_LONG2": ["varOrTerm","propertyListNotEmpty"], 
+     "STRING_LITERAL_LONG2_START": ["varOrTerm","propertyListNotEmpty"], 
      "(": ["triplesNode","propertyList"], 
      "[": ["triplesNode","propertyList"]}, 
   "triplesSameSubjectPath" : {
-     "VAR1": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "VAR2": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "NIL": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "START_XEXPR": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "IRI_REF": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "IRI_REF_START": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "TRUE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "FALSE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "BLANK_NODE_LABEL": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "ANON": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "PNAME_LN": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "PNAME_NS": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "INTEGER": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "DECIMAL": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "DOUBLE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "INTEGER_POSITIVE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "DECIMAL_POSITIVE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "DOUBLE_POSITIVE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "INTEGER_NEGATIVE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "DECIMAL_NEGATIVE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "DOUBLE_NEGATIVE": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "STRING_LITERAL1": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "STRING_LITERAL1_START": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "STRING_LITERAL2": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "STRING_LITERAL2_START": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "STRING_LITERAL_LONG1": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "STRING_LITERAL_LONG1_START": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "STRING_LITERAL_LONG2": ["varOrXTerm","propertyListPathNotEmpty"], 
-     "STRING_LITERAL_LONG2_START": ["varOrXTerm","propertyListPathNotEmpty"], 
+     "VAR1": ["varOrTerm","propertyListPathNotEmpty"], 
+     "VAR2": ["varOrTerm","propertyListPathNotEmpty"], 
+     "NIL": ["varOrTerm","propertyListPathNotEmpty"], 
+     "START_XEXPR": ["varOrTerm","propertyListPathNotEmpty"], 
+     "IRI_REF": ["varOrTerm","propertyListPathNotEmpty"], 
+     "IRI_REF_START": ["varOrTerm","propertyListPathNotEmpty"], 
+     "TRUE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "FALSE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "BLANK_NODE_LABEL": ["varOrTerm","propertyListPathNotEmpty"], 
+     "ANON": ["varOrTerm","propertyListPathNotEmpty"], 
+     "PNAME_LN": ["varOrTerm","propertyListPathNotEmpty"], 
+     "PNAME_NS": ["varOrTerm","propertyListPathNotEmpty"], 
+     "INTEGER": ["varOrTerm","propertyListPathNotEmpty"], 
+     "DECIMAL": ["varOrTerm","propertyListPathNotEmpty"], 
+     "DOUBLE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "INTEGER_POSITIVE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "DECIMAL_POSITIVE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "DOUBLE_POSITIVE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "INTEGER_NEGATIVE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "DECIMAL_NEGATIVE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "DOUBLE_NEGATIVE": ["varOrTerm","propertyListPathNotEmpty"], 
+     "STRING_LITERAL1": ["varOrTerm","propertyListPathNotEmpty"], 
+     "STRING_LITERAL1_START": ["varOrTerm","propertyListPathNotEmpty"], 
+     "STRING_LITERAL2": ["varOrTerm","propertyListPathNotEmpty"], 
+     "STRING_LITERAL2_START": ["varOrTerm","propertyListPathNotEmpty"], 
+     "STRING_LITERAL_LONG1": ["varOrTerm","propertyListPathNotEmpty"], 
+     "STRING_LITERAL_LONG1_START": ["varOrTerm","propertyListPathNotEmpty"], 
+     "STRING_LITERAL_LONG2": ["varOrTerm","propertyListPathNotEmpty"], 
+     "STRING_LITERAL_LONG2_START": ["varOrTerm","propertyListPathNotEmpty"], 
      "(": ["triplesNodePath","propertyListPath"], 
      "[": ["triplesNodePath","propertyListPath"]}, 
   "unaryExpression" : {
@@ -4412,11 +4412,7 @@ module.exports = {table:
   "var" : {
      "VAR1": ["VAR1"], 
      "VAR2": ["VAR2"]}, 
-  "varOrXExpr" : {
-     "VAR1": ["or([var,xExpr])"], 
-     "VAR2": ["or([var,xExpr])"], 
-     "START_XEXPR": ["or([var,xExpr])"]}, 
-  "varOrXIri" : {
+  "varOrIri" : {
      "VAR1": ["varOrXExpr"], 
      "VAR2": ["varOrXExpr"], 
      "START_XEXPR": ["varOrXExpr"], 
@@ -4424,7 +4420,7 @@ module.exports = {table:
      "IRI_REF_START": ["xiri"], 
      "PNAME_LN": ["xiri"], 
      "PNAME_NS": ["xiri"]}, 
-  "varOrXTerm" : {
+  "varOrTerm" : {
      "VAR1": ["var"], 
      "VAR2": ["var"], 
      "NIL": ["xTerm"], 
@@ -4454,36 +4450,40 @@ module.exports = {table:
      "STRING_LITERAL_LONG1_START": ["xTerm"], 
      "STRING_LITERAL_LONG2": ["xTerm"], 
      "STRING_LITERAL_LONG2_START": ["xTerm"]}, 
+  "varOrXExpr" : {
+     "VAR1": ["or([var,xExpr])"], 
+     "VAR2": ["or([var,xExpr])"], 
+     "START_XEXPR": ["or([var,xExpr])"]}, 
   "verb" : {
-     "VAR1": ["storeProperty","varOrXTerm"], 
-     "VAR2": ["storeProperty","varOrXTerm"], 
-     "NIL": ["storeProperty","varOrXTerm"], 
-     "START_XEXPR": ["storeProperty","varOrXTerm"], 
-     "IRI_REF": ["storeProperty","varOrXTerm"], 
-     "IRI_REF_START": ["storeProperty","varOrXTerm"], 
-     "TRUE": ["storeProperty","varOrXTerm"], 
-     "FALSE": ["storeProperty","varOrXTerm"], 
-     "BLANK_NODE_LABEL": ["storeProperty","varOrXTerm"], 
-     "ANON": ["storeProperty","varOrXTerm"], 
-     "PNAME_LN": ["storeProperty","varOrXTerm"], 
-     "PNAME_NS": ["storeProperty","varOrXTerm"], 
-     "INTEGER": ["storeProperty","varOrXTerm"], 
-     "DECIMAL": ["storeProperty","varOrXTerm"], 
-     "DOUBLE": ["storeProperty","varOrXTerm"], 
-     "INTEGER_POSITIVE": ["storeProperty","varOrXTerm"], 
-     "DECIMAL_POSITIVE": ["storeProperty","varOrXTerm"], 
-     "DOUBLE_POSITIVE": ["storeProperty","varOrXTerm"], 
-     "INTEGER_NEGATIVE": ["storeProperty","varOrXTerm"], 
-     "DECIMAL_NEGATIVE": ["storeProperty","varOrXTerm"], 
-     "DOUBLE_NEGATIVE": ["storeProperty","varOrXTerm"], 
-     "STRING_LITERAL1": ["storeProperty","varOrXTerm"], 
-     "STRING_LITERAL1_START": ["storeProperty","varOrXTerm"], 
-     "STRING_LITERAL2": ["storeProperty","varOrXTerm"], 
-     "STRING_LITERAL2_START": ["storeProperty","varOrXTerm"], 
-     "STRING_LITERAL_LONG1": ["storeProperty","varOrXTerm"], 
-     "STRING_LITERAL_LONG1_START": ["storeProperty","varOrXTerm"], 
-     "STRING_LITERAL_LONG2": ["storeProperty","varOrXTerm"], 
-     "STRING_LITERAL_LONG2_START": ["storeProperty","varOrXTerm"], 
+     "VAR1": ["storeProperty","varOrTerm"], 
+     "VAR2": ["storeProperty","varOrTerm"], 
+     "NIL": ["storeProperty","varOrTerm"], 
+     "START_XEXPR": ["storeProperty","varOrTerm"], 
+     "IRI_REF": ["storeProperty","varOrTerm"], 
+     "IRI_REF_START": ["storeProperty","varOrTerm"], 
+     "TRUE": ["storeProperty","varOrTerm"], 
+     "FALSE": ["storeProperty","varOrTerm"], 
+     "BLANK_NODE_LABEL": ["storeProperty","varOrTerm"], 
+     "ANON": ["storeProperty","varOrTerm"], 
+     "PNAME_LN": ["storeProperty","varOrTerm"], 
+     "PNAME_NS": ["storeProperty","varOrTerm"], 
+     "INTEGER": ["storeProperty","varOrTerm"], 
+     "DECIMAL": ["storeProperty","varOrTerm"], 
+     "DOUBLE": ["storeProperty","varOrTerm"], 
+     "INTEGER_POSITIVE": ["storeProperty","varOrTerm"], 
+     "DECIMAL_POSITIVE": ["storeProperty","varOrTerm"], 
+     "DOUBLE_POSITIVE": ["storeProperty","varOrTerm"], 
+     "INTEGER_NEGATIVE": ["storeProperty","varOrTerm"], 
+     "DECIMAL_NEGATIVE": ["storeProperty","varOrTerm"], 
+     "DOUBLE_NEGATIVE": ["storeProperty","varOrTerm"], 
+     "STRING_LITERAL1": ["storeProperty","varOrTerm"], 
+     "STRING_LITERAL1_START": ["storeProperty","varOrTerm"], 
+     "STRING_LITERAL2": ["storeProperty","varOrTerm"], 
+     "STRING_LITERAL2_START": ["storeProperty","varOrTerm"], 
+     "STRING_LITERAL_LONG1": ["storeProperty","varOrTerm"], 
+     "STRING_LITERAL_LONG1_START": ["storeProperty","varOrTerm"], 
+     "STRING_LITERAL_LONG2": ["storeProperty","varOrTerm"], 
+     "STRING_LITERAL_LONG2_START": ["storeProperty","varOrTerm"], 
      "a": ["storeProperty","a"]}, 
   "verbPath" : {
      "^": ["path"], 
@@ -5064,9 +5064,9 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
   var IRI_REF_SUB = '}[^<>"`\|\{\}\^\\\x00-\x20]*\\{';
   var IRI_REF_END = '}[^<>"`\|\{\}\^\\\x00-\x20]*>';
   /*
-	 * PN_CHARS_BASE =
-	 * '[A-Z]|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|[\\u10000-\\uEFFFF]';
-	 */
+   * PN_CHARS_BASE =
+   * '[A-Z]|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|[\\u10000-\\uEFFFF]';
+   */
 
   var PN_CHARS_BASE = "[A-Za-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD]";
   var PN_CHARS_U = PN_CHARS_BASE + "|_";
@@ -5252,7 +5252,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     },
     {
       name: "STRING_LITERAL_LONG1_START_TRUNC", 
-      regex: new RegExp("^" + STRING_LITERAL_LONG1_QUOTES + STRING_LITERAL_LONG1_CONTENT + "$"),
+      regex: new RegExp("^" + STRING_LITERAL_LONG1_QUOTES + STRING_LITERAL_LONG1_CONTENT + "('|'')?$"),
       style: "string",
       switchTo: "trunc_l1"
     },
@@ -5268,7 +5268,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     },
     {
       name: "STRING_LITERAL_LONG2_START_TRUNC",
-      regex: new RegExp("^" + STRING_LITERAL_LONG2_QUOTES + STRING_LITERAL_LONG2_CONTENT + "$"),
+      regex: new RegExp("^" + STRING_LITERAL_LONG2_QUOTES + STRING_LITERAL_LONG2_CONTENT + '("|"")?$'),
       style: "string",
       switchTo: "trunc_l2"
     },
@@ -5370,13 +5370,13 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     },
     {
       name: "STRING_LITERAL_LONG1_TRUNC_OPEN", 
-      regex: new RegExp("^" + STRING_LITERAL_LONG1_CONTENT + OPEN_EXPR),
+      regex: new RegExp("^" + STRING_LITERAL_LONG1_CONTENT + "('|'')?" + OPEN_EXPR),
       style: "string",
       switchTo: "default"
     },
     {
       name: "STRING_LITERAL_LONG1_TRUNC_TRUNC",
-      regex: new RegExp("^" + STRING_LITERAL_LONG1_CONTENT + "$"),
+      regex: new RegExp("^" + STRING_LITERAL_LONG1_CONTENT + "('|'')?$"),
       style: "string"
     }
   ] ,
@@ -5389,13 +5389,13 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     },
     {
       name: "STRING_LITERAL_LONG2_TRUNC_OPEN",
-      regex: new RegExp("^" + STRING_LITERAL_LONG2_CONTENT + OPEN_EXPR),
+      regex: new RegExp("^" + STRING_LITERAL_LONG2_CONTENT + '("|"")?' + OPEN_EXPR),
       style: "string",
       switchTo: "default"
     },
     {
       name: "STRING_LITERAL_LONG2_TRUNC_TRUNC",
-      regex: new RegExp("^" + STRING_LITERAL_LONG2_CONTENT + "$"),
+      regex: new RegExp("^" + STRING_LITERAL_LONG2_CONTENT + '("|"")?$'),
       style: "string"
     }
   ] ,
@@ -5408,13 +5408,13 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     },
     {
       name: "STRING_LITERAL_LONG1_SUB",
-      regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG1_CONTENT + OPEN_EXPR),
+      regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG1_CONTENT + "('|'')?" + OPEN_EXPR),
       style: "string",
       switchTo: "default"
     },
     {
       name: "STRING_LITERAL_LONG1_CLOSE_TRUNC", // switch to trunc_l1
-      regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG1_CONTENT + "$"),
+      regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG1_CONTENT + "('|'')?$"),
       style: "string",
       switchTo: "trunc_l2"      
     }
@@ -5428,13 +5428,13 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     },
     {
       name: "STRING_LITERAL_LONG2_SUB",
-      regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG2_CONTENT + OPEN_EXPR),
+      regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG2_CONTENT + '("|"")?' + OPEN_EXPR),
       style: "string",
       switchTo: "default"
     },
     {
       name: "STRING_LITERAL_LONG2_CLOSE_TRUNC",
-      regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG2_CONTENT + "$"),
+      regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG2_CONTENT + '("|"")?$'),
       style: "string",
       switchTo: "trunc_l2"
     }
@@ -5593,13 +5593,9 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     }
 
     function checkinLiteral(tokenOb) {
-      if(tokenOb.cat.includes("TRUNC_") && !state.inLiteral) {
-        console.error("TRUNC string out of nowhere");
-        return;
-      }
       switch (tokenOb.cat) {
         case "STRING_LITERAL_LONG1_START_TRUNC":
-          state.inLiteral = tokenOb;
+          state.inLiteral = JSON.parse(JSON.stringify(tokenOb));
           state.inLiteral.cat = "STRING_LITERAL_LONG1_START";
           break;
         case "STRING_LITERAL_LONG1_TRUNC_END":
@@ -5638,11 +5634,11 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
           state.inLiteral.text += ".";
           break;
         case "STRING_LITERAL_LONG1_CLOSE_TRUNC":
-          state.inLiteral = tokenOb;
+          state.inLiteral = JSON.parse(JSON.stringify(tokenOb));
           state.inLiteral.cat = "STRING_LITERAL_LONG1_CLOSE";
           break;
         case "STRING_LITERAL_LONG2_START_TRUNC":
-          state.inLiteral = tokenOb;
+          state.inLiteral = JSON.parse(JSON.stringify(tokenOb));
           state.inLiteral.cat = "STRING_LITERAL_LONG2_START";
           break;
         case "STRING_LITERAL_LONG2_TRUNC_END":
@@ -5681,9 +5677,12 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
           state.inLiteral.text += ".";
           break;
         case "STRING_LITERAL_LONG2_CLOSE_TRUNC":
-          state.inLiteral = tokenOb;
+          state.inLiteral = JSON.parse(JSON.stringify(tokenOb));
           state.inLiteral.cat = "STRING_LITERAL_LONG2_CLOSE";
           break;
+      }
+      if(tokenOb.switchTo) {
+        state.lexicalState = tokenOb.switchTo;
       }
     }
 
@@ -5700,6 +5699,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
         consumed = true;
         if (state.OK==true) {
           state.OK=false;
+          state.lexicalState = "default";
           recordFailurePos(tokenOb);
         }
         state.complete=false;
@@ -5718,11 +5718,9 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
         consumed = true;
         checkinLiteral(tokenOb);
       }  
-      // if(!state.OK) {
-      //   stream.match(/^.[A-Za-z0-9]*/, true, false);
-      //   return "error";
-      // }
+
       if(state.inLiteral) {
+        state.complete = false;
         state.possibleCurrent = state.possibleNext;
         return state.inLiteral.style;
       }
@@ -5760,7 +5758,9 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
             var allNillable = true;
             for (var sp = state.stack.length; sp > 0; --sp) {
               var item = ll1_table[state.stack[sp - 1]];
-              if (!item || !item["$"]) allNillable = false;
+              if (state.stack[sp - 1] != '$' && ( !item || !item["$"]))  {
+                allNillable = false;
+              }
             }
             state.complete = allNillable;
             if (state.storeProperty && token.cat != "punc") {
@@ -5776,6 +5776,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
                 //avoid warnings for missing bif prefixes (yuck, virtuoso-specific)
                 if (!state.prefixes[prefNs] && ["bif", "xsd", "sql"].indexOf(prefNs) < 0) {
                   state.OK = false;
+                  state.lexicalState = "default";
                   recordFailurePos(tokenOb);
                   state.errorMsg = "Prefix '" + prefNs + "' is not defined";
                 }
@@ -5783,6 +5784,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
             }
           } else {
             state.OK = false;
+            state.lexicalState = "default";
             state.complete = false;
             recordFailurePos(tokenOb);
           }
@@ -5806,6 +5808,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
             // No match in table - fail
             state.OK = false;
             state.complete = false;
+            state.lexicalState = "default";
             recordFailurePos(tokenOb);
             state.stack.push(topSymbol); // Shove topSymbol back on stack
           }
@@ -5813,16 +5816,10 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       }
       if (!finished && state.OK) {
         state.OK = false;
+        state.lexicalState = "default";
         state.complete = false;
         recordFailurePos(tokenOb);
       }
-
-      if (state.possibleCurrent.indexOf("a") >= 0) {
-        state.lastPredicateOffset = tokenOb.start;
-      }
-      state.possibleCurrent = state.possibleNext;
-
-      state.possibleNext = getPossibles(state.stack[state.stack.length - 1]);
 
       if(!consumed) {
         nextToken(true);
@@ -5830,6 +5827,13 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       if(tokenOb.switchTo) {
         state.lexicalState = tokenOb.switchTo;
       }
+
+      if (state.possibleCurrent.indexOf("a") >= 0) {
+        state.lastPredicateOffset = tokenOb.start;
+      }
+      state.possibleCurrent = state.possibleNext;
+      state.possibleNext = getPossibles(state.stack[state.stack.length - 1]);
+
       return tokenOb.style;
     }
 
@@ -5856,7 +5860,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     propertyListPath: 1,
     propertyListPathNotEmpty: 1,
     "?[verb,objectList]": 1
-    //		"?[or([verbPath, verbSimple]),objectList]": 1,
+    //    "?[or([verbPath, verbSimple]),objectList]": 1,
   };
 
   var indentTable = {
@@ -5866,7 +5870,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     "{": -1,
     "(": -1,
     "[": -1
-    //		"*[;,?[or([verbPath,verbSimple]),objectList]]": 1,
+    //    "*[;,?[or([verbPath,verbSimple]),objectList]]": 1,
   };
 
   function indent(state, textAfter) {
@@ -5933,7 +5937,6 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
   };
 });
 CodeMirror.defineMIME("application/vnd.sparql-generate", "sparql11");
-
 },{"./_tokenizer-table.js":2,"codemirror":14}],4:[function(require,module,exports){
 /*
 * TRIE implementation in Javascript
@@ -29018,14 +29021,14 @@ var extendCmInstance = function(yasqe) {
     }
   };
   /**
-	 * Execute query. Pass a callback function, or a configuration object (see
-	 * default settings below for possible values) I.e., you can change the
-	 * query configuration by either changing the default settings, changing the
-	 * settings of this document, or by passing query settings to this function
-	 *
-	 * @method doc.query
-	 * @param function|object
-	 */
+   * Execute query. Pass a callback function, or a configuration object (see
+   * default settings below for possible values) I.e., you can change the
+   * query configuration by either changing the default settings, changing the
+   * settings of this document, or by passing query settings to this function
+   *
+   * @method doc.query
+   * @param function|object
+   */
   yasqe.query = function(callbackOrConfig) {
     root.executeQuery(yasqe, callbackOrConfig);
   };
@@ -29035,11 +29038,11 @@ var extendCmInstance = function(yasqe) {
   };
 
   /**
-	 * Fetch defined prefixes from query string
-	 *
-	 * @method doc.getPrefixesFromQuery
-	 * @return object
-	 */
+   * Fetch defined prefixes from query string
+   *
+   * @method doc.getPrefixesFromQuery
+   * @return object
+   */
   yasqe.getPrefixesFromQuery = function() {
     return require("./prefixUtils.js").getPrefixesFromQuery(yasqe);
   };
@@ -29061,22 +29064,22 @@ var extendCmInstance = function(yasqe) {
     return cleanedQuery;
   };
   /**
-	 * Fetch the query type (e.g., SELECT||DESCRIBE||INSERT||DELETE||ASK||CONSTRUCT)
-	 *
-	 * @method doc.getQueryType
-	 * @return string
-	 *
-	 */
+   * Fetch the query type (e.g., SELECT||DESCRIBE||INSERT||DELETE||ASK||CONSTRUCT)
+   *
+   * @method doc.getQueryType
+   * @return string
+   *
+   */
   yasqe.getQueryType = function() {
     return yasqe.queryType;
   };
   /**
-	 * Fetch the query mode: 'query' or 'update'
-	 *
-	 * @method doc.getQueryMode
-	 * @return string
-	 *
-	 */
+   * Fetch the query mode: 'query' or 'update'
+   *
+   * @method doc.getQueryMode
+   * @return string
+   *
+   */
   yasqe.getQueryMode = function() {
     var type = yasqe.getQueryType();
     if (
@@ -29126,8 +29129,8 @@ var removeCompleterFromSettings = function(settings, name) {
 };
 var postProcessCmElement = function(yasqe) {
   /**
-	 * Set doc value
-	 */
+   * Set doc value
+   */
   var storageId = utils.getPersistencyId(yasqe, yasqe.options.persistent);
   if (storageId) {
     var valueFromStorage = yutils.storage.get(storageId);
@@ -29137,8 +29140,8 @@ var postProcessCmElement = function(yasqe) {
   root.drawButtons(yasqe);
 
   /**
-	 * Add event handlers
-	 */
+   * Add event handlers
+   */
   yasqe.on("blur", function(yasqe, eventInfo) {
     root.storeQuery(yasqe);
   });
@@ -29175,8 +29178,8 @@ var postProcessCmElement = function(yasqe) {
       $(yasqe.getWrapperElement()).find(".matchingVar").removeClass("matchingVar");
     });
   /**
-	 * check url args and modify yasqe settings if needed
-	 */
+   * check url args and modify yasqe settings if needed
+   */
   if (yasqe.options.consumeShareLink) {
     yasqe.options.consumeShareLink(yasqe, getUrlParams());
     //and: add a hash listener!
@@ -29245,6 +29248,15 @@ var checkSyntax = function(yasqe, deepcheck) {
     );
     var state = token.state;
     yasqe.queryType = state.queryType;
+    if(state.OK && l == yasqe.lineCount() - 1) {
+      // console.log("is complete: " +  state.complete);
+      if(!state.complete) {
+        if(state.inLiteral) {
+          state.errorMsg = "needs to close literal with " + (state.inLiteral.cat.includes("2")? '"""' : "'''");
+        }
+        state.OK = false;
+      }
+    }
     if (state.OK == false) {
       if (!yasqe.options.syntaxErrorCheck) {
         //the library we use already marks everything as being an error. Overwrite this class attribute.
@@ -29259,7 +29271,7 @@ var checkSyntax = function(yasqe, deepcheck) {
           return $("<div/>").text(token.state.errorMsg).html();
         });
       } else if (state.possibleCurrent && state.possibleCurrent.length > 0) {
-        //				warningEl.style.zIndex = "99999999";
+        //        warningEl.style.zIndex = "99999999";
         require("./tooltip")(yasqe, warningEl, function() {
           var expectedEncoded = [];
           state.possibleCurrent.forEach(function(expected) {
@@ -29360,8 +29372,8 @@ root.drawButtons = function(yasqe) {
   yasqe.buttons = $("<div class='yasqe_buttons'></div>").appendTo($(yasqe.getWrapperElement()));
 
   /**
-	 * draw share link button
-	 */
+   * draw share link button
+   */
   if (yasqe.options.createShareLink) {
     var svgShare = $(yutils.svg.getElement(imgs.share));
     svgShare
@@ -29434,8 +29446,8 @@ root.drawButtons = function(yasqe) {
   }
 
   /**
-	 * draw fullscreen button
-	 */
+   * draw fullscreen button
+   */
 
   var toggleFullscreen = $("<div>", {
     class: "fullscreenToggleBtns"
