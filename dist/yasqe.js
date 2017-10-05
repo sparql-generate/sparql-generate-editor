@@ -5330,7 +5330,8 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
     {
       name: "IRI_REF_SUB",
       regex: new RegExp("^" + IRI_REF_SUB),
-      style: "variable-3"
+      style: "variable-3",
+      switchTo: "default"
     }
   ] ,
   "xs1" : [
@@ -8934,7 +8935,7 @@ module.exports={
         "spec": ">=1.6.7 <2.0.0",
         "type": "range"
       },
-      "C:\\Users\\maxime.lefrancois\\Dropbox\\_Recherche\\netbeansprojects\\YASGUI.YASQE"
+      "C:\\Users\\maxime.lefrancois\\netbeansprojects\\sparql-generate-yasqe"
     ]
   ],
   "_from": "yasgui-utils@>=1.6.7 <2.0.0",
@@ -8968,7 +8969,7 @@ module.exports={
   "_shasum": "2bcfc5a315688de3ae6057883d9ae342b205f267",
   "_shrinkwrap": null,
   "_spec": "yasgui-utils@^1.6.7",
-  "_where": "C:\\Users\\maxime.lefrancois\\Dropbox\\_Recherche\\netbeansprojects\\YASGUI.YASQE",
+  "_where": "C:\\Users\\maxime.lefrancois\\netbeansprojects\\sparql-generate-yasqe",
   "author": {
     "name": "Laurens Rietveld"
   },
