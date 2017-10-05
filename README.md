@@ -13,7 +13,7 @@ for including it in your own web site, visit http://yasqe.yasgui.org
 Feel free to fork and develop this tool.  You can submit your
 contributions as Github pull requests.  To develop *YASQE* locally:
 
-* `npm install`
+* `npm install --save-dev`
 * `npm run dev` for local development
 * `npm run build` for creating the packages
 

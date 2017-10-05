@@ -5453,8 +5453,6 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
   }
 
   function tokenBase(stream, state) {
-    // console.log("called with stream ", stream)
-
     function nextToken(consume) {
       var consumed = null;
 
@@ -5695,7 +5693,8 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
 
       var tokenOb = nextToken(false);
       if (tokenOb.cat == "<invalid_token>") {
-        nextToken(true);
+        var t = nextToken(true);
+        console.log("consumed ", t.cat, t.text);
         consumed = true;
         if (state.OK==true) {
           state.OK=false;
@@ -5708,13 +5707,15 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
 
       if (tokenOb.cat == "WS" || tokenOb.cat == "COMMENT") {
         state.possibleCurrent = state.possibleNext;
-        nextToken(true);
+        var t = nextToken(true);
+        console.log("consumed ", t.cat, t.text);
         consumed = true;
         return tokenOb.style;
       }
 
       if(tokenOb.cat.includes("TRUNC")) {
-        nextToken(true);
+        var t = nextToken(true);
+        console.log("consumed ", t.cat, t.text);
         consumed = true;
         checkinLiteral(tokenOb);
       }  
@@ -5722,6 +5723,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       if(state.inLiteral) {
         state.complete = false;
         state.possibleCurrent = state.possibleNext;
+        console.log("inliteral, return ", state.inLiteral.style);
         return state.inLiteral.style;
       }
 
@@ -5751,7 +5753,6 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
             // - ensure token is consumed from input stream
             finished = true;
 
-            // console.log("consumed" + token);
             setQueryType(topSymbol);
             // Check whether $ (end of input token) is poss next
             // for everything on stack
@@ -5822,7 +5823,8 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       }
 
       if(!consumed) {
-        nextToken(true);
+        var t = nextToken(true);
+        console.log("consumed ", t.cat, t.text);
       }
       if(tokenOb.switchTo) {
         state.lexicalState = tokenOb.switchTo;
