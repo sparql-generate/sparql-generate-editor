@@ -5695,7 +5695,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       var tokenOb = nextToken(false);
       if (tokenOb.cat == "<invalid_token>") {
         var t = nextToken(true);
-        console.log("consumed ", t.cat, t.text);
+        // console.log("consumed ", t.cat, t.text);
         consumed = true;
         if (state.OK==true) {
           state.OK=false;
@@ -5709,14 +5709,14 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       if (tokenOb.cat == "WS" || tokenOb.cat == "COMMENT") {
         state.possibleCurrent = state.possibleNext;
         var t = nextToken(true);
-        console.log("consumed ", t.cat, t.text);
+        // console.log("consumed ", t.cat, t.text);
         consumed = true;
         return tokenOb.style;
       }
 
       if(tokenOb.cat.includes("TRUNC")) {
         var t = nextToken(true);
-        console.log("consumed ", t.cat, t.text);
+        // console.log("consumed ", t.cat, t.text);
         consumed = true;
         checkinLiteral(tokenOb);
       }  
@@ -5724,7 +5724,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       if(state.inLiteral) {
         state.complete = false;
         state.possibleCurrent = state.possibleNext;
-        console.log("inliteral, return ", state.inLiteral.style);
+        // console.log("inliteral, return ", state.inLiteral.style);
         return state.inLiteral.style;
       }
 
@@ -5825,7 +5825,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
 
       if(!consumed) {
         var t = nextToken(true);
-        console.log("consumed ", t.cat, t.text);
+        // console.log("consumed ", t.cat, t.text);
       }
       if(tokenOb.switchTo) {
         state.lexicalState = tokenOb.switchTo;
@@ -27688,7 +27688,7 @@ module.exports={
         "spec": ">=1.6.7 <2.0.0",
         "type": "range"
       },
-      "C:\\Users\\maxime.lefrancois\\netbeansprojects\\sparql-generate-yasqe"
+      "/root/yasqe/sparql-generate-yasqe"
     ]
   ],
   "_from": "yasgui-utils@>=1.6.7 <2.0.0",
@@ -27722,7 +27722,7 @@ module.exports={
   "_shasum": "2bcfc5a315688de3ae6057883d9ae342b205f267",
   "_shrinkwrap": null,
   "_spec": "yasgui-utils@^1.6.7",
-  "_where": "C:\\Users\\maxime.lefrancois\\netbeansprojects\\sparql-generate-yasqe",
+  "_where": "/root/yasqe/sparql-generate-yasqe",
   "author": {
     "name": "Laurens Rietveld"
   },
