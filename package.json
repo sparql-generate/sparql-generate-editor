@@ -67,7 +67,10 @@
   },
   "dependencies": {
     "codemirror": "5.17.0",
+    "css": "^2.2.1",
+    "detect-newline": "^2.1.0",
     "jquery": "^2.2.4",
+    "lazy-debug-legacy": "0.0.1",
     "node-sass": "^3.8.0",
     "prettier": "^1.4.4",
     "run-sequence": "^1.2.2",

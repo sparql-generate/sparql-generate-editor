@@ -10,7 +10,7 @@ YASQE.defaults = $.extend(true, {}, YASQE.defaults, {
   /**
 	 * Query string
 	 */
-  value: "PREFIX iter: <http://w3id.org/sparql-generate/iter/>\nPREFIX fn: <http://w3id.org/sparql-generate/fn/>\nPREFIX ex: <http://example.org/>\nPREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n\nSOURCE <venue.json> AS ?source\nITERATOR iter:JSONPath(?source, '$.*' ) AS ?venue\nWHERE {} \nLIMIT 10\nCONSTRUCT { \n  <http://loc.example.com/city/{ fn:JSONPath(?venue, '$.location.city' ) }> a ex:City ;\n     geo:lat  ?{ fn:JSONPath(?venue, '$.venue.latitude' ) } ;\n     geo:long ?{ fn:JSONPath(?venue, '$.venue.longitude' ) } ;\n     ex:countryCode 'The country code is { fn:JSONPath(?venue, '$.location.country' ) }'@en .\n}\n",
+  value: "PREFIX iter: <http://w3id.org/sparql-generate/iter/>\nPREFIX fun: <http://w3id.org/sparql-generate/fn/>\nPREFIX ex: <http://example.org/>\nPREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n\nSOURCE <venue.json> AS ?source\nITERATOR iter:JSONPath(?source, '$.*' ) AS ?venue\nWHERE {} \nLIMIT 10\nCONSTRUCT { \n  <http://loc.example.com/city/{ fun:JSONPath(?venue, '$.location.city' ) }> a ex:City ;\n     geo:lat  ?{ fun:JSONPath(?venue, '$.venue.latitude' ) } ;\n     geo:long ?{ fun:JSONPath(?venue, '$.venue.longitude' ) } ;\n     ex:countryCode 'The country code is { fun:JSONPath(?venue, '$.location.country' ) }'@en .\n}\n",
   highlightSelectionMatches: {
     showToken: /\w/
   },
