@@ -27,22 +27,22 @@ require("codemirror/addon/display/fullscreen.js");
 require("../lib/grammar/tokenizer.js");
 
 /**
- * Main YASQE constructor. Pass a DOM element as argument to append the editor to, and (optionally) pass along config settings (see the YASQE.defaults object below, as well as the regular CodeMirror documentation, for more information on configurability)
+ * Main SGE constructor. Pass a DOM element as argument to append the editor to, and (optionally) pass along config settings (see the SGE.defaults object below, as well as the regular CodeMirror documentation, for more information on configurability)
  *
  * @constructor
  * @param {DOM-Element} parent element to append editor to.
  * @param {object} settings
- * @class YASQE
- * @return {doc} YASQE document
+ * @class SGE
+ * @return {doc} SGE document
  */
 var root = (module.exports = function(parent, config) {
   var rootEl = $("<div>", {
-    class: "yasqe"
+    class: "sge"
   }).appendTo($(parent));
   config = extendConfig(config);
-  var yasqe = extendCmInstance(CodeMirror(rootEl[0], config));
-  postProcessCmElement(yasqe);
-  return yasqe;
+  var sge = extendCmInstance(CodeMirror(rootEl[0], config));
+  postProcessCmElement(sge);
+  return sge;
 });
 
 /**
@@ -69,40 +69,40 @@ var extendConfig = function(config) {
  *
  * @private
  */
-var extendCmInstance = function(yasqe) {
+var extendCmInstance = function(sge) {
   //instantiate autocompleters
-  yasqe.autocompleters = require("./autocompleters/autocompleterBase.js")(root, yasqe);
-  if (yasqe.options.autocompleters) {
-    yasqe.options.autocompleters.forEach(function(name) {
-      if (root.Autocompleters[name]) yasqe.autocompleters.init(name, root.Autocompleters[name]);
+  sge.autocompleters = require("./autocompleters/autocompleterBase.js")(root, sge);
+  if (sge.options.autocompleters) {
+    sge.options.autocompleters.forEach(function(name) {
+      if (root.Autocompleters[name]) sge.autocompleters.init(name, root.Autocompleters[name]);
     });
   }
-  yasqe.lastQueryDuration = null;
-  yasqe.getCompleteToken = function(token, cur) {
-    return require("./tokenUtils.js").getCompleteToken(yasqe, token, cur);
+  sge.lastQueryDuration = null;
+  sge.getCompleteToken = function(token, cur) {
+    return require("./tokenUtils.js").getCompleteToken(sge, token, cur);
   };
-  yasqe.getPreviousNonWsToken = function(line, token) {
-    return require("./tokenUtils.js").getPreviousNonWsToken(yasqe, line, token);
+  sge.getPreviousNonWsToken = function(line, token) {
+    return require("./tokenUtils.js").getPreviousNonWsToken(sge, line, token);
   };
-  yasqe.getNextNonWsToken = function(lineNumber, charNumber) {
-    return require("./tokenUtils.js").getNextNonWsToken(yasqe, lineNumber, charNumber);
+  sge.getNextNonWsToken = function(lineNumber, charNumber) {
+    return require("./tokenUtils.js").getNextNonWsToken(sge, lineNumber, charNumber);
   };
-  yasqe.collapsePrefixes = function(collapse) {
+  sge.collapsePrefixes = function(collapse) {
     if (collapse === undefined) collapse = true;
-    yasqe.foldCode(
-      require("./prefixFold.js").findFirstPrefixLine(yasqe),
+    sge.foldCode(
+      require("./prefixFold.js").findFirstPrefixLine(sge),
       root.fold.prefix,
       collapse ? "fold" : "unfold"
     );
   };
   var backdrop = null;
   var animateSpeed = null;
-  yasqe.setBackdrop = function(show) {
-    if (yasqe.options.backdrop || yasqe.options.backdrop === 0 || yasqe.options.backdrop === "0") {
+  sge.setBackdrop = function(show) {
+    if (sge.options.backdrop || sge.options.backdrop === 0 || sge.options.backdrop === "0") {
       if (animateSpeed === null) {
-        animateSpeed = +yasqe.options.backdrop;
+        animateSpeed = +sge.options.backdrop;
         if (animateSpeed === 1) {
-          //ah, yasqe.options.backdrop was 'true'. Set this to default animate speed 400
+          //ah, sge.options.backdrop was 'true'. Set this to default animate speed 400
           animateSpeed = 400;
         }
       }
@@ -114,7 +114,7 @@ var extendCmInstance = function(yasqe) {
           .click(function() {
             $(this).hide();
           })
-          .insertAfter($(yasqe.getWrapperElement()));
+          .insertAfter($(sge.getWrapperElement()));
       }
       if (show) {
         backdrop.show(animateSpeed);
@@ -132,12 +132,12 @@ var extendCmInstance = function(yasqe) {
    * @method doc.query
    * @param function|object
    */
-  yasqe.query = function(callbackOrConfig) {
-    root.executeQuery(yasqe, callbackOrConfig);
+  sge.query = function(callbackOrConfig) {
+    root.executeQuery(sge, callbackOrConfig);
   };
 
-  yasqe.getUrlArguments = function(config) {
-    return root.getUrlArguments(yasqe, config);
+  sge.getUrlArguments = function(config) {
+    return root.getUrlArguments(sge, config);
   };
 
   /**
@@ -146,20 +146,20 @@ var extendCmInstance = function(yasqe) {
    * @method doc.getPrefixesFromQuery
    * @return object
    */
-  yasqe.getPrefixesFromQuery = function() {
-    return require("./prefixUtils.js").getPrefixesFromQuery(yasqe);
+  sge.getPrefixesFromQuery = function() {
+    return require("./prefixUtils.js").getPrefixesFromQuery(sge);
   };
 
-  yasqe.addPrefixes = function(prefixes) {
-    return require("./prefixUtils.js").addPrefixes(yasqe, prefixes);
+  sge.addPrefixes = function(prefixes) {
+    return require("./prefixUtils.js").addPrefixes(sge, prefixes);
   };
-  yasqe.removePrefixes = function(prefixes) {
-    return require("./prefixUtils.js").removePrefixes(yasqe, prefixes);
+  sge.removePrefixes = function(prefixes) {
+    return require("./prefixUtils.js").removePrefixes(sge, prefixes);
   };
 
-  yasqe.getValueWithoutComments = function() {
+  sge.getValueWithoutComments = function() {
     var cleanedQuery = "";
-    root.runMode(yasqe.getValue(), "sparql11", function(stringVal, className) {
+    root.runMode(sge.getValue(), "sparql11", function(stringVal, className) {
       if (className != "comment") {
         cleanedQuery += stringVal;
       }
@@ -173,8 +173,8 @@ var extendCmInstance = function(yasqe) {
    * @return string
    *
    */
-  yasqe.getQueryType = function() {
-    return yasqe.queryType;
+  sge.getQueryType = function() {
+    return sge.queryType;
   };
   /**
    * Fetch the query mode: 'query' or 'update'
@@ -183,8 +183,8 @@ var extendCmInstance = function(yasqe) {
    * @return string
    *
    */
-  yasqe.getQueryMode = function() {
-    var type = yasqe.getQueryType();
+  sge.getQueryMode = function() {
+    var type = sge.getQueryType();
     if (
       type == "INSERT" ||
       type == "DELETE" ||
@@ -202,19 +202,19 @@ var extendCmInstance = function(yasqe) {
     }
   };
 
-  yasqe.setCheckSyntaxErrors = function(isEnabled) {
-    yasqe.options.syntaxErrorCheck = isEnabled;
-    checkSyntax(yasqe);
+  sge.setCheckSyntaxErrors = function(isEnabled) {
+    sge.options.syntaxErrorCheck = isEnabled;
+    checkSyntax(sge);
   };
 
-  yasqe.enableCompleter = function(name) {
-    addCompleterToSettings(yasqe.options, name);
-    if (root.Autocompleters[name]) yasqe.autocompleters.init(name, root.Autocompleters[name]);
+  sge.enableCompleter = function(name) {
+    addCompleterToSettings(sge.options, name);
+    if (root.Autocompleters[name]) sge.autocompleters.init(name, root.Autocompleters[name]);
   };
-  yasqe.disableCompleter = function(name) {
-    removeCompleterFromSettings(yasqe.options, name);
+  sge.disableCompleter = function(name) {
+    removeCompleterFromSettings(sge.options, name);
   };
-  return yasqe;
+  return sge;
 };
 
 var addCompleterToSettings = function(settings, name) {
@@ -230,47 +230,47 @@ var removeCompleterFromSettings = function(settings, name) {
     }
   }
 };
-var postProcessCmElement = function(yasqe) {
+var postProcessCmElement = function(sge) {
   /**
    * Set doc value
    */
-  var storageId = utils.getPersistencyId(yasqe, yasqe.options.persistent);
+  var storageId = utils.getPersistencyId(sge, sge.options.persistent);
   if (storageId) {
     var valueFromStorage = yutils.storage.get(storageId);
-    if (valueFromStorage) yasqe.setValue(valueFromStorage);
+    if (valueFromStorage) sge.setValue(valueFromStorage);
   }
 
-  root.drawButtons(yasqe);
+  root.drawButtons(sge);
 
   /**
    * Add event handlers
    */
-  yasqe.on("blur", function(yasqe, eventInfo) {
-    root.storeQuery(yasqe);
+  sge.on("blur", function(sge, eventInfo) {
+    root.storeQuery(sge);
   });
-  yasqe.on("change", function(yasqe, eventInfo) {
-    checkSyntax(yasqe);
-    root.updateQueryButton(yasqe);
-    root.positionButtons(yasqe);
+  sge.on("change", function(sge, eventInfo) {
+    checkSyntax(sge);
+    root.updateQueryButton(sge);
+    root.positionButtons(sge);
   });
-  yasqe.on("changes", function() {
+  sge.on("changes", function() {
     //e.g. on paste
-    checkSyntax(yasqe);
-    root.updateQueryButton(yasqe);
-    root.positionButtons(yasqe);
+    checkSyntax(sge);
+    root.updateQueryButton(sge);
+    root.positionButtons(sge);
   });
 
-  yasqe.on("cursorActivity", function(yasqe, eventInfo) {
-    updateButtonsTransparency(yasqe);
+  sge.on("cursorActivity", function(sge, eventInfo) {
+    updateButtonsTransparency(sge);
   });
-  yasqe.prevQueryValid = false;
-  checkSyntax(yasqe); // on first load, check as well (our stored or default query might be incorrect)
-  root.positionButtons(yasqe);
+  sge.prevQueryValid = false;
+  checkSyntax(sge); // on first load, check as well (our stored or default query might be incorrect)
+  root.positionButtons(sge);
 
-  $(yasqe.getWrapperElement())
+  $(sge.getWrapperElement())
     .on("mouseenter", ".cm-atom", function() {
       var matchText = $(this).text();
-      $(yasqe.getWrapperElement())
+      $(sge.getWrapperElement())
         .find(".cm-atom")
         .filter(function() {
           return $(this).text() === matchText;
@@ -278,19 +278,19 @@ var postProcessCmElement = function(yasqe) {
         .addClass("matchingVar");
     })
     .on("mouseleave", ".cm-atom", function() {
-      $(yasqe.getWrapperElement()).find(".matchingVar").removeClass("matchingVar");
+      $(sge.getWrapperElement()).find(".matchingVar").removeClass("matchingVar");
     });
   /**
-   * check url args and modify yasqe settings if needed
+   * check url args and modify sge settings if needed
    */
-  if (yasqe.options.consumeShareLink) {
-    yasqe.options.consumeShareLink(yasqe, getUrlParams());
+  if (sge.options.consumeShareLink) {
+    sge.options.consumeShareLink(sge, getUrlParams());
     //and: add a hash listener!
     window.addEventListener("hashchange", function() {
-      yasqe.options.consumeShareLink(yasqe, getUrlParams());
+      sge.options.consumeShareLink(sge, getUrlParams());
     });
   }
-  if (yasqe.options.collapsePrefixesOnLoad) yasqe.collapsePrefixes(true);
+  if (sge.options.collapsePrefixesOnLoad) sge.collapsePrefixes(true);
 };
 
 /**
@@ -315,43 +315,43 @@ var getUrlParams = function() {
  * Update transparency of buttons. Increase transparency when cursor is below buttons
  */
 
-var updateButtonsTransparency = function(yasqe) {
-  yasqe.cursor = $(".CodeMirror-cursor");
-  if (yasqe.buttons && yasqe.buttons.is(":visible") && yasqe.cursor.length > 0) {
-    if (utils.elementsOverlap(yasqe.cursor, yasqe.buttons)) {
-      yasqe.buttons.find("svg").attr("opacity", "0.2");
+var updateButtonsTransparency = function(sge) {
+  sge.cursor = $(".CodeMirror-cursor");
+  if (sge.buttons && sge.buttons.is(":visible") && sge.cursor.length > 0) {
+    if (utils.elementsOverlap(sge.cursor, sge.buttons)) {
+      sge.buttons.find("svg").attr("opacity", "0.2");
     } else {
-      yasqe.buttons.find("svg").attr("opacity", "1.0");
+      sge.buttons.find("svg").attr("opacity", "1.0");
     }
   }
 };
 
 var clearError = null;
-var checkSyntax = function(yasqe, deepcheck) {
-  yasqe.queryValid = true;
+var checkSyntax = function(sge, deepcheck) {
+  sge.queryValid = true;
 
-  yasqe.clearGutter("gutterErrorBar");
+  sge.clearGutter("gutterErrorBar");
 
   var state = null;
-  for (var l = 0; l < yasqe.lineCount(); ++l) {
+  for (var l = 0; l < sge.lineCount(); ++l) {
     var precise = false;
-    if (!yasqe.prevQueryValid) {
+    if (!sge.prevQueryValid) {
       // we don't want cached information in this case, otherwise the
       // previous error sign might still show up,
       // even though the syntax error might be gone already
       precise = true;
     }
 
-    var token = yasqe.getTokenAt(
+    var token = sge.getTokenAt(
       {
         line: l,
-        ch: yasqe.getLine(l).length
+        ch: sge.getLine(l).length
       },
       precise
     );
     var state = token.state;
-    yasqe.queryType = state.queryType;
-    if(state.OK && l == yasqe.lineCount() - 1) {
+    sge.queryType = state.queryType;
+    if(state.OK && l == sge.lineCount() - 1) {
       // console.log("is complete: " +  state.complete);
       if(!state.complete) {
         if(state.inLiteral) {
@@ -361,21 +361,21 @@ var checkSyntax = function(yasqe, deepcheck) {
       }
     }
     if (state.OK == false) {
-      if (!yasqe.options.syntaxErrorCheck) {
+      if (!sge.options.syntaxErrorCheck) {
         //the library we use already marks everything as being an error. Overwrite this class attribute.
-        $(yasqe.getWrapperElement).find(".sp-error").css("color", "black");
+        $(sge.getWrapperElement).find(".sp-error").css("color", "black");
         //we don't want to gutter error, so return
         return;
       }
 
       var warningEl = yutils.svg.getElement(imgs.warning);
       if (state.errorMsg) {
-        require("./tooltip")(yasqe, warningEl, function() {
+        require("./tooltip")(sge, warningEl, function() {
           return $("<div/>").text(token.state.errorMsg).html();
         });
       } else if (state.possibleCurrent && state.possibleCurrent.length > 0) {
         //        warningEl.style.zIndex = "99999999";
-        require("./tooltip")(yasqe, warningEl, function() {
+        require("./tooltip")(sge, warningEl, function() {
           var expectedEncoded = [];
           state.possibleCurrent.forEach(function(expected) {
             expectedEncoded.push(
@@ -388,23 +388,23 @@ var checkSyntax = function(yasqe, deepcheck) {
       warningEl.style.marginTop = "2px";
       warningEl.style.marginLeft = "2px";
       warningEl.className = "parseErrorIcon";
-      yasqe.setGutterMarker(l, "gutterErrorBar", warningEl);
+      sge.setGutterMarker(l, "gutterErrorBar", warningEl);
 
-      yasqe.queryValid = false;
+      sge.queryValid = false;
       break;
     }
   }
-  yasqe.prevQueryValid = yasqe.queryValid;
+  sge.prevQueryValid = sge.queryValid;
   if (deepcheck) {
     if (state != null && state.stack != undefined) {
       var stack = state.stack, len = state.stack.length;
       // Because incremental parser doesn't receive end-of-input
       // it can't clear stack, so we have to check that whatever
       // is left on the stack is nillable
-      if (len > 1) yasqe.queryValid = false;
+      if (len > 1) sge.queryValid = false;
       else if (len == 1) {
         if (stack[0] != "solutionModifier" && stack[0] != "?limitOffsetClauses" && stack[0] != "?offsetClause")
-          yasqe.queryValid = false;
+          sge.queryValid = false;
       }
     }
   }
@@ -412,7 +412,7 @@ var checkSyntax = function(yasqe, deepcheck) {
 /**
  * Static Utils
  */
-// first take all CodeMirror references and store them in the YASQE object
+// first take all CodeMirror references and store them in the SGE object
 $.extend(root, CodeMirror);
 
 //add registrar for autocompleters
@@ -422,9 +422,9 @@ root.registerAutocompleter = function(name, constructor) {
   addCompleterToSettings(root.defaults, name);
 };
 
-root.autoComplete = function(yasqe) {
+root.autoComplete = function(sge) {
   //this function gets called when pressing the keyboard shortcut. I.e., autoShow = false
-  yasqe.autocompleters.autoComplete(false);
+  sge.autocompleters.autoComplete(false);
 };
 //include the autocompleters we provide out-of-the-box
 root.registerAutocompleter("prefixes", require("./autocompleters/prefixes.js"));
@@ -432,57 +432,57 @@ root.registerAutocompleter("properties", require("./autocompleters/properties.js
 root.registerAutocompleter("classes", require("./autocompleters/classes.js"));
 root.registerAutocompleter("variables", require("./autocompleters/variables.js"));
 
-root.positionButtons = function(yasqe) {
-  var scrollBar = $(yasqe.getWrapperElement()).find(".CodeMirror-vscrollbar");
+root.positionButtons = function(sge) {
+  var scrollBar = $(sge.getWrapperElement()).find(".CodeMirror-vscrollbar");
   var offset = 0;
   if (scrollBar.is(":visible")) {
     offset = scrollBar.outerWidth();
   }
-  if (yasqe.buttons.is(":visible")) yasqe.buttons.css("right", offset + 4);
+  if (sge.buttons.is(":visible")) sge.buttons.css("right", offset + 4);
 };
 
 /**
  * Create a share link
  *
- * @method YASQE.createShareLink
- * @param {doc} YASQE document
+ * @method SGE.createShareLink
+ * @param {doc} SGE document
  * @default {query: doc.getValue()}
  * @return object
  */
-root.createShareLink = function(yasqe) {
+root.createShareLink = function(sge) {
   //extend existing link, so first fetch current arguments
   var urlParams = {};
   if (window.location.hash.length > 1) urlParams = $.deparam(window.location.hash.substring(1));
-  urlParams["query"] = yasqe.getValue();
+  urlParams["query"] = sge.getValue();
   return urlParams;
 };
-root.getAsCurl = function(yasqe, ajaxConfig) {
+root.getAsCurl = function(sge, ajaxConfig) {
   var curl = require("./curl.js");
-  return curl.createCurlString(yasqe, ajaxConfig);
+  return curl.createCurlString(sge, ajaxConfig);
 };
 /**
- * Consume the share link, by parsing the document URL for possible yasqe arguments, and setting the appropriate values in the YASQE doc
+ * Consume the share link, by parsing the document URL for possible sge arguments, and setting the appropriate values in the SGE doc
  *
- * @method YASQE.consumeShareLink
- * @param {doc} YASQE document
+ * @method SGE.consumeShareLink
+ * @param {doc} SGE document
  */
-root.consumeShareLink = function(yasqe, urlParams) {
+root.consumeShareLink = function(sge, urlParams) {
   if (urlParams && urlParams.query) {
-    yasqe.setValue(urlParams.query);
+    sge.setValue(urlParams.query);
   }
 };
-root.drawButtons = function(yasqe) {
-  yasqe.buttons = $("<div class='yasqe_buttons'></div>").appendTo($(yasqe.getWrapperElement()));
+root.drawButtons = function(sge) {
+  sge.buttons = $("<div class='yasqe_buttons'></div>").appendTo($(sge.getWrapperElement()));
 
   /**
    * draw share link button
    */
-  if (yasqe.options.createShareLink) {
+  if (sge.options.createShareLink) {
     var svgShare = $(yutils.svg.getElement(imgs.share));
     svgShare
       .click(function(event) {
         event.stopPropagation();
-        var popup = $("<div class='yasqe_sharePopup'></div>").appendTo(yasqe.buttons);
+        var popup = $("<div class='yasqe_sharePopup'></div>").appendTo(sge.buttons);
         $("html").click(function() {
           if (popup) popup.remove();
         });
@@ -497,7 +497,7 @@ root.drawButtons = function(yasqe) {
             location.pathname +
             location.search +
             "#" +
-            $.param(yasqe.options.createShareLink(yasqe))
+            $.param(sge.options.createShareLink(sge))
         );
 
         $input.focus(function() {
@@ -513,13 +513,13 @@ root.drawButtons = function(yasqe) {
         });
 
         popup.empty().append($("<div>", { class: "inputWrapper" }).append($input));
-        if (yasqe.options.createShortLink) {
+        if (sge.options.createShortLink) {
           popup.addClass("enableShort");
           $("<button>Shorten</button>")
             .addClass("yasqe_btn yasqe_btn-sm yasqe_btn-primary")
             .click(function() {
               $(this).parent().find("button").attr("disabled", "disabled");
-              yasqe.options.createShortLink($input.val(), function(errString, shortLink) {
+              sge.options.createShortLink($input.val(), function(errString, shortLink) {
                 if (errString) {
                   $input.remove();
                   popup.find(".inputWrapper").append($("<span>", { class: "shortlinkErr" }).text(errString));
@@ -534,7 +534,7 @@ root.drawButtons = function(yasqe) {
           .addClass("yasqe_btn yasqe_btn-sm yasqe_btn-primary")
           .click(function() {
             $(this).parent().find("button").attr("disabled", "disabled");
-            $input.val(root.getAsCurl(yasqe)).focus();
+            $input.val(root.getAsCurl(sge)).focus();
           })
           .appendTo(popup);
         var positions = svgShare.position();
@@ -545,7 +545,7 @@ root.drawButtons = function(yasqe) {
       })
       .addClass("yasqe_share")
       .attr("title", "Share your query")
-      .appendTo(yasqe.buttons);
+      .appendTo(sge.buttons);
   }
 
   /**
@@ -560,7 +560,7 @@ root.drawButtons = function(yasqe) {
         .addClass("yasqe_fullscreenBtn")
         .attr("title", "Set editor full screen")
         .click(function() {
-          yasqe.setOption("fullScreen", true);
+          sge.setOption("fullScreen", true);
         })
     )
     .append(
@@ -568,25 +568,25 @@ root.drawButtons = function(yasqe) {
         .addClass("yasqe_smallscreenBtn")
         .attr("title", "Set editor to normal size")
         .click(function() {
-          yasqe.setOption("fullScreen", false);
+          sge.setOption("fullScreen", false);
         })
     );
-  yasqe.buttons.append(toggleFullscreen);
+  sge.buttons.append(toggleFullscreen);
 
-  if (yasqe.options.sparql.showQueryButton) {
+  if (sge.options.sparql.showQueryButton) {
     $("<div>", {
       class: "yasqe_queryButton"
     })
       .click(function() {
         if ($(this).hasClass("query_busy")) {
-          if (yasqe.xhr) yasqe.xhr.abort();
-          root.updateQueryButton(yasqe);
+          if (sge.xhr) sge.xhr.abort();
+          root.updateQueryButton(sge);
         } else {
-          yasqe.query();
+          sge.query();
         }
       })
-      .appendTo(yasqe.buttons);
-    root.updateQueryButton(yasqe);
+      .appendTo(sge.buttons);
+    root.updateQueryButton(sge);
   }
 };
 
@@ -599,20 +599,20 @@ var queryButtonIds = {
 /**
  * Update the query button depending on current query status. If no query status is passed via the parameter, it auto-detects the current query status
  *
- * @param {doc} YASQE document
+ * @param {doc} SGE document
  * @param status {string|null, "busy"|"valid"|"error"}
  */
-root.updateQueryButton = function(yasqe, status) {
-  var queryButton = $(yasqe.getWrapperElement()).find(".yasqe_queryButton");
+root.updateQueryButton = function(sge, status) {
+  var queryButton = $(sge.getWrapperElement()).find(".yasqe_queryButton");
   if (queryButton.length == 0) return; //no query button drawn
 
   //detect status
   if (!status) {
     status = "valid";
-    if (yasqe.queryValid === false) status = "error";
+    if (sge.queryValid === false) status = "error";
   }
 
-  if (status != yasqe.queryStatus) {
+  if (status != sge.queryStatus) {
     queryButton.empty().removeClass(function(index, classNames) {
       return classNames
         .split(" ")
@@ -629,52 +629,52 @@ root.updateQueryButton = function(yasqe, status) {
           class: "loader"
         })
       );
-      yasqe.queryStatus = status;
+      sge.queryStatus = status;
     } else if (status == "valid" || status == "error") {
       queryButton.addClass("query_" + status);
       yutils.svg.draw(queryButton, imgs[queryButtonIds[status]]);
-      yasqe.queryStatus = status;
+      sge.queryStatus = status;
     }
   }
 };
 /**
- * Initialize YASQE from an existing text area (see http://codemirror.net/doc/manual.html#fromTextArea for more info)
+ * Initialize SGE from an existing text area (see http://codemirror.net/doc/manual.html#fromTextArea for more info)
  *
- * @method YASQE.fromTextArea
+ * @method SGE.fromTextArea
  * @param textArea {DOM element}
  * @param config {object}
- * @returns {doc} YASQE document
+ * @returns {doc} SGE document
  */
 root.fromTextArea = function(textAreaEl, config) {
   config = extendConfig(config);
-  //add yasqe div as parent (needed for styles to be manageable and scoped).
+  //add sge div as parent (needed for styles to be manageable and scoped).
   //In this case, I -also- put it as parent el of the text area. This is wrapped in a div now
   var rootEl = $("<div>", {
-    class: "yasqe"
+    class: "sge"
   })
     .insertBefore($(textAreaEl))
     .append($(textAreaEl));
-  var yasqe = extendCmInstance(CodeMirror.fromTextArea(textAreaEl, config));
-  postProcessCmElement(yasqe);
-  return yasqe;
+  var sge = extendCmInstance(CodeMirror.fromTextArea(textAreaEl, config));
+  postProcessCmElement(sge);
+  return sge;
 };
 
-root.storeQuery = function(yasqe) {
-  var storageId = utils.getPersistencyId(yasqe, yasqe.options.persistent);
+root.storeQuery = function(sge) {
+  var storageId = utils.getPersistencyId(sge, sge.options.persistent);
   if (storageId) {
-    yutils.storage.set(storageId, yasqe.getValue(), "month", yasqe.options.onQuotaExceeded);
+    yutils.storage.set(storageId, sge.getValue(), "month", sge.options.onQuotaExceeded);
   }
 };
-root.commentLines = function(yasqe) {
-  var startLine = yasqe.getCursor(true).line;
-  var endLine = yasqe.getCursor(false).line;
+root.commentLines = function(sge) {
+  var startLine = sge.getCursor(true).line;
+  var endLine = sge.getCursor(false).line;
   var min = Math.min(startLine, endLine);
   var max = Math.max(startLine, endLine);
 
   // if all lines start with #, remove this char. Otherwise add this char
   var linesAreCommented = true;
   for (var i = min; i <= max; i++) {
-    var line = yasqe.getLine(i);
+    var line = sge.getLine(i);
     if (line.length == 0 || line.substring(0, 1) != "#") {
       linesAreCommented = false;
       break;
@@ -683,7 +683,7 @@ root.commentLines = function(yasqe) {
   for (var i = min; i <= max; i++) {
     if (linesAreCommented) {
       // lines are commented, so remove comments
-      yasqe.replaceRange(
+      sge.replaceRange(
         "",
         {
           line: i,
@@ -696,7 +696,7 @@ root.commentLines = function(yasqe) {
       );
     } else {
       // Not all lines are commented, so add comments
-      yasqe.replaceRange("#", {
+      sge.replaceRange("#", {
         line: i,
         ch: 0
       });
@@ -704,18 +704,18 @@ root.commentLines = function(yasqe) {
   }
 };
 
-root.copyLineUp = function(yasqe) {
-  var cursor = yasqe.getCursor();
-  var lineCount = yasqe.lineCount();
+root.copyLineUp = function(sge) {
+  var cursor = sge.getCursor();
+  var lineCount = sge.lineCount();
   // First create new empty line at end of text
-  yasqe.replaceRange("\n", {
+  sge.replaceRange("\n", {
     line: lineCount - 1,
-    ch: yasqe.getLine(lineCount - 1).length
+    ch: sge.getLine(lineCount - 1).length
   });
   // Copy all lines to their next line
   for (var i = lineCount; i > cursor.line; i--) {
-    var line = yasqe.getLine(i - 1);
-    yasqe.replaceRange(
+    var line = sge.getLine(i - 1);
+    sge.replaceRange(
       line,
       {
         line: i,
@@ -723,41 +723,41 @@ root.copyLineUp = function(yasqe) {
       },
       {
         line: i,
-        ch: yasqe.getLine(i).length
+        ch: sge.getLine(i).length
       }
     );
   }
 };
-root.copyLineDown = function(yasqe) {
-  root.copyLineUp(yasqe);
+root.copyLineDown = function(sge) {
+  root.copyLineUp(sge);
   // Make sure cursor goes one down (we are copying downwards)
-  var cursor = yasqe.getCursor();
+  var cursor = sge.getCursor();
   cursor.line++;
-  yasqe.setCursor(cursor);
+  sge.setCursor(cursor);
 };
-root.doAutoFormat = function(yasqe) {
-  if (!yasqe.somethingSelected()) yasqe.execCommand("selectAll");
+root.doAutoFormat = function(sge) {
+  if (!sge.somethingSelected()) sge.execCommand("selectAll");
   var to = {
-    line: yasqe.getCursor(false).line,
-    ch: yasqe.getSelection().length
+    line: sge.getCursor(false).line,
+    ch: sge.getSelection().length
   };
-  autoFormatRange(yasqe, yasqe.getCursor(true), to);
+  autoFormatRange(sge, sge.getCursor(true), to);
 };
 
-var autoFormatRange = function(yasqe, from, to) {
-  var absStart = yasqe.indexFromPos(from);
-  var absEnd = yasqe.indexFromPos(to);
+var autoFormatRange = function(sge, from, to) {
+  var absStart = sge.indexFromPos(from);
+  var absEnd = sge.indexFromPos(to);
   // Insert additional line breaks where necessary according to the
   // mode's syntax
-  var res = autoFormatLineBreaks(yasqe.getValue(), absStart, absEnd);
+  var res = autoFormatLineBreaks(sge.getValue(), absStart, absEnd);
 
   // Replace and auto-indent the range
-  yasqe.operation(function() {
-    yasqe.replaceRange(res, from, to);
-    var startLine = yasqe.posFromIndex(absStart).line;
-    var endLine = yasqe.posFromIndex(absStart + res.length).line;
+  sge.operation(function() {
+    sge.replaceRange(res, from, to);
+    var startLine = sge.posFromIndex(absStart).line;
+    var endLine = sge.posFromIndex(absStart + res.length).line;
     for (var i = startLine; i <= endLine; i++) {
-      yasqe.indentLine(i, "smart");
+      sge.indentLine(i, "smart");
     }
   });
 };
@@ -819,7 +819,7 @@ require("./sparql.js"), require("./defaults.js");
 root.$ = $;
 root.version = {
   CodeMirror: CodeMirror.version,
-  YASQE: require("../package.json").version,
+  SGE: require("../package.json").version,
   jquery: $.fn.jquery,
   "yasgui-utils": yutils.version
 };

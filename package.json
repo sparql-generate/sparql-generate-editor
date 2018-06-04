@@ -1,11 +1,11 @@
 {
-  "name": "yasgui-yasqe",
-  "description": "Yet Another SPARQL Query Editor",
-  "version": "2.11.14",
+  "name": "sparql-generate-editor",
+  "description": "Editor for SPARQL-Generate queries, forked from YASQE",
+  "version": "0.9.0",
   "main": "src/main.js",
   "license": "MIT",
-  "author": "Laurens Rietveld",
-  "homepage": "http://yasqe.yasgui.org",
+  "author": "Maxime Lefrançois",
+  "homepage": "http://sparql-generate.github.io/sparql-generate-editor",
   "scripts": {
     "dev": "gulp serve",
     "build": "gulp",
@@ -46,10 +46,10 @@
     "vinyl-transform": "1.0.0",
     "watchify": "^3.7.0"
   },
-  "bugs": "https://github.com/YASGUI/YASQE/issues/",
+  "bugs": "https://github.com/sparql-generate/sparql-generate-editor/issues",
   "keywords": [
     "JavaScript",
-    "SPARQL",
+    "SPARQL-Generate",
     "Editor",
     "Semantic Web",
     "Linked Data"
@@ -59,11 +59,16 @@
       "name": "Laurens Rietveld",
       "email": "laurens.rietveld@gmail.com",
       "web": "http://laurensrietveld.nl"
+    },
+    {
+      "name": "Maxime Lefrançois",
+      "email": "maxime.lefrançois@gmail.com",
+      "web": "http://maxime-lefrancois.info"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/YASGUI/YASQE.git"
+    "url": "https://github.com/sparql-generate/sparql-generate-editor.git"
   },
   "dependencies": {
     "codemirror": "5.17.0",

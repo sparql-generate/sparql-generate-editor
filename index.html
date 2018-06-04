@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>YASQE</title>
+    <title>SGE</title>
   <link rel="icon"  type="image/png" href="doc/imgs/favicon.png">
-  <link href="dist/yasqe.min.css" rel="stylesheet" type="text/css" />
+  <link href="dist/sge.min.css" rel="stylesheet" type="text/css" />
   <link href="doc/doc.min.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
   
-  <a href="https://github.com/thesmartenergy/sparql-generate-yasqe" target="_blank"><img style="z-index: 1; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+  <a href="https://github.com/sparql-generate/sparql-generate-editor" target="_blank"><img style="z-index: 1; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
    <!-- Fixed navbar -->
     <div class="navbar navbar-inverse" role="navigation">
       <div class="container">
@@ -22,7 +22,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">YASQE</a>
+          <a class="navbar-brand" href="#">SGE</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -39,11 +39,10 @@
 <div class="jumbotron ">
 		<div class="row">
 	        <div class="col-md-3">
-	        <img class="img-responsive" src="doc/imgs/yasqe.png">
+	        <img class="img-responsive" src="doc/imgs/sge.png">
 	        </div>
 	        <div class="col-md-9">
-	        	<h1>Yet Another Sparql Query Editor - <em>forked for SPARQL-Generate</em></h1>
-	        	<div style="text-align:right">Maintained by <a href="http://triply.cc" target="_blank"><img width="20%" src="doc/imgs/triply.svg"></a></div>
+	        	<h1>SPARQL-Generate Editor - <em>forked from YASQE</em></h1>
 	        </div>
       </div>
       </div>
@@ -55,32 +54,33 @@
 
       	<div class="row" id="aboutYQuery">
       	<div class="col-md-12">
-      	<h1>About YASQE for SPARQL-Generate</h1>
-      	<a href="">YASQE</a> is part of the regular <a target="_blank" href='http://about.yasgui.org'>YASGUI</a> web application. YASQE provides a simple syntax highlighted text area, bundled with features such as autocompletion, and the option to query SPARQL endpoints.<br/>
-        YASQE forked for <a target="_blank" href='https://w3id.org/sparql-generate/'>SPARQL-Generate</a> uses the best of YASQE and supports the SPARQL-Generate syntax, with parametrized IRIs and literals.
+      	<h1>About SPARQL-Generate Editor</h1>
+      	YASQE is part of the regular <a target="_blank" href='http://about.yasgui.org'>YASGUI</a> web application. YASQE provides a simple syntax highlighted text area, bundled with features such as autocompletion, and the option to query SPARQL endpoints.<br/>
+        SPARQL-Generate Editor is a fork for the <a target="_blank" href='https://w3id.org/sparql-generate/'>SPARQL-Generate</a> syntax.
       	<div id="showcase"></div>
-      	<code>var yasqe = YASQE(document.getElementById("showcase"));</code> <br>
-      	(or, if you would like to instantiate YASQE from an existing text area, use <code>var yasqe = YASQE.fromTextArea(document.getElementById('textAreaItem'));</code>
+      	<code>var sge = SGE(document.getElementById("showcase"));</code> <br>
+      	(or, if you would like to instantiate SGE from an existing text area, use <code>var sge = SGE.fromTextArea(document.getElementById('textAreaItem'));</code>
       	</div>
       	</div>
 
-      	<div class="row" id="thanks">
-      	<div class="col-md-12">
-      	<h1>Thanks!</h1>
+        <div class="row" id="thanks">
+        <div class="col-md-12">
+        <h1>Thanks!</h1>
         A big thanks goes out to:
         <ul>
         <li>Laurens Rietveld for his great work on the <a href="http://yasqe.yasgui.org/" target="_blank">YASQE library</a></li>
         </ul>
 
-      	A big thanks transitively goes out to:
-      	<ul>
-      	<li>The people behind the <a href="http://openuplabs.tso.co.uk/demos/sparqleditor" target="_blank">Flint SPARQL editor</a> for publishing the javascript SPARQL grammar</li>
-      	<li>Marijn Haverbeke for his great work on the <a href="http://codemirror.net" target="_blank">CodeMirror library</a> syntax highlighting library</li>
-      	<li>Pierre-Yves Vandenbussche and Bernard Vatant for their useful <a href='http://lov.okfn.org/' target="_blank">Linked Open Vocabularies service</a>, of which Laurens use the <a target="_blank" href="lov.okfn.org/dataset/lov/apidoc/">API</a> to autocomplete properties and classes
-      	<li>Richard Cyganiak for his simple but effective <a href='http://prefix.cc' target="_blank">Prefix.cc</a> service, which Laurens use for autocompleting prefixes.
-      	</ul>
-      	</div>
-      	</div>
+        A big thanks transitively goes out to:
+        <ul>
+        <li>The people behind the <a href="http://openuplabs.tso.co.uk/demos/sparqleditor" target="_blank">Flint SPARQL editor</a> for publishing the javascript SPARQL grammar</li>
+        <li>Marijn Haverbeke for his great work on the <a href="http://codemirror.net" target="_blank">CodeMirror library</a> syntax highlighting library</li>
+        <li>Pierre-Yves Vandenbussche and Bernard Vatant for their useful <a href='http://lov.okfn.org/' target="_blank">Linked Open Vocabularies service</a>, of which Laurens use the <a target="_blank" href="lov.okfn.org/dataset/lov/apidoc/">API</a> to autocomplete properties and classes
+        <li>Richard Cyganiak for his simple but effective <a href='http://prefix.cc' target="_blank">Prefix.cc</a> service, which Laurens use for autocompleting prefixes.
+        </ul>
+        </div>
+        </div>
+
 
 
 
@@ -88,19 +88,10 @@
 
 
 
- <script src="dist/yasqe.bundled.min.js"></script>
+ <script src="dist/sge.bundled.min.js"></script>
 <script src="doc/doc.min.js"></script>
 <script type="text/javascript">
-	var yasqe = YASQE(document.getElementById("showcase"), {
-    sparql: {
-      showQueryButton: false, 
-      callbacks:{
-        success: function(data){
-          console.log("success", data);
-        }
-      }
-    }
-  });
+	var sge = SGE(document.getElementById("showcase"));
 </script>
   </body>
 </html>
