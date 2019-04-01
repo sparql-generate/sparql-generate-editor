@@ -437,6 +437,7 @@ varOrXExpr ==> [var or xExpr].
 xNode ==> [xExpr].
 xNode ==> [xRDFLiteral].
 xNode ==> [xiri].
+xNode ==> [subTemplateQuery, '.'].
 %[new]
 xExpr ==> ['START_XEXPR',expression,'}'].
 %[109x]

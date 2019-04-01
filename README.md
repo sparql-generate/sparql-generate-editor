@@ -9,7 +9,7 @@ and a HOWTO for including it in your own web site, visit https://sparql-generate
 
 ```
 docker build -t sparql-generate-editor .
-docker run -it --rm --name sg-editor -p 4000:4000 -v c:/Users/maxime.lefrancois/netbeansprojects/sparql-generate/sparql-generate-editor:/home/node/app sparql-generate-editor /bin/sh
+docker run -it --rm --name sg-editor -p 4000:4000 -v c:/Users/peth-to-project:/home/node/app sparql-generate-editor /bin/sh
 ```
 
 then in the terminal:
@@ -17,4 +17,5 @@ then in the terminal:
 ```
 npm install
 npm run dev
+# or npm run build
 ```
