@@ -1,4 +1,2 @@
-cd lib/grammar
-./build.sh
-cd ../..
-npm run dev
+cd lib/grammar && ./build.sh
+cd ../.. && npm run dev
