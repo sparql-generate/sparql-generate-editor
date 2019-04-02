@@ -32,8 +32,12 @@ sparqlExtUnit ==> [extQuery].
 
 % [174]
 extQuery ==> 
-	[prologue,or(generateQuery,templateQuery,performQuery),valuesClause].
+	[prologue,*([or(selectQuery, generateQuery,templateQuery,performQuery),valuesClause])].
 
+% [175]
+selectQuery ==> 
+	[selectClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier].
+    
 % [175]
 generateQuery ==> 
 	['GENERATE',?([sourceSelector,?(varList)]),generateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier].
@@ -76,7 +80,7 @@ group ==>
 
 % [176]
 subTemplateQuery ==>
-	['TEMPLATE',or([varOrXIri,?(argList)],[?(argList),templateClause]),*(datasetClause),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
+	['TEMPLATE',or([varOrXIri,?(argList)],[?(varList),templateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
 
 % [176]
 pragma ==>
@@ -86,18 +90,18 @@ pragma ==>
 separator ==>
 	[';','SEPARATOR','=',string].
 
-
 % [176]
 performClause ==>
 	['{',performClauseSub,'}'].
 
 % [177]
 performClauseSub ==>
-	[*(performCall),*([[subPerformQuery,'.'],*(performCall)])].
+%	[*(performCall),*([[subPerformQuery,'.'],*(performCall)])].
+	[*([subPerformQuery , '.'])].
 	
 % [181a]
 subPerformQuery ==>
-	['PERFORM',or([varOrXIri,?(argList)],[?(argList),performClause]),*(datasetClause),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
+	[or( performCall, [ 'PERFORM' , or( performCall , [ ?(varList),performClause ] )]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
 
 % [181a]
 varList ==> 
@@ -112,7 +116,7 @@ performCall ==>
 
 % [181a]
 pExpression ==>
-	[or(expression,['{',constructTriples,'}'])].
+	[or(expression,['{',constructTriples,'}'],subGenerateQuery)].
 
 % [176]
 generateClause ==>
@@ -136,7 +140,7 @@ sourceClause ==>
 
 % [181a]
 subGenerateQuery ==>
-	['GENERATE',or([varOrXIri,?(argList)],[?(argList),generateClause]),*(datasetClause),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
+	['GENERATE',or([varOrXIri,?(argList)],[?(varList),generateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
 
 prologue ==> 
 	[*(baseDecl or prefixDecl)].
@@ -437,7 +441,6 @@ varOrXExpr ==> [var or xExpr].
 xNode ==> [xExpr].
 xNode ==> [xRDFLiteral].
 xNode ==> [xiri].
-xNode ==> [subTemplateQuery, '.'].
 %[new]
 xExpr ==> ['START_XEXPR',expression,'}'].
 %[109x]
