@@ -336,7 +336,10 @@ objectList ==>
 	[object,*([',',object])].
 %[80]
 object ==> 
-	[graphNode].
+	[or(graphNode,listNode)].
+%[80b]
+listNode ==> 
+	['LIST','(',expression,')'].
 %[81]
 triplesSameSubjectPath ==> [varOrXTerm,propertyListPathNotEmpty].
 triplesSameSubjectPath ==> [triplesNodePath,propertyListPath].
@@ -748,6 +751,7 @@ tm_keywords([
 'ITERATOR',
 'SOURCE',
 'ACCEPT',
+'LIST',
 
 'EXPRESSIONS',
 'SELECT',
