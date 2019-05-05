@@ -1,29 +1,29 @@
 "use strict";
 var $ = require("jquery"),
   utils = require("./utils.js"),
-  YASQE = require("./main.js");
+  SGE = require("./main.js");
 
-YASQE.getAjaxConfig = function(yasqe, callbackOrConfig) {
+SGE.getAjaxConfig = function(sge, callbackOrConfig) {
   var callback = typeof callbackOrConfig == "function" ? callbackOrConfig : null;
   var config = typeof callbackOrConfig == "object" ? callbackOrConfig : {};
 
-  if (yasqe.options.sparql) config = $.extend({}, yasqe.options.sparql, config);
+  if (sge.options.sparql) config = $.extend({}, sge.options.sparql, config);
 
   //for backwards compatability, make sure we copy sparql handlers to sparql callbacks
   if (config.handlers) $.extend(true, config.callbacks, config.handlers);
 
   if (!config.endpoint || config.endpoint.length == 0) return; // nothing to query!
-  var queryMode = yasqe.getQueryMode();
+  var queryMode = sge.getQueryMode();
   /**
 	 * initialize ajax config
 	 */
   var ajaxConfig = {
-    url: typeof config.endpoint == "function" ? config.endpoint(yasqe) : config.endpoint,
+    url: typeof config.endpoint == "function" ? config.endpoint(sge) : config.endpoint,
     type: queryMode == "update"
       ? "POST"
-      : typeof config.requestMethod == "function" ? config.requestMethod(yasqe) : config.requestMethod,
+      : typeof config.requestMethod == "function" ? config.requestMethod(sge) : config.requestMethod,
     headers: {
-      Accept: getAcceptHeader(yasqe, config)
+      Accept: getAcceptHeader(sge, config)
     }
   };
   if (config.xhrFields) ajaxConfig.xhrFields = config.xhrFields;
@@ -43,12 +43,12 @@ YASQE.getAjaxConfig = function(yasqe, callbackOrConfig) {
     //we need to do encoding ourselve, as jquery does not properly encode the url string
     //https://github.com/OpenTriply/YASGUI/issues/75
     var first = true;
-    $.each(yasqe.getUrlArguments(config), function(key, val) {
+    $.each(sge.getUrlArguments(config), function(key, val) {
       ajaxConfig.url += (first ? "?" : "&") + val.name + "=" + encodeURIComponent(val.value);
       first = false;
     });
   } else {
-    ajaxConfig.data = yasqe.getUrlArguments(config);
+    ajaxConfig.data = sge.getUrlArguments(config);
   }
   if (!handlerDefined && !callback) return; // ok, we can query, but have no callbacks. just stop now
 
@@ -62,14 +62,14 @@ YASQE.getAjaxConfig = function(yasqe, callbackOrConfig) {
 
   var queryStart = new Date();
   var updateYasqe = function() {
-    yasqe.lastQueryDuration = new Date() - queryStart;
-    YASQE.updateQueryButton(yasqe);
-    yasqe.setBackdrop(false);
+    sge.lastQueryDuration = new Date() - queryStart;
+    SGE.updateQueryButton(sge);
+    sge.setBackdrop(false);
   };
   //Make sure the query button is updated again on complete
   var completeCallbacks = [
     function() {
-      require("./main.js").signal(yasqe, "queryFinish", arguments);
+      require("./main.js").signal(sge, "queryFinish", arguments);
     },
     updateYasqe
   ];
@@ -81,19 +81,19 @@ YASQE.getAjaxConfig = function(yasqe, callbackOrConfig) {
   return ajaxConfig;
 };
 
-YASQE.executeQuery = function(yasqe, callbackOrConfig) {
-  YASQE.signal(yasqe, "query", yasqe, callbackOrConfig);
-  YASQE.updateQueryButton(yasqe, "busy");
-  yasqe.setBackdrop(true);
-  yasqe.xhr = $.ajax(YASQE.getAjaxConfig(yasqe, callbackOrConfig));
+SGE.executeQuery = function(sge, callbackOrConfig) {
+  SGE.signal(sge, "query", sge, callbackOrConfig);
+  SGE.updateQueryButton(sge, "busy");
+  sge.setBackdrop(true);
+  sge.xhr = $.ajax(SGE.getAjaxConfig(sge, callbackOrConfig));
 };
 
-YASQE.getUrlArguments = function(yasqe, config) {
-  var queryMode = yasqe.getQueryMode();
+SGE.getUrlArguments = function(sge, config) {
+  var queryMode = sge.getQueryMode();
   var data = [
     {
-      name: utils.getString(yasqe, yasqe.options.sparql.queryName),
-      value: config.getQueryForAjax ? config.getQueryForAjax(yasqe) : yasqe.getValue()
+      name: utils.getString(sge, sge.options.sparql.queryName),
+      value: config.getQueryForAjax ? config.getQueryForAjax(sge) : sge.getValue()
     }
   ];
 
@@ -127,29 +127,29 @@ YASQE.getUrlArguments = function(yasqe, config) {
 
   return data;
 };
-var getAcceptHeader = function(yasqe, config) {
+var getAcceptHeader = function(sge, config) {
   var acceptHeader = null;
   if (config.acceptHeader && !config.acceptHeaderGraph && !config.acceptHeaderSelect && !config.acceptHeaderUpdate) {
     //this is the old config. For backwards compatability, keep supporting it
     if (typeof config.acceptHeader == "function") {
-      acceptHeader = config.acceptHeader(yasqe);
+      acceptHeader = config.acceptHeader(sge);
     } else {
       acceptHeader = config.acceptHeader;
     }
   } else {
-    if (yasqe.getQueryMode() == "update") {
+    if (sge.getQueryMode() == "update") {
       acceptHeader = typeof config.acceptHeader == "function"
-        ? config.acceptHeaderUpdate(yasqe)
+        ? config.acceptHeaderUpdate(sge)
         : config.acceptHeaderUpdate;
     } else {
-      var qType = yasqe.getQueryType();
+      var qType = sge.getQueryType();
       if (qType == "DESCRIBE" || qType == "CONSTRUCT") {
         acceptHeader = typeof config.acceptHeaderGraph == "function"
-          ? config.acceptHeaderGraph(yasqe)
+          ? config.acceptHeaderGraph(sge)
           : config.acceptHeaderGraph;
       } else {
         acceptHeader = typeof config.acceptHeaderSelect == "function"
-          ? config.acceptHeaderSelect(yasqe)
+          ? config.acceptHeaderSelect(sge)
           : config.acceptHeaderSelect;
       }
     }
@@ -158,5 +158,5 @@ var getAcceptHeader = function(yasqe, config) {
 };
 
 module.exports = {
-  getAjaxConfig: YASQE.getAjaxConfig
+  getAjaxConfig: SGE.getAjaxConfig
 };

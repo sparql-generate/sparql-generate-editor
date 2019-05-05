@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Syntax Testing</title>
+  <link rel="icon"  type="image/png" href="doc/imgs/favicon.png">
+  <link href="dist/sge.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://perfectkb.github.io/yate/dist/yate.min.css" rel="stylesheet" type="text/css" />
+  <link href="doc/doc.min.css" rel="stylesheet" type="text/css" />
+  <style>
+.container {height:100%;width:98%}
+.sge .CodeMirror {height:100%;}
+</style>
+  </head>
+  <body>
+  
+ <div class="container" role="main">
+  	<div class="row">
+	        <div class="col-lg-1">
+	        <img class="img-responsive" src="doc/imgs/sge.png">
+	        </div>
+	        <div class="col-lg-11">
+	        	<h1>SPARQL-Generate Editor - <em>forked from YASQE</em></h1>
+	        </div>
+      </div>
+
+   <div class="row" id="aboutYQuery">
+       <div class="col-md-6">
+          <div id="input"></div>
+          <div id="graphx"></div>
+      </div>
+      <div class="col-md-6">
+              <div>
+                <p><label><input type="radio" id="norm" name="type" value="normalize" checked> Normalize</label></label>
+                  <label><input type="radio" id="norm" name="type" value="selectQuery"/>SelectQuery</label>
+                   <label><input type="radio" id="norm" name="type" value="execSelect"/>execSelect</label>
+                   <label><input type="radio" id="norm" name="type" value="execTemplate"/>execTemplate</label>
+               </p>
+                <pre id="message" style="white-space: pre-wrap;white-space: pre-wrap;">log</pre>
+              </div>
+              <div id="output"></div>
+      </div>
+   </div> 
+  </div>
+
+<script src="lib/jquery-3.3.1.min.js"></script>
+<script src="dist/sge.bundled.min.js"></script>
+<script src="doc/doc.min.js"></script>
+<script src="https://perfectkb.github.io/yate/dist/yate.bundled.min.js"></script>
+<script type="text/javascript">
+  var input = SGE(document.getElementById("input")); 
+  var graphx = YATE(document.getElementById("graphx"));
+  var output = SGE(document.getElementById("output"));
+
+
+$(document).ready(function() {
+    
+    console.log("hello");
+
+});
+
+var timers = [];
+
+var validate = function() {
+
+  for(var timer of timers) {
+    window.clearTimeout(timer);
+  }
+  timers = [];
+  timers.push(window.setTimeout(send, 50));
+}
+
+input.on("change", validate);
+graphx.on("change", validate)
+
+var send = function() {
+    url = "http://localhost:8080/api/" + $('input[name=type]:checked').val();
+    //if($("#norm").is(":checked")) {
+      // url = "http://localhost:8080/api/normalize";
+    //  url = "http://localhost:8080/api/execTemplate";
+    //} else {
+    //  url = "http://localhost:8080/api/string";
+  //}
+    $.ajax
+    ({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: url,
+        accepts: {
+          mycustomtype: 'application/json'
+        },
+        contentType : 'application/json',
+        dataType: 'json',
+        data: JSON.stringify( { "query": input.getValue() , "graph": graphx.getValue() } ),
+        success: function (data) {
+          console.log(data);
+          output.setValue("");
+          if(data.query) {
+            output.setValue(data.query);
+          }
+          if(data.log) {
+            $("#message").html(data.log.replace(/[<]/g,'&lt;'));
+          } else {
+            $("#message").html("no log");
+          }
+        }
+    })
+}
+
+</script>
+  </body>
+</html>

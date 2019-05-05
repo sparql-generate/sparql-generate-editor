@@ -24,51 +24,127 @@ stephen.cresswell@tso.co.uk
 :-dynamic '==>'/2.
 
 
-sparql11 ==> [generateUnit, $].
+sparql11 ==> [sparqlExtUnit, $].
 
 
 % [173]
-generateUnit ==> [generate].
+sparqlExtUnit ==> [extQuery].
 
 % [174]
-generate ==> 
-	[prologue,or(generateQuery1,generateQuery2)].
+extQuery ==> 
+	[prologue,*([or(selectQuery, generateQuery, templateQuery, performQuery),valuesClause])].
 
-% [175a]
-generateQuery1 ==> 
-	['GENERATE',generateTemplate,*(datasetClause),*(iteratorOrSourceClause),?(whereClause),solutionModifier].
+% [175]
+selectQuery ==> 
+	[selectClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier].
     
-% [175b]
-generateQuery2 ==> 
-	[*(datasetClause),*(iteratorOrSourceClause),?(whereClause),solutionModifier,'CONSTRUCT',generateTemplate].
+% [175]
+generateQuery ==> 
+	['GENERATE',?([sourceSelector,?(varList)]),generateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier, ?(postSelectClause)].
+    
+% [175]
+templateQuery ==> 
+	['TEMPLATE',?([sourceSelector,?(varList)]),templateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier
+%, ?(postSelectClause)
+	].
+    
+% [175]
+performQuery ==> 
+	['PERFORM',?([sourceSelector,?(varList)]),performClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier, ?(postSelectClause)].
+    
+% [175]
+varList ==> ['NIL'].
+varList ==> ['(', var, *( [',',var] ) , ')'].
     
 % [176]
-generateTemplate ==>
-	['{',generateTemplateSub,'}'].
+templateClause ==>
+	['{',*(tExpression),?(separator),'}'].
+    
+% [176]
+tExpression ==>
+	[or(primaryExpressionNotBracketted, box, tformat, group, [subTemplateQuery, '.'])].
+
+% [176]
+primaryExpressionNotBracketted ==>
+	[or(builtInCall, xiriOrFunction, xRDFLiteral, numericLiteral, booleanLiteral, var)].
+
+% [176]
+box ==>
+	['BOX','{',*(tExpression),'}'].
+
+% [176]
+tformat ==>
+	['FORMAT','{',primaryExpressionNotBracketted,+(tExpression),'}'].
+
+% [176]
+group ==>
+	['GROUP',?('DISTINCT'),'{',*(or(primaryExpressionNotBracketted,box,tformat)),?(separator),'}'].
+
+% [176]
+subTemplateQuery ==>
+	['TEMPLATE',or([varOrXIri,?(argList)],[?(varList),templateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier
+%, ?(postSelectClause)
+].
+
+% [176]
+pragma ==>
+	['PRAGMA','{','}'].
+
+% [176]
+separator ==>
+	[';','SEPARATOR','=',string].
+
+% [176]
+performClause ==>
+	['{',performClauseSub,'}'].
 
 % [177]
-generateTemplateSub ==>
-	[?(constructTriples),*([or(subGenerateQuery1,subGenerateQuery2),?(constructTriples)])].
+performClauseSub ==>
+%	[*(performCall),*([[subPerformQuery,'.'],*(performCall)])].
+	[*([subPerformQuery , '.'])].
+	
+% [181a]
+subPerformQuery ==>
+	[or( performCall, [ 'PERFORM' , or( performCall , [ ?(varList),performClause ] )]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier, ?(postSelectClause)].
+
+% [181a]
+varList ==> 
+	['NIL'].
+varList ==> 
+	['(',var,*([',',var]),')'].
+
+
+% [181a]
+performCall ==>
+	[varOrXIri,?(or('NIL',['(',pExpression,*([',',pExpression]),')']))].
+
+% [181a]
+pExpression ==>
+	[or(expression,['{',constructTriples,'}'],subGenerateQuery)].
+
+% [176]
+generateClause ==>
+	['{',generateClauseSub,'}'].
+
+% [177]
+generateClauseSub ==>
+	[?(constructTriples),*([[subGenerateQuery,'.'],?(constructTriples)])].
 	
 % [178]
-iteratorOrSourceClause ==>
+bindingClauses ==>
 	[or(iteratorClause,sourceClause,bind)].
 
 % [179]
 iteratorClause ==>
-	[ ('ITERATOR' or 'ITERATE') ,functionCall,'AS',var].
+	[ 'ITERATOR' ,functionCall,'AS',+(var)].
 
 % [180]
 sourceClause ==>
-	[('SOURCE' or 'LOOK UP'),varOrIri,?(['ACCEPT',varOrIri]),'AS',var].
+	['SOURCE',varOrXIri,?(['ACCEPT',varOrXIri]),'AS',var].
 
 % [181a]
-subGenerateQuery1 ==>
-	['GENERATE',(sourceSelector or generateTemplate),*(iteratorOrSourceClause),?(whereClause),solutionModifier,'.'].
-
-% [181b]
-subGenerateQuery2 ==>
-	[*(iteratorOrSourceClause),?(whereClause),solutionModifier,'CONSTRUCT',(sourceSelector or generateTemplate),'.'].
+subGenerateQuery ==>
+	['GENERATE',or([varOrXIri,?(argList)],[?(varList),generateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier, ?(postSelectClause)].
 
 prologue ==> 
 	[*(baseDecl or prefixDecl)].
@@ -88,6 +164,11 @@ selectClause ==>
 	?('DISTINCT' or 'REDUCED'),
 	(+(var or ['(',expression,'AS',var,')']) or '*')].
 
+% [9]
+postSelectClause ==> 
+	['EXPRESSIONS',
+	+(['(',expression,'AS',var,')'])].
+
 datasetClause ==> 
 	['FROM',defaultGraphClause or namedGraphClause]. 
 
@@ -101,7 +182,7 @@ sourceSelector ==>
 	[iriRef].
 
 whereClause ==> 
-	[?('WHEREVER' or 'WHERE'),groupGraphPattern].
+	[?('WHERE'),groupGraphPattern].
 
 %[18]
 solutionModifier ==> 
@@ -180,10 +261,10 @@ graphPatternNotTriples ==> [inlineData].
 optionalGraphPattern ==> ['OPTIONAL',groupGraphPattern].
 %[58]
 graphGraphPattern ==> 
-	['GRAPH',varOrIri,groupGraphPattern].
+	['GRAPH',varOrXIri,groupGraphPattern].
 %[59]
 serviceGraphPattern ==> 
-	['SERVICE',?('SILENT'),varOrIri,groupGraphPattern].
+	['SERVICE',?('SILENT'),varOrXIri,groupGraphPattern].
 %[60]
 bind ==> 
 	['BIND','(',expression,'AS',var,')'].
@@ -236,7 +317,7 @@ constructTriples ==>
 	[triplesSameSubject,?(['.',?(constructTriples)])].
 %[75]
 triplesSameSubject ==>
-	[varOrTerm,propertyListNotEmpty].
+	[varOrXTerm,propertyListNotEmpty].
 triplesSameSubject ==>
 	[triplesNode,propertyList].
 %[76]
@@ -248,16 +329,19 @@ propertyListNotEmpty ==>
 % storeProperty is a dummy for side-effect of remembering property
 storeProperty==>[].
 %[78]
-verb ==> [storeProperty,varOrTerm].
+verb ==> [storeProperty,varOrXTerm].
 verb ==> [storeProperty,'a'].
 %[79]
 objectList ==> 
 	[object,*([',',object])].
 %[80]
 object ==> 
-	[graphNode].
+	[or(graphNode,listNode)].
+%[80b]
+listNode ==> 
+	['LIST','(',expression,')'].
 %[81]
-triplesSameSubjectPath ==> [varOrTerm,propertyListPathNotEmpty].
+triplesSameSubjectPath ==> [varOrXTerm,propertyListPathNotEmpty].
 triplesSameSubjectPath ==> [triplesNodePath,propertyListPath].
 %[82]
 propertyListPath ==> [propertyListNotEmpty].
@@ -348,17 +432,17 @@ collection ==> ['(',+(graphNode),')'].
 %[103]
 collectionPath ==> ['(',+(graphNodePath),')'].
 %[104]
-graphNode ==> [varOrTerm].
+graphNode ==> [varOrXTerm].
 graphNode ==> [triplesNode].
 %[105]
-graphNodePath ==> [varOrTerm].
+graphNodePath ==> [varOrXTerm].
 graphNodePath ==> [triplesNodePath].
 %[106x]
-varOrTerm ==> [var].
-varOrTerm ==> [xTerm].
+varOrXTerm ==> [var].
+varOrXTerm ==> [xTerm].
 %[107x]
-varOrIri ==> [varOrXExpr].
-varOrIri ==> [xiri].
+varOrXIri ==> [varOrXExpr].
+varOrXIri ==> [xiri].
 %[108]
 var ==> ['VAR1'].
 var ==> ['VAR2'].
@@ -510,7 +594,7 @@ aggregate ==>
 	['GROUP_CONCAT','(',
 	 ?('DISTINCT'),
 	 expression,
-	 ?([';','SEPARATOR','=',string]),
+	 ?(separator),
 	 ')'].
 %[128]
 xiriOrFunction ==> [xiri,?(argList)].
@@ -660,13 +744,16 @@ tm_keywords([
 'PREFIX',
 
 'GENERATE',
+'TEMPLATE',
+'BOX',
+'FORMAT',
+'PERFORM',
 'ITERATOR',
-'ITERATE',
 'SOURCE',
-'LOOK UP',
 'ACCEPT',
-'WHEREVER',
+'LIST',
 
+'EXPRESSIONS',
 'SELECT',
 'CONSTRUCT',
 'DESCRIBE',

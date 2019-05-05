@@ -1,11 +1,11 @@
 /**
- * The default options of YASQE (check the CodeMirror documentation for even
+ * The default options of SGE (check the CodeMirror documentation for even
  * more options, such as disabling line numbers, or changing keyboard shortcut
- * keys). Either change the default options by setting YASQE.defaults, or by
- * passing your own options as second argument to the YASQE constructor
+ * keys). Either change the default options by setting SGE.defaults, or by
+ * passing your own options as second argument to the SGE constructor
  */
-var $ = require("jquery"), YASQE = require("./main.js");
-YASQE.defaults = $.extend(true, {}, YASQE.defaults, {
+var $ = require("jquery"), SGE = require("./main.js");
+SGE.defaults = $.extend(true, {}, SGE.defaults, {
   mode: "sparql11",
   /**
 	 * Query string
@@ -19,7 +19,7 @@ YASQE.defaults = $.extend(true, {}, YASQE.defaults, {
   lineWrapping: true,
   backdrop: false,
   foldGutter: {
-    rangeFinder: new YASQE.fold.combine(YASQE.fold.brace, YASQE.fold.prefix)
+    rangeFinder: new SGE.fold.combine(SGE.fold.brace, SGE.fold.prefix)
   },
   collapsePrefixesOnLoad: false,
   gutters: ["gutterErrorBar", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
@@ -37,38 +37,38 @@ YASQE.defaults = $.extend(true, {}, YASQE.defaults, {
 	 * @type object
 	 */
   extraKeys: {
-    //					"Ctrl-Space" : function(yasqe) {
-    //						YASQE.autoComplete(yasqe);
+    //					"Ctrl-Space" : function(sge) {
+    //						SGE.autoComplete(sge);
     //					},
-    "Ctrl-Space": YASQE.autoComplete,
+    "Ctrl-Space": SGE.autoComplete,
 
-    "Cmd-Space": YASQE.autoComplete,
-    "Ctrl-D": YASQE.deleteLine,
-    "Ctrl-K": YASQE.deleteLine,
-    "Shift-Ctrl-K": YASQE.deleteLine,
-    "Cmd-D": YASQE.deleteLine,
-    "Cmd-K": YASQE.deleteLine,
-    "Ctrl-/": YASQE.commentLines,
-    "Cmd-/": YASQE.commentLines,
-    "Ctrl-Alt-Down": YASQE.copyLineDown,
-    "Ctrl-Alt-Up": YASQE.copyLineUp,
-    "Cmd-Alt-Down": YASQE.copyLineDown,
-    "Cmd-Alt-Up": YASQE.copyLineUp,
-    "Shift-Ctrl-F": YASQE.doAutoFormat,
-    "Shift-Cmd-F": YASQE.doAutoFormat,
-    "Ctrl-]": YASQE.indentMore,
-    "Cmd-]": YASQE.indentMore,
-    "Ctrl-[": YASQE.indentLess,
-    "Cmd-[": YASQE.indentLess,
-    "Ctrl-S": YASQE.storeQuery,
-    "Cmd-S": YASQE.storeQuery,
-    "Ctrl-Enter": YASQE.executeQuery,
-    "Cmd-Enter": YASQE.executeQuery,
-    F11: function(yasqe) {
-      yasqe.setOption("fullScreen", !yasqe.getOption("fullScreen"));
+    "Cmd-Space": SGE.autoComplete,
+    "Ctrl-D": SGE.deleteLine,
+    "Ctrl-K": SGE.deleteLine,
+    "Shift-Ctrl-K": SGE.deleteLine,
+    "Cmd-D": SGE.deleteLine,
+    "Cmd-K": SGE.deleteLine,
+    "Ctrl-/": SGE.commentLines,
+    "Cmd-/": SGE.commentLines,
+    "Ctrl-Alt-Down": SGE.copyLineDown,
+    "Ctrl-Alt-Up": SGE.copyLineUp,
+    "Cmd-Alt-Down": SGE.copyLineDown,
+    "Cmd-Alt-Up": SGE.copyLineUp,
+    "Shift-Ctrl-F": SGE.doAutoFormat,
+    "Shift-Cmd-F": SGE.doAutoFormat,
+    "Ctrl-]": SGE.indentMore,
+    "Cmd-]": SGE.indentMore,
+    "Ctrl-[": SGE.indentLess,
+    "Cmd-[": SGE.indentLess,
+    "Ctrl-S": SGE.storeQuery,
+    "Cmd-S": SGE.storeQuery,
+    "Ctrl-Enter": SGE.executeQuery,
+    "Cmd-Enter": SGE.executeQuery,
+    F11: function(sge) {
+      sge.setOption("fullScreen", !sge.getOption("fullScreen"));
     },
-    Esc: function(yasqe) {
-      if (yasqe.getOption("fullScreen")) yasqe.setOption("fullScreen", false);
+    Esc: function(sge) {
+      if (sge.getOption("fullScreen")) sge.setOption("fullScreen", false);
     }
   },
   cursorHeight: 0.9,
@@ -78,35 +78,35 @@ YASQE.defaults = $.extend(true, {}, YASQE.defaults, {
 	 * By default, this feature is enabled, and the only the query value is appended to the link.
 	 * ps. This function should return an object which is parseable by jQuery.param (http://api.jquery.com/jQuery.param/)
 	 */
-  createShareLink: YASQE.createShareLink,
+  createShareLink: SGE.createShareLink,
 
   createShortLink: null,
 
   /**
 	 * Consume links shared by others, by checking the url for arguments coming from a query link. Defaults by only checking the 'query=' argument in the url
 	 */
-  consumeShareLink: YASQE.consumeShareLink,
+  consumeShareLink: SGE.consumeShareLink,
 
   /**
-	 * Change persistency settings for the YASQE query value. Setting the values
+	 * Change persistency settings for the SGE query value. Setting the values
 	 * to null, will disable persistancy: nothing is stored between browser
 	 * sessions Setting the values to a string (or a function which returns a
 	 * string), will store the query in localstorage using the specified string.
-	 * By default, the ID is dynamically generated using the closest dom ID, to avoid collissions when using multiple YASQE items on one
+	 * By default, the ID is dynamically generated using the closest dom ID, to avoid collissions when using multiple SGE items on one
 	 * page
 	 *
 	 * @type function|string
 	 */
-  persistent: function(yasqe) {
-    return "yasqe_" + $(yasqe.getWrapperElement()).closest("[id]").attr("id") + "_queryVal";
+  persistent: function(sge) {
+    return "yasqe_" + $(sge.getWrapperElement()).closest("[id]").attr("id") + "_queryVal";
   },
 
   /**
 	 * Settings for querying sparql endpoints
 	 */
   sparql: {
-    queryName: function(yasqe) {
-      return yasqe.getQueryMode();
+    queryName: function(sge) {
+      return sge.getQueryMode();
     },
     showQueryButton: false,
 

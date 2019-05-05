@@ -5,20 +5,20 @@
  * http://bla might result in two tokens: http:// and bla. We'll want to combine
  * these
  * 
- * @param yasqe {doc}
+ * @param sge {doc}
  * @param token {object}
  * @param cursor {object}
  * @return token {object}
- * @method YASQE.getCompleteToken
+ * @method SGE.getCompleteToken
  */
-var getCompleteToken = function(yasqe, token, cur) {
+var getCompleteToken = function(sge, token, cur) {
   if (!cur) {
-    cur = yasqe.getCursor();
+    cur = sge.getCursor();
   }
   if (!token) {
-    token = yasqe.getTokenAt(cur);
+    token = sge.getTokenAt(cur);
   }
-  var prevToken = yasqe.getTokenAt({
+  var prevToken = sge.getTokenAt({
     line: cur.line,
     ch: token.start
   });
@@ -26,7 +26,7 @@ var getCompleteToken = function(yasqe, token, cur) {
   if (prevToken.type != null && prevToken.type != "ws" && token.type != null && token.type != "ws") {
     token.start = prevToken.start;
     token.string = prevToken.string + token.string;
-    return getCompleteToken(yasqe, token, {
+    return getCompleteToken(sge, token, {
       line: cur.line,
       ch: prevToken.start
     }); // recursively, might have multiple tokens which it should include
@@ -39,19 +39,19 @@ var getCompleteToken = function(yasqe, token, cur) {
     return token;
   }
 };
-var getPreviousNonWsToken = function(yasqe, line, token) {
-  var previousToken = yasqe.getTokenAt({
+var getPreviousNonWsToken = function(sge, line, token) {
+  var previousToken = sge.getTokenAt({
     line: line,
     ch: token.start
   });
   if (previousToken != null && previousToken.type == "ws") {
-    previousToken = getPreviousNonWsToken(yasqe, line, previousToken);
+    previousToken = getPreviousNonWsToken(sge, line, previousToken);
   }
   return previousToken;
 };
-var getNextNonWsToken = function(yasqe, lineNumber, charNumber) {
+var getNextNonWsToken = function(sge, lineNumber, charNumber) {
   if (charNumber == undefined) charNumber = 1;
-  var token = yasqe.getTokenAt({
+  var token = sge.getTokenAt({
     line: lineNumber,
     ch: charNumber
   });
@@ -59,7 +59,7 @@ var getNextNonWsToken = function(yasqe, lineNumber, charNumber) {
     return null;
   }
   if (token.type == "ws") {
-    return getNextNonWsToken(yasqe, lineNumber, token.end + 1);
+    return getNextNonWsToken(sge, lineNumber, token.end + 1);
   }
   return token;
 };

@@ -7,7 +7,7 @@ var $ = require("jquery"), utils = require("./utils.js");
  * 		position tooltip within codemirror frame as much as possible, to avoid z-index issues with external things on page
  * 		use html as content
  */
-module.exports = function(yasqe, parent, html) {
+module.exports = function(sge, parent, html) {
   var parent = $(parent);
   var tooltip;
   parent.hover(
@@ -25,8 +25,8 @@ module.exports = function(yasqe, parent, html) {
 	 * only need to take into account top and bottom offset for this usecase
 	 */
   var repositionTooltip = function() {
-    if ($(yasqe.getWrapperElement()).offset().top >= tooltip.offset().top) {
-      //shit, move the tooltip down. The tooltip now hovers over the top edge of the yasqe instance
+    if ($(sge.getWrapperElement()).offset().top >= tooltip.offset().top) {
+      //shit, move the tooltip down. The tooltip now hovers over the top edge of the sge instance
       tooltip.css("bottom", "auto");
       tooltip.css("top", "26px");
     }

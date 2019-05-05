@@ -1,17 +1,18 @@
 {
-  "name": "yasqe",
-  "version": "2.11.14",
-  "homepage": "http://yasqe.yasgui.org",
+  "name": "sparql-generate-editor",
+  "description": "An editor for SPARQL-Generate queries, forked from SGE",
+  "version": "0.9.0",
+  "homepage": "http://sparql-generate.github.io/sparql-generate-editor",
   "authors": [
-    "Laurens Rietveld <laurens.rietveld@gmail.com>"
+    "Maxime Lefrançois <maxime.lefrancois@emse.com>"
   ],
-  "description": "Yet Another SPARQL Query Editor",
-  "main": "dist/yasqe.bundled.min.js",
+  "main": "dist/sge.bundled.min.js",
   "moduleType": [
     "globals"
   ],
   "keywords": [
     "SPARQL",
+    "SPARQL-Generate",
     "Linked Data"
   ],
   "license": "MIT",

@@ -1,11 +1,11 @@
 "use strict";
 var $ = require("jquery");
-module.exports = function(yasqe) {
+module.exports = function(sge) {
   return {
     isValidCompletionPosition: function() {
-      var token = yasqe.getTokenAt(yasqe.getCursor());
+      var token = sge.getTokenAt(sge.getCursor());
       if (token.type != "ws") {
-        token = yasqe.getCompleteToken(token);
+        token = sge.getCompleteToken(token);
         if (token && token.string.indexOf("?") == 0) {
           return true;
         }
@@ -16,7 +16,7 @@ module.exports = function(yasqe) {
       if (token.trim().length == 0) return []; //nothing to autocomplete
       var distinctVars = {};
       //do this outside of codemirror. I expect jquery to be faster here (just finding dom elements with classnames)
-      $(yasqe.getWrapperElement()).find(".cm-atom").each(function() {
+      $(sge.getWrapperElement()).find(".cm-atom").each(function() {
         var variable = this.innerHTML;
         if (variable.indexOf("?") == 0) {
           //ok, lets check if the next element in the div is an atom as well. In that case, they belong together (may happen sometimes when query is not syntactically valid)
