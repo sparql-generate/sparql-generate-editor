@@ -32,7 +32,7 @@ sparqlExtUnit ==> [extQuery].
 
 % [174]
 extQuery ==> 
-	[prologue,*([or(selectQuery, generateQuery,templateQuery,performQuery),valuesClause])].
+	[prologue,*([or(selectQuery, generateQuery, templateQuery, performQuery),valuesClause])].
 
 % [175]
 selectQuery ==> 
@@ -40,15 +40,17 @@ selectQuery ==>
     
 % [175]
 generateQuery ==> 
-	['GENERATE',?([sourceSelector,?(varList)]),generateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier].
+	['GENERATE',?([sourceSelector,?(varList)]),generateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier, ?(postSelectClause)].
     
 % [175]
 templateQuery ==> 
-	['TEMPLATE',?([sourceSelector,?(varList)]),templateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier].
+	['TEMPLATE',?([sourceSelector,?(varList)]),templateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier
+%, ?(postSelectClause)
+	].
     
 % [175]
 performQuery ==> 
-	['PERFORM',?([sourceSelector,?(varList)]),performClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier].
+	['PERFORM',?([sourceSelector,?(varList)]),performClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier, ?(postSelectClause)].
     
 % [175]
 varList ==> ['NIL'].
@@ -80,7 +82,9 @@ group ==>
 
 % [176]
 subTemplateQuery ==>
-	['TEMPLATE',or([varOrXIri,?(argList)],[?(varList),templateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
+	['TEMPLATE',or([varOrXIri,?(argList)],[?(varList),templateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier
+%, ?(postSelectClause)
+].
 
 % [176]
 pragma ==>
@@ -101,7 +105,7 @@ performClauseSub ==>
 	
 % [181a]
 subPerformQuery ==>
-	[or( performCall, [ 'PERFORM' , or( performCall , [ ?(varList),performClause ] )]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
+	[or( performCall, [ 'PERFORM' , or( performCall , [ ?(varList),performClause ] )]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier, ?(postSelectClause)].
 
 % [181a]
 varList ==> 
@@ -140,7 +144,7 @@ sourceClause ==>
 
 % [181a]
 subGenerateQuery ==>
-	['GENERATE',or([varOrXIri,?(argList)],[?(varList),generateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
+	['GENERATE',or([varOrXIri,?(argList)],[?(varList),generateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier, ?(postSelectClause)].
 
 prologue ==> 
 	[*(baseDecl or prefixDecl)].
@@ -159,6 +163,11 @@ selectClause ==>
 	['SELECT',
 	?('DISTINCT' or 'REDUCED'),
 	(+(var or ['(',expression,'AS',var,')']) or '*')].
+
+% [9]
+postSelectClause ==> 
+	['EXPRESSIONS',
+	+(['(',expression,'AS',var,')'])].
 
 datasetClause ==> 
 	['FROM',defaultGraphClause or namedGraphClause]. 
@@ -740,6 +749,7 @@ tm_keywords([
 'SOURCE',
 'ACCEPT',
 
+'EXPRESSIONS',
 'SELECT',
 'CONSTRUCT',
 'DESCRIBE',
