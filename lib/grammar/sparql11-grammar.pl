@@ -66,7 +66,7 @@ tExpression ==>
 
 % [176]
 primaryExpressionNotBracketted ==>
-	[or(builtInCall, xiriOrFunction, xRDFLiteral, numericLiteral, booleanLiteral, var)].
+	[or(builtInCall, xiriOrFunction, xRDFLiteral, numericLiteral, booleanLiteral, var, aggregate)].
 
 % [176]
 box ==>
