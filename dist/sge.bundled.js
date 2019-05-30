@@ -99,10 +99,6 @@ module.exports = {table:
      "VALUES": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "$": []}, 
   "*[&&,valueLogical]" : {
      "&&": ["[&&,valueLogical]","*[&&,valueLogical]"], 
@@ -279,12 +275,6 @@ module.exports = {table:
      "BIND": ["[graphPatternNotTriples,?.,?triplesBlock]","*[graphPatternNotTriples,?.,?triplesBlock]"], 
      "VALUES": ["[graphPatternNotTriples,?.,?triplesBlock]","*[graphPatternNotTriples,?.,?triplesBlock]"], 
      "}": []}, 
-  "*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]" : {
-     "GENERATE": ["[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "TEMPLATE": ["[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "PERFORM": ["[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "SELECT": ["[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "$": []}, 
   "*[subPerformQuery,.]" : {
      "PERFORM": ["[subPerformQuery,.]","*[subPerformQuery,.]"], 
      "VAR1": ["[subPerformQuery,.]","*[subPerformQuery,.]"], 
@@ -366,10 +356,6 @@ module.exports = {table:
      "VALUES": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "$": []}, 
   "*dataBlockValue" : {
      "UNDEF": ["dataBlockValue","*dataBlockValue"], 
@@ -407,10 +393,6 @@ module.exports = {table:
      "BIND": [], 
      "EXPRESSIONS": [], 
      "VALUES": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "$": []}, 
   "*graphNode" : {
      "(": ["graphNode","*graphNode"], 
@@ -548,10 +530,6 @@ module.exports = {table:
      "HAVING": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "*havingCondition" : {
@@ -621,10 +599,6 @@ module.exports = {table:
      "ORDER": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "*or([[ (,*dataBlockValue,)],NIL])" : {
@@ -704,10 +678,10 @@ module.exports = {table:
   "*or([baseDecl,prefixDecl])" : {
      "BASE": ["or([baseDecl,prefixDecl])","*or([baseDecl,prefixDecl])"], 
      "PREFIX": ["or([baseDecl,prefixDecl])","*or([baseDecl,prefixDecl])"], 
-     "$": [], 
      "GENERATE": [], 
      "TEMPLATE": [], 
      "PERFORM": [], 
+     "FUNCTION": [], 
      "SELECT": []}, 
   "*or([primaryExpressionNotBracketted,box,tformat])" : {
      "BOX": ["or([primaryExpressionNotBracketted,box,tformat])","*or([primaryExpressionNotBracketted,box,tformat])"], 
@@ -816,10 +790,6 @@ module.exports = {table:
      "BIND": [], 
      "FROM": [], 
      "VALUES": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "$": []}, 
   "*orderCondition" : {
      "ASC": ["orderCondition","*orderCondition"], 
@@ -891,10 +861,6 @@ module.exports = {table:
      "OFFSET": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "*tExpression" : {
@@ -1008,10 +974,6 @@ module.exports = {table:
      ".": [], 
      "VALUES": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "$": []}, 
   "+[ (,expression,AS,var,)]" : {
      "(": ["[ (,expression,AS,var,)]","*[ (,expression,AS,var,)]"]}, 
@@ -1627,10 +1589,10 @@ module.exports = {table:
   "?argList" : {
      "NIL": ["argList"], 
      "(": ["argList"], 
+     "}": [], 
      "AS": [], 
      ")": [], 
      ",": [], 
-     "}": [], 
      "||": [], 
      "&&": [], 
      "=": [], 
@@ -1800,10 +1762,6 @@ module.exports = {table:
      "HAVING": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "?havingClause" : {
@@ -1816,10 +1774,6 @@ module.exports = {table:
      "ORDER": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "?limitClause" : {
@@ -1829,10 +1783,6 @@ module.exports = {table:
      "VALUES": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "?limitOffsetClauses" : {
@@ -1843,10 +1793,6 @@ module.exports = {table:
      "VALUES": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "?offsetClause" : {
@@ -1856,10 +1802,6 @@ module.exports = {table:
      "VALUES": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "?or([DISTINCT,REDUCED])" : {
@@ -1896,10 +1838,10 @@ module.exports = {table:
   "?or([LANGTAG,[^^,xiri]])" : {
      "LANGTAG": ["or([LANGTAG,[^^,xiri]])"], 
      "^^": ["or([LANGTAG,[^^,xiri]])"], 
+     "}": [], 
      "AS": [], 
      ")": [], 
      ",": [], 
-     "}": [], 
      "||": [], 
      "&&": [], 
      "=": [], 
@@ -2120,10 +2062,6 @@ module.exports = {table:
      "OFFSET": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "}": [], 
      "$": []}, 
   "?pathMod" : {
@@ -2172,10 +2110,6 @@ module.exports = {table:
      "VALUES": [], 
      ")": [], 
      ",": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "$": []}, 
   "?separator" : {
      ";": ["separator"], 
@@ -2236,10 +2170,6 @@ module.exports = {table:
      "OFFSET": [], 
      "EXPRESSIONS": [], 
      "VALUES": [], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "$": []}, 
   "[ (,*dataBlockValue,)]" : {
      "(": ["(","*dataBlockValue",")"]}, 
@@ -3041,15 +2971,17 @@ module.exports = {table:
      "NIL": ["NIL"], 
      "(": ["(","expression","*[,,expression]",")"]}, 
   "extQuery" : {
-     "GENERATE": ["prologue","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "TEMPLATE": ["prologue","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "PERFORM": ["prologue","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "SELECT": ["prologue","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "BASE": ["prologue","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "PREFIX": ["prologue","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
-     "$": ["prologue","*[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"]}, 
+     "GENERATE": ["prologue","or([[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause],function])"], 
+     "TEMPLATE": ["prologue","or([[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause],function])"], 
+     "PERFORM": ["prologue","or([[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause],function])"], 
+     "FUNCTION": ["prologue","or([[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause],function])"], 
+     "SELECT": ["prologue","or([[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause],function])"], 
+     "BASE": ["prologue","or([[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause],function])"], 
+     "PREFIX": ["prologue","or([[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause],function])"]}, 
   "filter" : {
      "FILTER": ["FILTER","constraint"]}, 
+  "function" : {
+     "FUNCTION": ["FUNCTION","sourceSelector","varList","{","primaryExpression","}"]}, 
   "functionCall" : {
      "IRI_REF": ["iriRef","argList"], 
      "PNAME_LN": ["iriRef","argList"], 
@@ -3880,6 +3812,12 @@ module.exports = {table:
   "or([[integer,or([[,,or([},[integer,}]])],}])],[,,integer,}]])" : {
      "INTEGER": ["[integer,or([[,,or([},[integer,}]])],}])]"], 
      ",": ["[,,integer,}]"]}, 
+  "or([[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause],function])" : {
+     "GENERATE": ["[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
+     "TEMPLATE": ["[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
+     "PERFORM": ["[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
+     "SELECT": ["[or([selectQuery,generateQuery,templateQuery,performQuery]),valuesClause]"], 
+     "FUNCTION": ["function"]}, 
   "or([[varOrXIri,?argList],[?varList,generateClause]])" : {
      "VAR1": ["[varOrXIri,?argList]"], 
      "VAR2": ["[varOrXIri,?argList]"], 
@@ -4857,10 +4795,10 @@ module.exports = {table:
   "prologue" : {
      "BASE": ["*or([baseDecl,prefixDecl])"], 
      "PREFIX": ["*or([baseDecl,prefixDecl])"], 
-     "$": ["*or([baseDecl,prefixDecl])"], 
      "GENERATE": ["*or([baseDecl,prefixDecl])"], 
      "TEMPLATE": ["*or([baseDecl,prefixDecl])"], 
      "PERFORM": ["*or([baseDecl,prefixDecl])"], 
+     "FUNCTION": ["*or([baseDecl,prefixDecl])"], 
      "SELECT": ["*or([baseDecl,prefixDecl])"]}, 
   "propertyList" : {
      "a": ["propertyListNotEmpty"], 
@@ -5097,10 +5035,6 @@ module.exports = {table:
      "VALUES": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
      ")": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
      ",": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
-     "GENERATE": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
-     "TEMPLATE": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
-     "PERFORM": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
-     "SELECT": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
      "}": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"], 
      "$": ["?groupClause","?havingClause","?orderClause","?limitOffsetClauses"]}, 
   "sourceClause" : {
@@ -5110,10 +5044,10 @@ module.exports = {table:
      "PNAME_LN": ["iriRef"], 
      "PNAME_NS": ["iriRef"]}, 
   "sparql11" : {
-     "$": ["sparqlExtUnit","$"], 
      "GENERATE": ["sparqlExtUnit","$"], 
      "TEMPLATE": ["sparqlExtUnit","$"], 
      "PERFORM": ["sparqlExtUnit","$"], 
+     "FUNCTION": ["sparqlExtUnit","$"], 
      "SELECT": ["sparqlExtUnit","$"], 
      "BASE": ["sparqlExtUnit","$"], 
      "PREFIX": ["sparqlExtUnit","$"]}, 
@@ -5121,10 +5055,10 @@ module.exports = {table:
      "GENERATE": ["extQuery"], 
      "TEMPLATE": ["extQuery"], 
      "PERFORM": ["extQuery"], 
+     "FUNCTION": ["extQuery"], 
      "SELECT": ["extQuery"], 
      "BASE": ["extQuery"], 
-     "PREFIX": ["extQuery"], 
-     "$": ["extQuery"]}, 
+     "PREFIX": ["extQuery"]}, 
   "storeProperty" : {
      "VAR1": [], 
      "VAR2": [], 
@@ -5578,10 +5512,6 @@ module.exports = {table:
      "STRING_LITERAL_LONG2_START": ["relationalExpression"]}, 
   "valuesClause" : {
      "VALUES": ["VALUES","dataBlock"], 
-     "GENERATE": [], 
-     "TEMPLATE": [], 
-     "PERFORM": [], 
-     "SELECT": [], 
      "$": [], 
      "}": []}, 
   "var" : {
@@ -6220,7 +6150,7 @@ module.exports = {table:
      "STRING_LITERAL_LONG2_START": ["expression","switchToParsingXIRI","or([[IRI_REF_SUB,xiri_Sub],IRI_REF_END])"]}
 },
 
-keywords:/^(GROUP_CONCAT|DATATYPE|BASE|PREFIX|GENERATE|TEMPLATE|BOX|FORMAT|PERFORM|ITERATOR|SOURCE|ACCEPT|LIST|EXPRESSIONS|SELECT|CONSTRUCT|DESCRIBE|ASK|FROM|NAMED|ORDER|BY|LIMIT|ASC|DESC|OFFSET|DISTINCT|REDUCED|WHERE|GRAPH|OPTIONAL|UNION|FILTER|GROUP|HAVING|AS|VALUES|LOAD|CLEAR|DROP|CREATE|MOVE|COPY|SILENT|INSERT|DELETE|DATA|WITH|TO|USING|NAMED|MINUS|BIND|LANGMATCHES|LANG|BOUND|SAMETERM|ISIRI|ISURI|ISBLANK|ISLITERAL|REGEX|TRUE|FALSE|UNDEF|ADD|DEFAULT|ALL|SERVICE|INTO|IN|NOT|IRI|URI|BNODE|RAND|ABS|CEIL|FLOOR|ROUND|CONCAT|STRLEN|UCASE|LCASE|ENCODE_FOR_URI|CONTAINS|STRSTARTS|STRENDS|STRBEFORE|STRAFTER|YEAR|MONTH|DAY|HOURS|MINUTES|SECONDS|TIMEZONE|TZ|NOW|UUID|STRUUID|MD5|SHA1|SHA256|SHA384|SHA512|COALESCE|IF|STRLANG|STRDT|ISNUMERIC|SUBSTR|REPLACE|EXISTS|COUNT|SUM|MIN|MAX|AVG|SAMPLE|SEPARATOR|STR)/i ,
+keywords:/^(GROUP_CONCAT|DATATYPE|BASE|PREFIX|GENERATE|TEMPLATE|BOX|FORMAT|PERFORM|ITERATOR|SOURCE|ACCEPT|LIST|FUNCTION|EXPRESSIONS|SELECT|CONSTRUCT|DESCRIBE|ASK|FROM|NAMED|ORDER|BY|LIMIT|ASC|DESC|OFFSET|DISTINCT|REDUCED|WHERE|GRAPH|OPTIONAL|UNION|FILTER|GROUP|HAVING|AS|VALUES|LOAD|CLEAR|DROP|CREATE|MOVE|COPY|SILENT|INSERT|DELETE|DATA|WITH|TO|USING|NAMED|MINUS|BIND|LANGMATCHES|LANG|BOUND|SAMETERM|ISIRI|ISURI|ISBLANK|ISLITERAL|REGEX|TRUE|FALSE|UNDEF|ADD|DEFAULT|ALL|SERVICE|INTO|IN|NOT|IRI|URI|BNODE|RAND|ABS|CEIL|FLOOR|ROUND|CONCAT|STRLEN|UCASE|LCASE|ENCODE_FOR_URI|CONTAINS|STRSTARTS|STRENDS|STRBEFORE|STRAFTER|YEAR|MONTH|DAY|HOURS|MINUTES|SECONDS|TIMEZONE|TZ|NOW|UUID|STRUUID|MD5|SHA1|SHA256|SHA384|SHA512|COALESCE|IF|STRLANG|STRDT|ISNUMERIC|SUBSTR|REPLACE|EXISTS|COUNT|SUM|MIN|MAX|AVG|SAMPLE|SEPARATOR|STR)/i ,
 
 punct:/^(\*|a|\.|\{|\}|,|\(|\)|;|\[|\]|\|\||&&|=|!=|!|<=|>=|<|>|\+|-|\/|\^\^|\?|\||\^)/ ,
 
