@@ -32,7 +32,7 @@ sparqlExtUnit ==> [extQuery].
 
 % [174]
 extQuery ==> 
-	[prologue,*([or(selectQuery, generateQuery, templateQuery, performQuery),valuesClause])].
+	[prologue,or([or(selectQuery, generateQuery, templateQuery, performQuery),valuesClause],function)].
 
 % [175]
 selectQuery ==> 
@@ -41,6 +41,10 @@ selectQuery ==>
 % [175]
 generateQuery ==> 
 	['GENERATE',?([sourceSelector,?(varList)]),generateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier, ?(postSelectClause)].
+    
+% [xxx]
+function ==> 
+	['FUNCTION',sourceSelector,varList,'{',primaryExpression,'}'].
     
 % [175]
 templateQuery ==> 
@@ -752,6 +756,7 @@ tm_keywords([
 'SOURCE',
 'ACCEPT',
 'LIST',
+'FUNCTION',
 
 'EXPRESSIONS',
 'SELECT',
