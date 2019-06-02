@@ -6524,7 +6524,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       name: "STRING_LITERAL_LONG1_CLOSE_TRUNC", // switch to trunc_l1
       regex: new RegExp("^" + CLOSE_EXPR + STRING_LITERAL_LONG1_CONTENT + "('|'')?$"),
       style: "string",
-      switchTo: "trunc_l2"      
+      switchTo: "trunc_l1"      
     }
   ] ,
   "xl2" : [
@@ -6705,6 +6705,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
           state.inLiteral.cat = "STRING_LITERAL_LONG1_START";
           break;
         case "STRING_LITERAL_LONG1_TRUNC_END":
+          // console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
           switch (state.inLiteral.cat) {
             case "STRING_LITERAL_LONG1_START":
               tokenOb.cat = "STRING_LITERAL_LONG1";
@@ -6718,9 +6719,14 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
               break;
             default:
               console.error(" in token ", state.inLiteral);
+              state.OK = false;
+              state.complete = false;
+              recordFailurePos(tokenOb);
+              state.errorMsg = "Long ''' start_trunc parsing error";
           }
           break;
         case "STRING_LITERAL_LONG1_TRUNC_OPEN":
+          // console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
           switch (state.inLiteral.cat) {
             case "STRING_LITERAL_LONG1_START":
               tokenOb.cat = "STRING_LITERAL_LONG1_START";
@@ -6734,6 +6740,10 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
               break;
             default:
               console.error(" in token ", state.inLiteral);
+              state.OK = false;
+              state.complete = false;
+              recordFailurePos(tokenOb);
+              state.errorMsg = "Long ''' trunc_open parsing error";
           }
           break;
         case "STRING_LITERAL_LONG1_TRUNC_TRUNC":
@@ -6748,6 +6758,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
           state.inLiteral.cat = "STRING_LITERAL_LONG2_START";
           break;
         case "STRING_LITERAL_LONG2_TRUNC_END":
+          // console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
           switch (state.inLiteral.cat) {
             case "STRING_LITERAL_LONG2_START":
               tokenOb.cat = "STRING_LITERAL_LONG2";
@@ -6761,10 +6772,16 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
               break;
             default:
               console.error(" in token ", state.inLiteral);
+              state.OK = false;
+              state.complete = false;
+              recordFailurePos(tokenOb);
+              state.errorMsg = 'Long """ start_trunc parsing error';
           }
           break;
         case "STRING_LITERAL_LONG2_TRUNC_OPEN":
+          // console.log("in STRING_LITERAL_LONG2_TRUNC_OPEN and currently in literal " + state.inLiteral.cat , tokenOb);
           switch (state.inLiteral.cat) {
+            
             case "STRING_LITERAL_LONG2_START":
               tokenOb.cat = "STRING_LITERAL_LONG2_START";
               tokenOb.text = state.inLiteral.text + "\n" + tokenOb.text;
@@ -6777,6 +6794,10 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
               break;
             default:
               console.error(" in token ", state.inLiteral);
+              state.OK = false;
+              state.complete = false;
+              recordFailurePos(tokenOb);
+              state.errorMsg = 'Long """ trunc_open parsing error';
           }
           break;
         case "STRING_LITERAL_LONG2_TRUNC_TRUNC":
@@ -6826,12 +6847,15 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
         // console.log("consumed ", t.cat, t.text);
         consumed = true;
         checkinLiteral(tokenOb);
+        if(state.OK==false) {
+          return tokenOb.style;
+        }
       }  
 
       if(state.inLiteral) {
         state.complete = false;
         state.possibleCurrent = state.possibleNext;
-        // console.log("inliteral, return ", state.inLiteral.style);
+        // console.log("inliteral, return ", state.inLiteral);
         return state.inLiteral.style;
       }
 
