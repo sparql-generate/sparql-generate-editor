@@ -62,8 +62,19 @@ varList ==> ['(', var, *( [',',var] ) , ')'].
     
 % [176]
 templateClause ==>
-	['{',*(tExpression),?(separator),'}'].
-    
+	['{',innerTemplateClause,'}'].
+
+% [176]
+innerTemplateClause ==>
+	[once,*(tExpression),?(separator),?(once)].
+innerTemplateClause ==>
+	[+(tExpression),?(separator),?(once)].
+
+
+once ==>
+  ['ONCE',string].
+
+
 % [176]
 tExpression ==>
 	[or(primaryExpressionNotBracketted, box, tformat, group, [subTemplateQuery, '.'])].
@@ -751,6 +762,7 @@ tm_keywords([
 'TEMPLATE',
 'BOX',
 'FORMAT',
+'ONCE',
 'PERFORM',
 'ITERATOR',
 'SOURCE',

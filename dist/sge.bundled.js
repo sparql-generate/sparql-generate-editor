@@ -955,6 +955,7 @@ module.exports = {table:
      "STRING_LITERAL_LONG2": ["tExpression","*tExpression"], 
      "STRING_LITERAL_LONG2_START": ["tExpression","*tExpression"], 
      "}": [], 
+     "ONCE": [], 
      ";": []}, 
   "*var" : {
      "VAR1": ["var","*var"], 
@@ -1716,7 +1717,8 @@ module.exports = {table:
      "STRING_LITERAL_LONG1": [], 
      "STRING_LITERAL_LONG1_START": [], 
      "STRING_LITERAL_LONG2": [], 
-     "STRING_LITERAL_LONG2_START": []}, 
+     "STRING_LITERAL_LONG2_START": [], 
+     "ONCE": []}, 
   "?constructTriples" : {
      "VAR1": ["constructTriples"], 
      "VAR2": ["constructTriples"], 
@@ -1804,6 +1806,9 @@ module.exports = {table:
      ",": [], 
      "}": [], 
      "$": []}, 
+  "?once" : {
+     "ONCE": ["once"], 
+     "}": []}, 
   "?or([DISTINCT,REDUCED])" : {
      "DISTINCT": ["or([DISTINCT,REDUCED])"], 
      "REDUCED": ["or([DISTINCT,REDUCED])"], 
@@ -1976,6 +1981,7 @@ module.exports = {table:
      "FILTER": [], 
      "BIND": [], 
      "VALUES": [], 
+     "ONCE": [], 
      "GENERATE": []}, 
   "?or([NIL,[ (,pExpression,*[,,pExpression],)]])" : {
      "NIL": ["or([NIL,[ (,pExpression,*[,,pExpression],)]])"], 
@@ -2114,6 +2120,7 @@ module.exports = {table:
   "?separator" : {
      ";": ["separator"], 
      "}": [], 
+     "ONCE": [], 
      ")": []}, 
   "?triplesBlock" : {
      "VAR1": ["triplesBlock"], 
@@ -3278,6 +3285,98 @@ module.exports = {table:
   "inlineDataOneVar" : {
      "VAR1": ["var","{","*dataBlockValue","}"], 
      "VAR2": ["var","{","*dataBlockValue","}"]}, 
+  "innerTemplateClause" : {
+     "ONCE": ["once","*tExpression","?separator","?once"], 
+     "BOX": ["+tExpression","?separator","?once"], 
+     "FORMAT": ["+tExpression","?separator","?once"], 
+     "GROUP": ["+tExpression","?separator","?once"], 
+     "TEMPLATE": ["+tExpression","?separator","?once"], 
+     "STR": ["+tExpression","?separator","?once"], 
+     "LANG": ["+tExpression","?separator","?once"], 
+     "LANGMATCHES": ["+tExpression","?separator","?once"], 
+     "DATATYPE": ["+tExpression","?separator","?once"], 
+     "BOUND": ["+tExpression","?separator","?once"], 
+     "IRI": ["+tExpression","?separator","?once"], 
+     "URI": ["+tExpression","?separator","?once"], 
+     "BNODE": ["+tExpression","?separator","?once"], 
+     "RAND": ["+tExpression","?separator","?once"], 
+     "ABS": ["+tExpression","?separator","?once"], 
+     "CEIL": ["+tExpression","?separator","?once"], 
+     "FLOOR": ["+tExpression","?separator","?once"], 
+     "ROUND": ["+tExpression","?separator","?once"], 
+     "CONCAT": ["+tExpression","?separator","?once"], 
+     "STRLEN": ["+tExpression","?separator","?once"], 
+     "UCASE": ["+tExpression","?separator","?once"], 
+     "LCASE": ["+tExpression","?separator","?once"], 
+     "ENCODE_FOR_URI": ["+tExpression","?separator","?once"], 
+     "CONTAINS": ["+tExpression","?separator","?once"], 
+     "STRSTARTS": ["+tExpression","?separator","?once"], 
+     "STRENDS": ["+tExpression","?separator","?once"], 
+     "STRBEFORE": ["+tExpression","?separator","?once"], 
+     "STRAFTER": ["+tExpression","?separator","?once"], 
+     "YEAR": ["+tExpression","?separator","?once"], 
+     "MONTH": ["+tExpression","?separator","?once"], 
+     "DAY": ["+tExpression","?separator","?once"], 
+     "HOURS": ["+tExpression","?separator","?once"], 
+     "MINUTES": ["+tExpression","?separator","?once"], 
+     "SECONDS": ["+tExpression","?separator","?once"], 
+     "TIMEZONE": ["+tExpression","?separator","?once"], 
+     "TZ": ["+tExpression","?separator","?once"], 
+     "NOW": ["+tExpression","?separator","?once"], 
+     "UUID": ["+tExpression","?separator","?once"], 
+     "STRUUID": ["+tExpression","?separator","?once"], 
+     "MD5": ["+tExpression","?separator","?once"], 
+     "SHA1": ["+tExpression","?separator","?once"], 
+     "SHA256": ["+tExpression","?separator","?once"], 
+     "SHA384": ["+tExpression","?separator","?once"], 
+     "SHA512": ["+tExpression","?separator","?once"], 
+     "COALESCE": ["+tExpression","?separator","?once"], 
+     "IF": ["+tExpression","?separator","?once"], 
+     "STRLANG": ["+tExpression","?separator","?once"], 
+     "STRDT": ["+tExpression","?separator","?once"], 
+     "SAMETERM": ["+tExpression","?separator","?once"], 
+     "ISIRI": ["+tExpression","?separator","?once"], 
+     "ISURI": ["+tExpression","?separator","?once"], 
+     "ISBLANK": ["+tExpression","?separator","?once"], 
+     "ISLITERAL": ["+tExpression","?separator","?once"], 
+     "ISNUMERIC": ["+tExpression","?separator","?once"], 
+     "TRUE": ["+tExpression","?separator","?once"], 
+     "FALSE": ["+tExpression","?separator","?once"], 
+     "VAR1": ["+tExpression","?separator","?once"], 
+     "VAR2": ["+tExpression","?separator","?once"], 
+     "COUNT": ["+tExpression","?separator","?once"], 
+     "SUM": ["+tExpression","?separator","?once"], 
+     "MIN": ["+tExpression","?separator","?once"], 
+     "MAX": ["+tExpression","?separator","?once"], 
+     "AVG": ["+tExpression","?separator","?once"], 
+     "SAMPLE": ["+tExpression","?separator","?once"], 
+     "GROUP_CONCAT": ["+tExpression","?separator","?once"], 
+     "SUBSTR": ["+tExpression","?separator","?once"], 
+     "REPLACE": ["+tExpression","?separator","?once"], 
+     "REGEX": ["+tExpression","?separator","?once"], 
+     "EXISTS": ["+tExpression","?separator","?once"], 
+     "NOT": ["+tExpression","?separator","?once"], 
+     "IRI_REF": ["+tExpression","?separator","?once"], 
+     "IRI_REF_START": ["+tExpression","?separator","?once"], 
+     "INTEGER": ["+tExpression","?separator","?once"], 
+     "DECIMAL": ["+tExpression","?separator","?once"], 
+     "DOUBLE": ["+tExpression","?separator","?once"], 
+     "INTEGER_POSITIVE": ["+tExpression","?separator","?once"], 
+     "DECIMAL_POSITIVE": ["+tExpression","?separator","?once"], 
+     "DOUBLE_POSITIVE": ["+tExpression","?separator","?once"], 
+     "INTEGER_NEGATIVE": ["+tExpression","?separator","?once"], 
+     "DECIMAL_NEGATIVE": ["+tExpression","?separator","?once"], 
+     "DOUBLE_NEGATIVE": ["+tExpression","?separator","?once"], 
+     "PNAME_LN": ["+tExpression","?separator","?once"], 
+     "PNAME_NS": ["+tExpression","?separator","?once"], 
+     "STRING_LITERAL1": ["+tExpression","?separator","?once"], 
+     "STRING_LITERAL1_START": ["+tExpression","?separator","?once"], 
+     "STRING_LITERAL2": ["+tExpression","?separator","?once"], 
+     "STRING_LITERAL2_START": ["+tExpression","?separator","?once"], 
+     "STRING_LITERAL_LONG1": ["+tExpression","?separator","?once"], 
+     "STRING_LITERAL_LONG1_START": ["+tExpression","?separator","?once"], 
+     "STRING_LITERAL_LONG2": ["+tExpression","?separator","?once"], 
+     "STRING_LITERAL_LONG2_START": ["+tExpression","?separator","?once"]}, 
   "integer" : {
      "INTEGER": ["INTEGER"]}, 
   "iriRef" : {
@@ -3635,6 +3734,8 @@ module.exports = {table:
      "STRING_LITERAL_LONG2_START": ["graphNodePath"]}, 
   "offsetClause" : {
      "OFFSET": ["OFFSET","INTEGER"]}, 
+  "once" : {
+     "ONCE": ["ONCE","string"]}, 
   "optionalGraphPattern" : {
      "OPTIONAL": ["OPTIONAL","groupGraphPattern"]}, 
   "or([*,expression])" : {
@@ -5221,7 +5322,7 @@ module.exports = {table:
      "STRING_LITERAL_LONG2": ["or([primaryExpressionNotBracketted,box,tformat,group,[subTemplateQuery,.]])"], 
      "STRING_LITERAL_LONG2_START": ["or([primaryExpressionNotBracketted,box,tformat,group,[subTemplateQuery,.]])"]}, 
   "templateClause" : {
-     "{": ["{","*tExpression","?separator","}"]}, 
+     "{": ["{","innerTemplateClause","}"]}, 
   "templateQuery" : {
      "TEMPLATE": ["TEMPLATE","?[sourceSelector,?varList]","templateClause","*datasetClause","*bindingClauses","?whereClause","solutionModifier"]}, 
   "tformat" : {
@@ -6150,7 +6251,7 @@ module.exports = {table:
      "STRING_LITERAL_LONG2_START": ["expression","switchToParsingXIRI","or([[IRI_REF_SUB,xiri_Sub],IRI_REF_END])"]}
 },
 
-keywords:/^(GROUP_CONCAT|DATATYPE|BASE|PREFIX|GENERATE|TEMPLATE|BOX|FORMAT|PERFORM|ITERATOR|SOURCE|ACCEPT|LIST|FUNCTION|EXPRESSIONS|SELECT|CONSTRUCT|DESCRIBE|ASK|FROM|NAMED|ORDER|BY|LIMIT|ASC|DESC|OFFSET|DISTINCT|REDUCED|WHERE|GRAPH|OPTIONAL|UNION|FILTER|GROUP|HAVING|AS|VALUES|LOAD|CLEAR|DROP|CREATE|MOVE|COPY|SILENT|INSERT|DELETE|DATA|WITH|TO|USING|NAMED|MINUS|BIND|LANGMATCHES|LANG|BOUND|SAMETERM|ISIRI|ISURI|ISBLANK|ISLITERAL|REGEX|TRUE|FALSE|UNDEF|ADD|DEFAULT|ALL|SERVICE|INTO|IN|NOT|IRI|URI|BNODE|RAND|ABS|CEIL|FLOOR|ROUND|CONCAT|STRLEN|UCASE|LCASE|ENCODE_FOR_URI|CONTAINS|STRSTARTS|STRENDS|STRBEFORE|STRAFTER|YEAR|MONTH|DAY|HOURS|MINUTES|SECONDS|TIMEZONE|TZ|NOW|UUID|STRUUID|MD5|SHA1|SHA256|SHA384|SHA512|COALESCE|IF|STRLANG|STRDT|ISNUMERIC|SUBSTR|REPLACE|EXISTS|COUNT|SUM|MIN|MAX|AVG|SAMPLE|SEPARATOR|STR)/i ,
+keywords:/^(GROUP_CONCAT|DATATYPE|BASE|PREFIX|GENERATE|TEMPLATE|BOX|FORMAT|ONCE|PERFORM|ITERATOR|SOURCE|ACCEPT|LIST|FUNCTION|EXPRESSIONS|SELECT|CONSTRUCT|DESCRIBE|ASK|FROM|NAMED|ORDER|BY|LIMIT|ASC|DESC|OFFSET|DISTINCT|REDUCED|WHERE|GRAPH|OPTIONAL|UNION|FILTER|GROUP|HAVING|AS|VALUES|LOAD|CLEAR|DROP|CREATE|MOVE|COPY|SILENT|INSERT|DELETE|DATA|WITH|TO|USING|NAMED|MINUS|BIND|LANGMATCHES|LANG|BOUND|SAMETERM|ISIRI|ISURI|ISBLANK|ISLITERAL|REGEX|TRUE|FALSE|UNDEF|ADD|DEFAULT|ALL|SERVICE|INTO|IN|NOT|IRI|URI|BNODE|RAND|ABS|CEIL|FLOOR|ROUND|CONCAT|STRLEN|UCASE|LCASE|ENCODE_FOR_URI|CONTAINS|STRSTARTS|STRENDS|STRBEFORE|STRAFTER|YEAR|MONTH|DAY|HOURS|MINUTES|SECONDS|TIMEZONE|TZ|NOW|UUID|STRUUID|MD5|SHA1|SHA256|SHA384|SHA512|COALESCE|IF|STRLANG|STRDT|ISNUMERIC|SUBSTR|REPLACE|EXISTS|COUNT|SUM|MIN|MAX|AVG|SAMPLE|SEPARATOR|STR)/i ,
 
 punct:/^(\*|a|\.|\{|\}|,|\(|\)|;|\[|\]|\|\||&&|=|!=|!|<=|>=|<|>|\+|-|\/|\^\^|\?|\||\^)/ ,
 
@@ -6705,7 +6806,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
           state.inLiteral.cat = "STRING_LITERAL_LONG1_START";
           break;
         case "STRING_LITERAL_LONG1_TRUNC_END":
-          // console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
+          console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
           switch (state.inLiteral.cat) {
             case "STRING_LITERAL_LONG1_START":
               tokenOb.cat = "STRING_LITERAL_LONG1";
@@ -6726,7 +6827,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
           }
           break;
         case "STRING_LITERAL_LONG1_TRUNC_OPEN":
-          // console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
+          console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
           switch (state.inLiteral.cat) {
             case "STRING_LITERAL_LONG1_START":
               tokenOb.cat = "STRING_LITERAL_LONG1_START";
@@ -6758,7 +6859,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
           state.inLiteral.cat = "STRING_LITERAL_LONG2_START";
           break;
         case "STRING_LITERAL_LONG2_TRUNC_END":
-          // console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
+          console.log("in " + tokenOb.cat + " and currently in literal " + state.inLiteral.cat , tokenOb);
           switch (state.inLiteral.cat) {
             case "STRING_LITERAL_LONG2_START":
               tokenOb.cat = "STRING_LITERAL_LONG2";
@@ -6779,7 +6880,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
           }
           break;
         case "STRING_LITERAL_LONG2_TRUNC_OPEN":
-          // console.log("in STRING_LITERAL_LONG2_TRUNC_OPEN and currently in literal " + state.inLiteral.cat , tokenOb);
+          console.log("in STRING_LITERAL_LONG2_TRUNC_OPEN and currently in literal " + state.inLiteral.cat , tokenOb);
           switch (state.inLiteral.cat) {
             
             case "STRING_LITERAL_LONG2_START":
@@ -6823,7 +6924,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       var tokenOb = nextToken(false);
       if (tokenOb.cat == "<invalid_token>") {
         var t = nextToken(true);
-        // console.log("consumed ", t.cat, t.text);
+        console.log("consumed ", t.cat, t.text);
         consumed = true;
         if (state.OK==true) {
           state.OK=false;
@@ -6837,25 +6938,22 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
       if (tokenOb.cat == "WS" || tokenOb.cat == "COMMENT") {
         state.possibleCurrent = state.possibleNext;
         var t = nextToken(true);
-        // console.log("consumed ", t.cat, t.text);
+        console.log("consumed ", t.cat, t.text);
         consumed = true;
         return tokenOb.style;
       }
 
       if(tokenOb.cat.includes("TRUNC")) {
         var t = nextToken(true);
-        // console.log("consumed ", t.cat, t.text);
+        console.log("consumed ", t.cat, t.text);
         consumed = true;
         checkinLiteral(tokenOb);
-        if(state.OK==false) {
-          return tokenOb.style;
-        }
       }  
 
       if(state.inLiteral) {
         state.complete = false;
         state.possibleCurrent = state.possibleNext;
-        // console.log("inliteral, return ", state.inLiteral);
+        console.log("inliteral, return ", state.inLiteral.style);
         return state.inLiteral.style;
       }
 
@@ -6866,7 +6964,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
 
       // Incremental LL1 parse
       while (state.stack.length > 0 && token && state.OK && !finished) {
-        // console.log("----------------" + topSymbol);
+        console.log("----------------" + topSymbol);
         topSymbol = state.stack.pop();
 
         if (!ll1_table[topSymbol]) {
@@ -6956,7 +7054,7 @@ CodeMirror.defineMode("sparql11", function(config, parserConfig) {
 
       if(!consumed) {
         var t = nextToken(true);
-        // console.log("consumed ", t.cat, t.text);
+        console.log("consumed ", t.cat, t.text);
       }
       if(tokenOb.switchTo) {
         state.lexicalState = tokenOb.switchTo;
