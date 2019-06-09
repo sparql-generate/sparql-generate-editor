@@ -70,15 +70,15 @@ innerTemplateClause ==>
 
 % [176]
 templateBefore ==>
-	['BEFORE','=',string,';'].
+	['BEFORE','=',expression,';'].
 
 % [176]
 templateSeparator ==>
-	['SEPARATOR','=',string].
+	['SEPARATOR','=',expression].
 
 % [176]
 templateAfter ==>
-	['AFTER','=',string].
+	['AFTER','=',expression].
 
 
 % [176]
