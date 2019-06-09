@@ -66,13 +66,19 @@ templateClause ==>
 
 % [176]
 innerTemplateClause ==>
-	[once,*(tExpression),?(separator),?(once)].
-innerTemplateClause ==>
-	[+(tExpression),?(separator),?(once)].
+	[?(templateBefore),*(tExpression),?([';',or([templateSeparator,?([';',templateAfter])],templateAfter)])].
 
+% [176]
+templateBefore ==>
+	['BEFORE','=',string,';'].
 
-once ==>
-  ['ONCE',string].
+% [176]
+templateSeparator ==>
+	['SEPARATOR','=',string].
+
+% [176]
+templateAfter ==>
+	['AFTER','=',string].
 
 
 % [176]
@@ -762,7 +768,8 @@ tm_keywords([
 'TEMPLATE',
 'BOX',
 'FORMAT',
-'ONCE',
+'BEFORE',
+'AFTER',
 'PERFORM',
 'ITERATOR',
 'SOURCE',
