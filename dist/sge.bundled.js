@@ -1548,6 +1548,16 @@ module.exports = {table:
      "PNAME_LN": ["[sourceSelector,?varList]"], 
      "PNAME_NS": ["[sourceSelector,?varList]"], 
      "{": []}, 
+  "?[sourceSelector,varList]" : {
+     "IRI_REF": ["[sourceSelector,varList]"], 
+     "PNAME_LN": ["[sourceSelector,varList]"], 
+     "PNAME_NS": ["[sourceSelector,varList]"], 
+     "*": [], 
+     "(": [], 
+     "VAR1": [], 
+     "VAR2": [], 
+     "DISTINCT": [], 
+     "REDUCED": []}, 
   "?[verb,objectList]" : {
      "a": ["[verb,objectList]"], 
      "VAR1": ["[verb,objectList]"], 
@@ -2431,6 +2441,10 @@ module.exports = {table:
      "IRI_REF": ["sourceSelector","?varList"], 
      "PNAME_LN": ["sourceSelector","?varList"], 
      "PNAME_NS": ["sourceSelector","?varList"]}, 
+  "[sourceSelector,varList]" : {
+     "IRI_REF": ["sourceSelector","varList"], 
+     "PNAME_LN": ["sourceSelector","varList"], 
+     "PNAME_NS": ["sourceSelector","varList"]}, 
   "[subGenerateQuery,.]" : {
      "GENERATE": ["subGenerateQuery","."]}, 
   "[subPerformQuery,.]" : {
@@ -3588,6 +3602,8 @@ module.exports = {table:
      "STRING_LITERAL_LONG2_START": ["unaryExpression","*or([[*,unaryExpression],[/,unaryExpression]])"]}, 
   "namedGraphClause" : {
      "NAMED": ["NAMED","sourceSelector"]}, 
+  "namedSelectClause" : {
+     "SELECT": ["SELECT","?[sourceSelector,varList]","?or([DISTINCT,REDUCED])","or([+or([var,[ (,expression,AS,var,)]]),*])"]}, 
   "notExistsFunc" : {
      "NOT": ["NOT","EXISTS","groupGraphPattern"]}, 
   "numericExpression" : {
@@ -5222,7 +5238,7 @@ module.exports = {table:
   "selectClause" : {
      "SELECT": ["SELECT","?or([DISTINCT,REDUCED])","or([+or([var,[ (,expression,AS,var,)]]),*])"]}, 
   "selectQuery" : {
-     "SELECT": ["selectClause","*datasetClause","*bindingClauses","?whereClause","solutionModifier"]}, 
+     "SELECT": ["namedSelectClause","*datasetClause","*bindingClauses","?whereClause","solutionModifier"]}, 
   "separator" : {
      ";": [";","SEPARATOR","=","string"]}, 
   "serviceGraphPattern" : {

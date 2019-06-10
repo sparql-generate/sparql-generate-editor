@@ -36,7 +36,7 @@ extQuery ==>
 
 % [175]
 selectQuery ==> 
-	[selectClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier].
+	[namedSelectClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier].
     
 % [175]
 generateQuery ==> 
@@ -180,8 +180,20 @@ subSelect ==>
         [selectClause,whereClause,solutionModifier,valuesClause].
 
 % [9]
+namedSelectClause ==> 
+	['SELECT', ?([sourceSelector,varList]),
+	?('DISTINCT' or 'REDUCED'),
+	(+(var or ['(',expression,'AS',var,')']) or '*')].
+
+% [9]
 selectClause ==> 
-	['SELECT',
+	['SELECT', 
+	?('DISTINCT' or 'REDUCED'),
+	(+(var or ['(',expression,'AS',var,')']) or '*')].
+
+% [9]
+selectClause ==> 
+	['SELECT', 
 	?('DISTINCT' or 'REDUCED'),
 	(+(var or ['(',expression,'AS',var,')']) or '*')].
 
