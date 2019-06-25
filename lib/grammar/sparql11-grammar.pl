@@ -27,10 +27,10 @@ stephen.cresswell@tso.co.uk
 sparql11 ==> [sparqlExtUnit, $].
 
 
-% [173]
+% [1] - OK
 sparqlExtUnit ==> [extQuery].
 
-% [174]
+% [2] - OK
 extQuery ==> 
 	[prologue,or([or(selectQuery, generateQuery, templateQuery, performQuery),valuesClause],function)].
 
@@ -42,14 +42,13 @@ selectQuery ==>
 generateQuery ==> 
 	['GENERATE',?([sourceSelector,?(varList)]),generateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier, ?(postSelectClause)].
     
-% [xxx]
+% [xxx] - OK
 function ==> 
 	['FUNCTION',sourceSelector,varList,'{',primaryExpression,'}'].
     
 % [175]
 templateQuery ==> 
 	['TEMPLATE',?([sourceSelector,?(varList)]),templateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier
-%, ?(postSelectClause)
 	].
     
 % [175]
@@ -62,10 +61,10 @@ varList ==> ['(', var, *( [',',var] ) , ')'].
     
 % [176]
 templateClause ==>
-	['{',innerTemplateClause,'}'].
+	['{',templateInnerClause,'}'].
 
 % [176]
-innerTemplateClause ==>
+templateInnerClause ==>
 	[?(templateBefore),*(tExpression),?([';',or([templateSeparator,?([';',templateAfter])],templateAfter)])].
 
 % [176]
@@ -103,9 +102,8 @@ group ==>
 
 % [176]
 subTemplateQuery ==>
-	['TEMPLATE',or([varOrXIri,?(argList)],[?(varList),templateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier
-%, ?(postSelectClause)
-].
+	['TEMPLATE',or([or(varOrXIri,[or('IRI','URI'),'(',expression,')']),?(argList)],[?(varList),templateClause]),*(datasetClause),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
+
 
 % [176]
 pragma ==>
@@ -165,7 +163,7 @@ sourceClause ==>
 
 % [181a]
 subGenerateQuery ==>
-	['GENERATE',or([varOrXIri,?(argList)],[?(varList),generateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier, ?(postSelectClause)].
+	['GENERATE',or([or(varOrXIri,[or('IRI','URI'),'(',expression,')']),?(argList)],[?(varList),generateClause]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier, ?(postSelectClause)].
 
 prologue ==> 
 	[*(baseDecl or prefixDecl)].
@@ -203,13 +201,16 @@ postSelectClause ==>
 	+(['(',expression,'AS',var,')'])].
 
 datasetClause ==> 
-	['FROM',defaultGraphClause or namedGraphClause]. 
+	['FROM',or(defaultGraphClause,namedGraphClause,generateGraphClause)]. 
 
 defaultGraphClause ==> 
-	[sourceSelector].
+	[expression].
 
 namedGraphClause ==> 
-	['NAMED',sourceSelector].
+	['NAMED',expression].
+
+generateGraphClause ==> 
+	[subGenerateQuery,?(['NAMED',expression]),'.'].
 
 sourceSelector ==> 
 	[iriRef].
