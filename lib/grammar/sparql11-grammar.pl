@@ -48,12 +48,12 @@ function ==>
     
 % [175]
 templateQuery ==> 
-	['TEMPLATE',?([sourceSelector,?(varList)]),templateClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier
+	['TEMPLATE',?([sourceSelector,?(varList)]),templateClause,*(datasetClause),*(bindingClauses),?([?(or('DISTINCT','REDUCED')),whereClause]),solutionModifier
 	].
     
 % [175]
 performQuery ==> 
-	['PERFORM',?([sourceSelector,?(varList)]),performClause,*(datasetClause),*(bindingClauses),?(whereClause),solutionModifier, ?(postSelectClause)].
+	['PERFORM',?([sourceSelector,?(varList)]),performClause,*(datasetClause),*(bindingClauses),?([?(or('DISTINCT','REDUCED')),whereClause]),solutionModifier, ?(postSelectClause)].
     
 % [175]
 varList ==> ['NIL'].
@@ -102,7 +102,7 @@ group ==>
 
 % [176]
 subTemplateQuery ==>
-	['TEMPLATE',or([or(varOrXIri,[or('IRI','URI'),'(',expression,')']),?(argList)],[?(varList),templateClause]),*(datasetClause),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier].
+	['TEMPLATE',or([or(varOrXIri,[or('IRI','URI'),'(',expression,')']),?(argList)],[?(varList),templateClause]),*(datasetClause),*(bindingClauses),?([?(or('DISTINCT','REDUCED')),'WHERE',groupGraphPattern]),solutionModifier].
 
 
 % [176]
@@ -124,7 +124,7 @@ performClauseSub ==>
 	
 % [181a]
 subPerformQuery ==>
-	[or( performCall, [ 'PERFORM' , or( performCall , [ ?(varList),performClause ] )]),*(bindingClauses),?(['WHERE',groupGraphPattern]),solutionModifier, ?(postSelectClause)].
+	[or( performCall, [ 'PERFORM' , or( performCall , [ ?(varList),performClause ] )]),*(bindingClauses),?([?(or('DISTINCT','REDUCED')),'WHERE',groupGraphPattern]),solutionModifier, ?(postSelectClause)].
 
 % [181a]
 varList ==> 
