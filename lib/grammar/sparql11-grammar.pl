@@ -489,6 +489,7 @@ xNode ==> [xRDFLiteral].
 xNode ==> [xiri].
 %[new]
 xExpr ==> ['START_XEXPR',expression,'}'].
+
 %[109x]
 xTerm ==> [xNode].
 xTerm ==> [numericLiteral].
@@ -536,6 +537,7 @@ unaryExpression ==> [primaryExpression].
 %[119]
 primaryExpression ==> [brackettedExpression].
 primaryExpression ==> [builtInCall].
+primaryExpression ==> [subTemplateQuery, '.'].
 primaryExpression ==> [xiriOrFunction].
 primaryExpression ==> [xRDFLiteral].
 primaryExpression ==> [numericLiteral].
